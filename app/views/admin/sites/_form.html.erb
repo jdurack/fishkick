@@ -1,0 +1,15 @@
+<%= form_for [:admin, @site] do |f| %>
+  <p>
+    <b>Name</b><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Name in URL</b><br>
+    <%= f.text_field :name_url %>
+  </p>
+
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>

@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
 
-  devise_for :admins
+
   root 'main#home'
   get 'report/:site_name_url' => 'report#view'
 
   namespace :admin do
-    resources :site
+    resources :sites
   end
+
+  devise_for :admins, :controllers => {:registrations => 'admin/registrations'}
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
