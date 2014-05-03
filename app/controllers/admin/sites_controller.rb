@@ -11,8 +11,14 @@ class Admin::SitesController < AdminController
   def edit
     @site = Site.find(params[:id])
     unless @site
-      redirect_to(:index)
+      redirect_to(:admin_sites)
     end
+  end
+
+  def destroy
+    @site = Site.find(params[:id])
+    @site.destroy
+    redirect_to(:admin_sites)
   end
 
   def create
@@ -27,6 +33,12 @@ class Admin::SitesController < AdminController
   end
 
   def update
+    puts 'params: ' + params.inspect
+    if params[:commit] == 'Cancel'
+      redirect_to :admin_sites
+      puts 'hERE!!!!'
+      return
+    end
     @site = Site.find(params[:id])
     if @site.update(site_params)
       redirect_to(:admin_sites)

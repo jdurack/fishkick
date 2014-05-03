@@ -10,6 +10,7 @@
   </p>
 
   <p>
-    <%= f.submit %>
+    <%= f.submit 'Save', :class => 'btn btn-default' %>
+    <%= link_to 'Cancel', :admin_sites, :class => 'btn btn-default' %>
   </p>
 <% end %>

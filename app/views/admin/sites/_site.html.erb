@@ -1,4 +1,15 @@
-<div>
-  <h3><%= site.name %></h3>
-  <%= link_to 'edit', edit_admin_site_url(site) %>
+<div class='row'>
+
+  <div class='col-md-2'>
+    <h4><%= site.name %></h4>
+  </div>
+
+  <div class='col-md-1 siteInfoLink'>
+    <%= link_to 'edit', edit_admin_site_url(site), :class => 'btn btn-default' %>
+  </div>
+
+  <div class='col-md-1 siteInfoLink'>
+    <%= link_to 'delete', admin_site_url(site), :method => :delete, data: { confirm: 'Are you sure you want to delete this site?' }, :class => 'btn btn-default' %>
+  </div>
+
 </div>
