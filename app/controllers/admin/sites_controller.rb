@@ -13,6 +13,8 @@ class Admin::SitesController < AdminController
     unless @site
       redirect_to(:admin_sites)
     end
+    @fish = Fish.all
+    puts 'FISH: ' + @fish.inspect
   end
 
   def destroy
@@ -29,6 +31,7 @@ class Admin::SitesController < AdminController
 
   def new
     @site = Site.new
+    @fish = Fish.all
   end
 
   def update

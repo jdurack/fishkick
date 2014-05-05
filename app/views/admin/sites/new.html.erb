@@ -1,3 +1,9 @@
+<ol class='breadcrumb'>
+  <li><a href='/admin'>admin</a></li>
+  <li><a href='/admin/sites'>sites</a></li>
+  <li class='active'>new</li>
+</ol>
+
 <h2>Admin: New Site</h2>
 
-<%= render partial: 'form', locals: {site: @site} %>
+<%= render partial: 'form', locals: {site: @site, fish: @fish} %>

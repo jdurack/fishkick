@@ -1,0 +1,17 @@
+<div class='row'>
+  <div class='col-md-1'>
+    <%= siteFishInfo.name %>
+  </div>
+  <div class='col-md-1'>
+    <input type='checkbox' id='has_fish_<%= siteFishInfo.id %>'>
+  </div>
+  <div class='col-md-10'>
+    <div class='row'>
+      <% for i in 0..11 %>
+        <div class='col-md-1'>
+          <input type='text' id='fish_<%= siteFishInfo.id %>_month_<%= i %>' size='1'>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
