@@ -29,14 +29,11 @@ class Admin::SitesController < AdminController
 
   def new
     @site = Site.new
-    puts 'new site: ' + @site.inspect + ', model name: ' + @site.class.name
   end
 
   def update
-    puts 'params: ' + params.inspect
     if params[:commit] == 'Cancel'
       redirect_to :admin_sites
-      puts 'hERE!!!!'
       return
     end
     @site = Site.find(params[:id])
@@ -49,7 +46,7 @@ class Admin::SitesController < AdminController
 
   private
     def site_params
-      params.require(:site).permit(:name, :name_url)
+      params.require(:site).permit(:name, :name_url, :description)
     end
 
 end

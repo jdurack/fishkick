@@ -1,0 +1,16 @@
+<%= form_for [:admin, @fish] do |f| %>
+  <p>
+    <b>Name</b><br>
+    <%= f.text_field :name %>
+  </p>
+
+  <p>
+    <b>Image</b><br>
+    <%= f.text_field :image %>
+  </p>
+
+  <p>
+    <%= f.submit 'Save', :class => 'btn btn-default' %>
+    <%= link_to 'Cancel', :admin_fish_index, :class => 'btn btn-default' %>
+  </p>
+<% end %>

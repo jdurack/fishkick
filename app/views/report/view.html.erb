@@ -1,5 +1,15 @@
-<% if @site %>
-  <h1>Report for <%= @site.name %></h1>
-<% else %>
+<% unless @site %>
   <h1>Site not found</h1>
+<% else %>
+  <h1>Fishing Report for <%= @site.name %></h1>
+
+  <% if @site.description %>
+    <div>
+      Descriptions of <%= @site.name %>
+      <p>
+        <%= @site.description %>
+      </p>
+    </div>
+  <% end %>
+  
 <% end %>

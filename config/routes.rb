@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   root 'main#home'
   get 'report/:site_name_url' => 'report#view'
 
+  get '/admin' => 'admin#index'
   namespace :admin do
     resources :sites
+    resources :fish
   end
 
   devise_for :admins, :controllers => {:registrations => 'admin/registrations'}
