@@ -1,3 +1,4 @@
 class FishScore < ActiveRecord::Base
-  belongs_to :site_fish_info
+  belongs_to :site
+  belongs_to :fish
 end

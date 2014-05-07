@@ -3,6 +3,8 @@
 <% else %>
   <h1>Fishing Report for <%= @site.name %></h1>
 
+  <%= render @site.fish_scores %>
+
   <% if @site.description %>
     <div>
       <h4>Description of <%= @site.name %></h4>
