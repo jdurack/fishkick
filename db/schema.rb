@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140505005357) do
+ActiveRecord::Schema.define(version: 20140507000703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20140505005357) do
     t.datetime "updated_at"
   end
 
-  create_table "fish_score", force: true do |t|
+  create_table "fish_scores", force: true do |t|
     t.integer  "site_id"
     t.integer  "fish_id"
     t.datetime "date"
@@ -54,26 +54,29 @@ ActiveRecord::Schema.define(version: 20140505005357) do
     t.datetime "updated_at"
   end
 
-  create_table "site_fish_info", force: true do |t|
+  create_table "site_fish_infos", force: true do |t|
     t.integer  "site_id"
     t.integer  "fish_id"
-    t.decimal  "baseScoreJan", precision: 2, scale: 2
-    t.decimal  "baseScoreFeb", precision: 2, scale: 2
-    t.decimal  "baseScoreMar", precision: 2, scale: 2
-    t.decimal  "baseScoreApr", precision: 2, scale: 2
-    t.decimal  "baseScoreMay", precision: 2, scale: 2
-    t.decimal  "baseScoreJun", precision: 2, scale: 2
-    t.decimal  "baseScoreJul", precision: 2, scale: 2
-    t.decimal  "baseScoreAug", precision: 2, scale: 2
-    t.decimal  "baseScoreSep", precision: 2, scale: 2
-    t.decimal  "baseScoreOct", precision: 2, scale: 2
-    t.decimal  "baseScoreNov", precision: 2, scale: 2
-    t.decimal  "baseScoreDec", precision: 2, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "isActive"
+    t.decimal  "month_value_0"
+    t.decimal  "month_value_1"
+    t.decimal  "month_value_2"
+    t.decimal  "month_value_3"
+    t.decimal  "month_value_4"
+    t.decimal  "month_value_5"
+    t.decimal  "month_value_6"
+    t.decimal  "month_value_7"
+    t.decimal  "month_value_8"
+    t.decimal  "month_value_9"
+    t.decimal  "month_value_10"
+    t.decimal  "month_value_11"
   end
 
-  create_table "site_image", force: true do |t|
+  add_index "site_fish_infos", ["site_id", "fish_id"], name: "index_site_fish_infos_on_site_id_and_fish_id", unique: true, using: :btree
+
+  create_table "site_images", force: true do |t|
     t.integer  "site_id"
     t.string   "image"
     t.datetime "created_at"

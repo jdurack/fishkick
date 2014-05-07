@@ -1,0 +1,25 @@
+<div class='row'>
+  <div class='col-md-1'>
+    <%= site_fish_info.fish.name %>
+  </div>
+  <input type='hidden' name='siteFishInfo_<%= site_fish_info.id %>[site_id]' value=<%= site_fish_info.site_id %> >
+  <input type='hidden' name='siteFishInfo_<%= site_fish_info.id %>[fish_id]' value=<%= site_fish_info.fish_id %> >
+  <div class='col-md-1'>
+    <input type='checkbox' class='hasFishCheckbox' name='siteFishInfo_<%= site_fish_info.id %>[isActive]' <% if site_fish_info.isActive == TRUE %> checked <% end %> >
+  </div>
+  <div class='col-md-10'>
+    <div class='row'>
+      <% for i in 0..11 %>
+        <div class='col-md-1'>
+          <select name='siteFishInfo_<%= site_fish_info.id %>[month_value_<%= i %>]'>
+            <option value='0' <% if site_fish_info['month_value_' + i.to_s] == 0 %> selected <% end %> >0.0</option>
+            <option value='0.25' <% if site_fish_info['month_value_' + i.to_s] == 0.25 %> selected <% end %> >.25</option>
+            <option value='0.5' <% if site_fish_info['month_value_' + i.to_s] == 0.5 %> selected <% end %> >.50</option>
+            <option value='0.75' <% if site_fish_info['month_value_' + i.to_s] == 0.75 %> selected <% end %> >.75</option>
+            <option value='1.0' <% if site_fish_info['month_value_' + i.to_s] == 1.0 %> selected <% end %> >1.0</option>
+          </select>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
