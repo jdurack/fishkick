@@ -6,6 +6,7 @@ class Admin::SitesController < AdminController
 
   def show
     @site = Site.find(params[:id])
+    add_site_fish_infos( @site )
   end
 
   def edit
@@ -13,15 +14,7 @@ class Admin::SitesController < AdminController
     unless @site
       redirect_to(:admin_sites)
     end
-    @fish = Fish.all
-    @siteFishInfos = @site.site_fish_infos
-    @fish.each do |fish|
-      existingSFI = @siteFishInfos.select { |sfi| sfi.fish_id == fish.id }
-      unless existingSFI.size() > 0
-        newSiteFishInfo = SiteFishInfo.new({:site_id => @site.id, :fish_id => fish.id})
-        @siteFishInfos.push newSiteFishInfo
-      end
-    end
+    add_site_fish_infos( @site )
   end
 
   def destroy
@@ -74,6 +67,16 @@ class Admin::SitesController < AdminController
         siteFishInfoParams.permit(:isActive, :month_value_0, :month_value_1, :month_value_2, :month_value_3, :month_value_4, :month_value_5, :month_value_6, :month_value_7, :month_value_8, :month_value_9, :month_value_10, :month_value_11)
       rescue ActionController::ParameterMissing
         return false
+      end
+    end
+
+    def add_site_fish_infos(site)
+      fish = Fish.all
+      fish.each do |fish|
+        existingSFI = site.site_fish_infos.select { |sfi| sfi.fish_id == fish.id }
+        unless existingSFI.size() > 0
+          site.site_fish_infos.push SiteFishInfo.new({:site_id => site.id, :fish_id => fish.id})
+        end
       end
     end
 

@@ -5,11 +5,29 @@
 
   <% if @site.description %>
     <div>
-      Descriptions of <%= @site.name %>
+      <h4>Description of <%= @site.name %></h4>
       <p>
         <%= @site.description %>
       </p>
     </div>
   <% end %>
   
+  <div class='siteFishInfoBox'>
+    <div class='row'>
+      <div class='col-md-1'>
+        Fish
+      </div>
+      <div class='col-md-11'>
+        <div class='row'>
+          <% for i in 0..11 %>
+            <div class='col-md-1'>
+              <%= I18n.t('date.abbr_month_names')[i+1] %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <%= render @site.site_fish_infos %>
+  </div>
+
 <% end %>
