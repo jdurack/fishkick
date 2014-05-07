@@ -43,10 +43,10 @@ class Admin::SitesController < AdminController
     if @site.update(site_params)
       @site.site_fish_infos.each do |sfi|
         params = site_fish_info_params(sfi.id)
-        if params['isActive'] == 'on'
-          params['isActive'] = true
+        if params['is_active'] == 'on'
+          params['is_active'] = true
         else
-          params['isActive'] = false
+          params['is_active'] = false
         end
         sfi.update(params)
       end
@@ -64,7 +64,7 @@ class Admin::SitesController < AdminController
     def site_fish_info_params(site_fish_info_id)
       begin
         siteFishInfoParams = params.require('siteFishInfo_' + site_fish_info_id.to_s)
-        siteFishInfoParams.permit(:isActive, :month_value_0, :month_value_1, :month_value_2, :month_value_3, :month_value_4, :month_value_5, :month_value_6, :month_value_7, :month_value_8, :month_value_9, :month_value_10, :month_value_11)
+        siteFishInfoParams.permit(:is_active, :month_value_0, :month_value_1, :month_value_2, :month_value_3, :month_value_4, :month_value_5, :month_value_6, :month_value_7, :month_value_8, :month_value_9, :month_value_10, :month_value_11)
       rescue ActionController::ParameterMissing
         return false
       end

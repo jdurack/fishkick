@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507000703) do
+ActiveRecord::Schema.define(version: 20140507233135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,7 +47,10 @@ ActiveRecord::Schema.define(version: 20140507000703) do
     t.datetime "date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "value"
   end
+
+  add_index "fish_scores", ["site_id", "fish_id", "date"], name: "index_fish_scores_on_site_id_and_fish_id_and_date", unique: true, using: :btree
 
   create_table "reports", force: true do |t|
     t.datetime "created_at"
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 20140507000703) do
     t.integer  "fish_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "isActive"
+    t.boolean  "is_active"
     t.decimal  "month_value_0"
     t.decimal  "month_value_1"
     t.decimal  "month_value_2"
