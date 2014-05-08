@@ -1,0 +1,17 @@
+<div id='siteMap' style='height: 250px;' >
+</div>
+
+<%= javascript_tag do -%>
+  mapCenterLatitude = <%= @site.getMapCenter()['latitude'] %>;
+  mapCenterLongitude = <%= @site.getMapCenter()['longitude'] %>;
+
+  mapZoomLevel = <%= @site.getMapZoomLevel() %>;
+
+  mapPolygonPoints = [];
+  <% @site.getMapPolygonPoints().each do |p| %>
+    mapPolygonPoints.push( new google.maps.LatLng(<%= p['latitude'] %>, <%= p['longitude'] %>) );
+  <% end %>
+
+  $(document).on( 'page:change', window.FishKick.initializeMap );
+
+<% end %>

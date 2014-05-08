@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507233135) do
+ActiveRecord::Schema.define(version: 20140508011000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,10 @@ ActiveRecord::Schema.define(version: 20140507233135) do
     t.datetime "updated_at"
     t.string   "name"
     t.string   "name_url"
-    t.string   "description"
+    t.text     "description"
+    t.text     "map_polygon_data"
+    t.text     "latitude"
+    t.text     "longitude"
   end
 
   add_index "sites", ["name_url"], name: "index_sites_on_name_url", using: :btree

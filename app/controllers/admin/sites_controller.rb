@@ -58,7 +58,7 @@ class Admin::SitesController < AdminController
 
   private
     def site_params
-      params.require(:site).permit(:name, :name_url, :description)
+      params.require(:site).permit(:name, :name_url, :description, :latitude, :longitude, :map_polygon_data)
     end
 
     def site_fish_info_params(site_fish_info_id)

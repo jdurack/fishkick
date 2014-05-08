@@ -1,35 +1,46 @@
 <% unless @site %>
-  <h1>Site not found</h1>
+  <h4>Site not found</h4>
+  <a href='/'>Go back</a>
 <% else %>
+
   <h1>Fishing Report for <%= @site.name %></h1>
 
   <%= render @site.fish_scores %>
 
-  <% if @site.description %>
-    <div>
-      <h4>Description of <%= @site.name %></h4>
-      <p>
-        <%= @site.description %>
-      </p>
+  <div class='row'>
+    <div class='col-md-7'>
+      <% if @site.description %>
+        <h4>Description of <%= @site.name %></h4>
+        <p>
+          <%= @site.description %>
+        </p>
+      <% end %>
     </div>
-  <% end %>
-  
-  <div class='siteFishInfoBox'>
-    <div class='row'>
-      <div class='col-md-1'>
-        Fish
-      </div>
-      <div class='col-md-11'>
-        <div class='row'>
-          <% for i in 0..11 %>
-            <div class='col-md-1'>
-              <%= I18n.t('date.abbr_month_names')[i+1] %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+    <div class='col-md-5'>
+      <% if @site.site_images.size() > 0 %>
+        <%= render 'site_image_carousel', locals: {site: @site} %>
+      <% end %>
+      <% if @site.hasGeoData() %>
+        <%= render 'site_map', locals: {site: @site} %>
+      <% end %>
     </div>
-    <%= render @site.site_fish_infos %>
   </div>
+  
+
+  <div class='row'>
+    <div class='col-md-1'>
+      Fish
+    </div>
+    <div class='col-md-11'>
+      <div class='row'>
+        <% for i in 0..11 %>
+          <div class='col-md-1'>
+            <%= I18n.t('date.abbr_month_names')[i+1] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render @site.site_fish_infos %>
 
 <% end %>
