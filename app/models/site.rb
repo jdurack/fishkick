@@ -1,9 +1,11 @@
 class Site < ActiveRecord::Base
 
   has_many :site_fish_infos
-  has_many :fish, through: :site_fish_infos
-  has_many :fish_scores
+  has_many :fish, -> { order 'name DESC' }, through: :site_fish_infos
+  has_many :fish_scores, -> { where(fish_scores: {date: Date.today}) }
   has_many :site_images
+
+  enum water_body_type: [ :stream, :lake ]
 
   def hasGeoData()
     if !self.latitude.blank? and !self.longitude.blank?
@@ -59,7 +61,7 @@ class Site < ActiveRecord::Base
     distance = Math.sqrt( ( (maxLatitude - minLatitude) ** 2 ) + ( (maxLongitude - minLongitude) ** 2 ) )
 
     # Zoom level should scale between 10 and 15, with distance calibration bounds of .005 and .222
-    @zoomLevel = ( 15 - ( ( ( distance - 0.005 ) / 0.222  ) * 5 ) ).to_i
+    @zoomLevel = ( 15 - ( ( ( distance - 0.005 ) / ( 0.222 - 0.005 ) ) * 5 ) ).to_i
     if @zoomLevel > 15
       @zoomLevel = 15
     elsif @zoomLevel < 10
@@ -88,5 +90,14 @@ class Site < ActiveRecord::Base
       @mapPolygonPoints.push( {'latitude' => commaSplit[0], 'longitude' => commaSplit[1]} )
     end
     return @mapPolygonPoints
+  end
+
+  def hasActiveSiteFishInfos()
+    self.site_fish_infos.each do |sfi|
+      if sfi.is_active and sfi.fish.is_active
+        return true
+      end
+    end
+    return false
   end
 end

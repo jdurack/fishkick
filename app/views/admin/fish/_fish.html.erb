@@ -5,6 +5,14 @@
   </div>
 
   <div class='col-md-1 adminInfoLink'>
+    <% if fish.is_active %>
+      <span class='label label-success'>active</span>
+    <% else %>
+      <span class='label label-danger'>inactive</span>
+    <% end %>
+  </div>
+
+  <div class='col-md-1 adminInfoLink'>
     <%= link_to 'edit', edit_admin_fish_url(fish), :class => 'btn btn-default' %>
   </div>
 

@@ -1,0 +1,35 @@
+<%= form_for [:admin, @guide] do |f| %>
+  <p>
+    <b>First Name</b><br>
+    <%= f.text_field :first_name %>
+  </p>
+  <p>
+    <b>Last Name</b><br>
+    <%= f.text_field :last_name %>
+  </p>
+
+  <p>
+    <b>Active?</b><br>
+    <%= f.check_box :is_active %>
+  </p>
+
+  <p>
+    <b>Phone Number</b><br>
+    <%= f.text_field :phone_number %>
+  </p>
+
+  <p>
+    <b>Email Address</b><br>
+    <%= f.text_field :email_address %>
+  </p>
+
+  <p>
+    <b>Image</b><br>
+    <%= f.text_field :image %>
+  </p>
+
+  <p>
+    <%= f.submit 'Save', :class => 'btn btn-default' %>
+    <%= link_to 'Cancel', :admin_guides, :class => 'btn btn-default' %>
+  </p>
+<% end %>

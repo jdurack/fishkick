@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508011000) do
+ActiveRecord::Schema.define(version: 20140508231500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20140508011000) do
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_active"
   end
 
   create_table "fish_scores", force: true do |t|
@@ -51,6 +52,36 @@ ActiveRecord::Schema.define(version: 20140508011000) do
   end
 
   add_index "fish_scores", ["site_id", "fish_id", "date"], name: "index_fish_scores_on_site_id_and_fish_id_and_date", unique: true, using: :btree
+
+  create_table "guides", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone_number"
+    t.string   "email_address"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_active"
+  end
+
+  create_table "report_data", force: true do |t|
+    t.integer  "site_id"
+    t.integer  "report_data_parameter_id"
+    t.datetime "datetime"
+    t.decimal  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "report_data_parameters", force: true do |t|
+    t.string   "name"
+    t.string   "usgs_parameter_code"
+    t.string   "units"
+    t.string   "units_abbreviation"
+    t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "reports", force: true do |t|
     t.datetime "created_at"
@@ -75,6 +106,7 @@ ActiveRecord::Schema.define(version: 20140508011000) do
     t.decimal  "month_value_9"
     t.decimal  "month_value_10"
     t.decimal  "month_value_11"
+    t.integer  "max_score"
   end
 
   add_index "site_fish_infos", ["site_id", "fish_id"], name: "index_site_fish_infos_on_site_id_and_fish_id", unique: true, using: :btree
@@ -95,6 +127,9 @@ ActiveRecord::Schema.define(version: 20140508011000) do
     t.text     "map_polygon_data"
     t.text     "latitude"
     t.text     "longitude"
+    t.boolean  "is_active"
+    t.integer  "water_body_type",  default: 0
+    t.string   "usgs_site_id"
   end
 
   add_index "sites", ["name_url"], name: "index_sites_on_name_url", using: :btree

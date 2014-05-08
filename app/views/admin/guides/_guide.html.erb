@@ -1,11 +1,11 @@
 <div class='row'>
 
   <div class='col-md-2'>
-    <h4><%= site.name %></h4>
+    <h4><%= guide.getFullName() %></h4>
   </div>
 
   <div class='col-md-1 adminInfoLink'>
-    <% if site.is_active %>
+    <% if guide.is_active %>
       <span class='label label-success'>active</span>
     <% else %>
       <span class='label label-danger'>inactive</span>
@@ -13,11 +13,11 @@
   </div>
 
   <div class='col-md-1 adminInfoLink'>
-    <%= link_to 'edit', edit_admin_site_url(site), :class => 'btn btn-default' %>
+    <%= link_to 'edit', edit_admin_guide_url(guide), :class => 'btn btn-default' %>
   </div>
 
   <div class='col-md-1 adminInfoLink'>
-    <%= link_to 'delete', admin_site_url(site), :method => :delete, data: { confirm: 'Are you sure you want to delete this site?' }, :class => 'btn btn-default' %>
+    <%= link_to 'delete', admin_guides_url(guide), :method => :delete, data: { confirm: 'Are you sure you want to delete this guide?' }, :class => 'btn btn-default' %>
   </div>
 
 </div>

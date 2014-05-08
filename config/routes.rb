@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :sites
     resources :fish
+    resources :guides
   end
 
   devise_for :admins, :controllers => {:registrations => 'admin/registrations'}

@@ -1,7 +1,7 @@
 class Admin::FishController < AdminController
 
   def index
-    @fish = Fish.all
+    @fish = Fish.all.order('name ASC')
   end
 
   def show
@@ -46,7 +46,7 @@ class Admin::FishController < AdminController
 
   private
     def fish_params
-      params.require(:fish).permit(:name, :image)
+      params.require(:fish).permit(:name, :image, :is_active)
     end
 
 end

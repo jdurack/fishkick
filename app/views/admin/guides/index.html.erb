@@ -1,0 +1,9 @@
+<ol class='breadcrumb'>
+  <li><a href='/admin'>admin</a></li>
+  <li class='active'>guides</li>
+</ol>
+
+<h2>Admin: Guides</h2>
+<%= link_to 'Add new guide', new_admin_guide_url, :class => 'btn btn-default addNewItemButton' %>
+
+<%= render @guides %>

@@ -1,0 +1,18 @@
+<div class='row'>
+  <div class='col-md-5'>
+    <img src='<%= guide.image %>' alt="<%= guide.getFullName() %> photo" class='guideImage'/>
+  </div>
+  <div class='col-md-7'>
+    <p><%= guide.getFullName() %></p>
+    <% if !guide.phone_number.blank? %>
+      <p><%= guide.phone_number %></p>
+    <% end %>
+    <% if !guide.email_address.blank? %>
+      <p>
+        <a href="mailto:<%= guide.email_address %>?Subject=<%= u("FishKick: Guide booking on " + @site.name) %>" target="_blank">
+          <%= guide.email_address %>
+        </a>
+      </p>
+    <% end %>
+  </div>
+</div>
