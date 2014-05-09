@@ -42,3 +42,4 @@ gem 'spring',        group: :development
 #JRD
 gem 'pg'
 gem 'devise'
+gem 'rails_config'

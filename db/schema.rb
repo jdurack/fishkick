@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140508231500) do
+ActiveRecord::Schema.define(version: 20140509202906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 20140508231500) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "report_data", ["site_id", "report_data_parameter_id", "datetime"], name: "data_point_unique_index", unique: true, using: :btree
 
   create_table "report_data_parameters", force: true do |t|
     t.string   "name"

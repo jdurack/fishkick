@@ -1,0 +1,4 @@
+usgs:
+  apiBaseURL: 'http://waterservices.usgs.gov/nwis/iv/'
+  defaultFetchPeriod: 'P10D' #PT1H'
+  fetchFormat: 'json'
