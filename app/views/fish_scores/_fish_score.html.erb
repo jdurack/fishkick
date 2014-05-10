@@ -1,7 +1,7 @@
 <% if fish_score.fish.is_active %>
   <div class='row'>
     <div class='col-md-1 fishScoreValue'>
-      <%= fish_score.value %>
+      <%= fish_score.value * Settings.max_fish_score %>
     </div>
     <div class='col-md-11'>
       <h4><%= fish_score.fish.name %></h4>

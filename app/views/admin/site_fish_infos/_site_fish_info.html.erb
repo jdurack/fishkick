@@ -12,7 +12,7 @@
   </div>
   <div class='col-md-1'>
     <select name='siteFishInfo_<%= site_fish_info.id %>[max_score]'>
-      <% for i in 1..10 %>
+      <% for i in 1..(Settings.max_fish_score) %>
         <option value='<%= i %>' <% if site_fish_info.max_score == i %> selected <% end %>><%= i %></option>
       <% end %>
     </select>

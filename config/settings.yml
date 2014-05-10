@@ -5,3 +5,4 @@ usgs:
 report:
   report_data_parameter_id: 2
   report_data_lookback_days: 5
+max_fish_score: 10.0

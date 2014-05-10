@@ -6,9 +6,12 @@ task :calculate_fish_scores => :environment do
     next if !sfi.fish.is_active
     today = Date.today
     thisMonthIndex = ( today.month - 1 )
-    value = sfi['month_value_' + thisMonthIndex.to_s]
-    fishScore = FishScore.new({:site_id => sfi.site_id, :fish_id => sfi.fish_id, :date => Date.today, :value => value })
-    fishScore.save
+    value = (sfi['max_score'].to_f / Settings.max_fish_score) * sfi['month_value_' + thisMonthIndex.to_s].to_f
+
+    findParams = {:site_id => sfi.site_id, :fish_id => sfi.fish_id, :date => Date.today}
+    fishScoreData = {:site_id => sfi.site_id, :fish_id => sfi.fish_id, :date => Date.today, :value => value }
+    fishScore = FishScore.find_or_initialize_by(findParams)
+    fishScore.update(fishScoreData)
   end
   puts 'calculate_fish_scores done.'
 end
