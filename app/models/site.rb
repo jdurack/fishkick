@@ -92,6 +92,47 @@ class Site < ActiveRecord::Base
     return @mapPolygonPoints
   end
 
+  def getUSGSReportDataParameter()
+
+    if !@reportDataParameter.blank?
+      return @reportDataParameter
+    end
+
+    @reportDataParameter = ReportDataParameter.find(Settings.report.report_data_parameter_id)
+    return @reportDataParameter
+  end
+
+  def getUSGSReportDataLabel()
+    reportDataParameter = self.getUSGSReportDataParameter()
+    label = reportDataParameter.name
+    if reportDataParameter.units_abbreviation
+      label += ' (' + reportDataParameter.units_abbreviation + ')'
+    end
+    return label
+  end
+
+  def getUSGSReportData()
+
+    reportDataParameter = self.getUSGSReportDataParameter()
+
+    reportDataString = [
+      ['Date/Time', getUSGSReportDataLabel()]
+    ]
+    startDay = ( Date.today - Settings.report.report_data_lookback_days.days ).to_s
+    whereString = "site_id = " + self.id.to_s + " AND datetime >= '" + startDay + "'" + " AND report_data_parameter_id = " + reportDataParameter.id.to_s
+    reportData = ReportData.where(whereString)
+    return reportData
+
+
+    puts 'here, reportData: ' + reportData.inspect
+    reportData.each do |datum|
+      puts 'datum!'
+      datumForArray = [datum['datetime'], datum['value']]
+      reportDataString.push datumForArray
+    end
+    return reportDataString.to_s
+  end
+
   def hasActiveSiteFishInfos()
     self.site_fish_infos.each do |sfi|
       if sfi.is_active and sfi.fish.is_active

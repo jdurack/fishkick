@@ -1,10 +1,13 @@
 <% if fish_score.fish.is_active %>
   <div class='row'>
-    <div class='col-md-1'>
+    <div class='col-md-1 fishScoreValue'>
       <%= fish_score.value %>
     </div>
-    <div class='col-md-1'>
+    <div class='col-md-11'>
       <h4><%= fish_score.fish.name %></h4>
+      <% if !fish_score.fish.image.blank? %>
+        <img src='<%= fish_score.fish.image %>' alt='<%= fish_score.fish.name %>' class='fishScoreFishImage'/>
+      <% end %>
     </div>
   </div>
 <% end %>
