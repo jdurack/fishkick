@@ -133,10 +133,48 @@ class Site < ActiveRecord::Base
   end
 
   def getWeatherData()
+
+    if !@weatherData.blank?
+      return @weatherData
+    end
+
     startDay = ( Date.today - Settings.report.weather_data_lookback_days.days ).to_s
     whereString = "site_id = " + self.id.to_s + " AND date >= '" + startDay + "'"
-    weatherData = SitePrecipitationData.where(whereString)
-    return weatherData
+    weatherDataFromDB = SitePrecipitationData.where(whereString)
+    earliestDataDay = nil
+    latestDataDay = nil
+    weatherDataFromDB.each do |weatherDatum|
+      if ( earliestDataDay.nil? or weatherDatum.date < earliestDataDay )
+        earliestDataDay = weatherDatum.date
+      end
+      if ( latestDataDay.nil? or weatherDatum.date > latestDataDay )
+        latestDataDay = weatherDatum.date
+      end
+    end
+    @weatherData = {}
+    if earliestDataDay.nil?
+      return @weatherData
+    end
+
+    dataDay = earliestDataDay
+    while dataDay <= latestDataDay
+      @weatherData[dataDay] = {'value' => nil, 'is_forecast' => nil}
+      dataDay = dataDay + 1.day
+    end
+
+    weatherDataFromDB.each do |weatherDatum|
+      if weatherDatum.is_forecast
+        if @weatherData[weatherDatum.date]['is_forecast'] != false
+          @weatherData[weatherDatum.date]['is_forecast'] = true
+          @weatherData[weatherDatum.date]['value'] = weatherDatum.value
+        end
+      else
+        @weatherData[weatherDatum.date]['is_forecast'] = false
+        @weatherData[weatherDatum.date]['value'] = weatherDatum.value
+      end
+    end
+    
+    return @weatherData
   end
 
   def getWeatherDataTitle()
