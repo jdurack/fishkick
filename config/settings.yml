@@ -1,12 +1,13 @@
 usgs:
   apiBaseURL: 'http://waterservices.usgs.gov/nwis/iv/'
-  defaultFetchPeriod: 'P10D' #PT1H'
   fetchFormat: 'json'
+  lookback_days: 10
 report:
   report_data_parameter_id: 2
   report_data_lookback_days: 5
 max_fish_score: 10.0
 weather_data:
   lookback_days: 10
+  lookforward_days: 10
   base_url: 'http://api.wunderground.com/api/'
   api_key: 'beb64e8d472df60b'

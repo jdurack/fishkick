@@ -8,15 +8,21 @@ task :calculate_fish_scores => :environment do
   siteFishInfos.each do |sfi|
     next if !sfi.fish.is_active
     today = Date.today
-    thisMonthIndex = ( today.month - 1 )
-    value = (sfi['max_score'].to_f / Settings.max_fish_score) * sfi['month_value_' + thisMonthIndex.to_s].to_f
-
-    findParams = {:site_id => sfi.site_id, :fish_id => sfi.fish_id, :date => Date.today}
-    fishScoreData = {:site_id => sfi.site_id, :fish_id => sfi.fish_id, :date => Date.today, :value => value }
-    fishScore = FishScore.find_or_initialize_by(findParams)
-    fishScore.update(fishScoreData)
+    calculateAndSaveFishScore sfi, Date.today - 1
+    calculateAndSaveFishScore sfi, Date.today
+    calculateAndSaveFishScore sfi, Date.today + 1
   end
   puts 'calculate_fish_scores done.'
+end
+
+def calculateAndSaveFishScore( site_fish_info, date )
+  thisMonthIndex = ( date.month - 1 )
+  value = (site_fish_info['max_score'].to_f / Settings.max_fish_score) * site_fish_info['month_value_' + thisMonthIndex.to_s].to_f
+
+  findParams = {:site_id => site_fish_info.site_id, :fish_id => site_fish_info.fish_id, :date => date}
+  fishScoreData = findParams.merge({ :value => value })
+  fishScore = FishScore.find_or_initialize_by(findParams)
+  fishScore.update(fishScoreData)
 end
 
 
@@ -28,7 +34,7 @@ task :download_usgs_data => :environment do
 
   sites = Site.where("is_active = TRUE AND usgs_site_id <> ''")
   sites.each do |site|
-    dataJSON = fetchUSGSDataJSON site.usgs_site_id
+    dataJSON = fetchUSGSDataJSON site
     parseAndSaveUSGSData dataJSON, site.id
   end
 
@@ -36,16 +42,18 @@ task :download_usgs_data => :environment do
 end
 
 
-def fetchUSGSDataJSON(usgsSiteId)
+def fetchUSGSDataJSON(site)
   require 'net/http'
 
   reportDataParameters = ReportDataParameter.where({'is_active' => true})
   usgsParameterCodes = reportDataParameters.pluck(:usgs_parameter_code)
 
-  # Changed to just do one at a time, based on the input param usgsSiteId
-  usgsSiteIds = [usgsSiteId]
+  # Changed to just do one at a time, based on the input site usgs_site_id
+  usgsSiteIds = [site.usgs_site_id]
 
-  apiParameters = getUSGSAPIParameters( usgsSiteIds, usgsParameterCodes )
+  lookback_day = Date.today - Settings.usgs.lookback_days
+  latest_report_data = ReportData.where("site_id = " + site.id.to_s + " AND datetime > '" + lookback_day.to_s + "'").order('datetime').last
+  apiParameters = getUSGSAPIParameters( usgsSiteIds, usgsParameterCodes, latest_report_data )
   
   # This is a little ridiculous, but apparently necessary to do a GET with query params.
   #  See here: http://stackoverflow.com/questions/1252210/parametrized-get-request-in-ruby
@@ -61,14 +69,32 @@ def fetchUSGSDataJSON(usgsSiteId)
 end
 
 
-def getUSGSAPIParameters(usgsSiteIds, usgsParameterCodes)
+def getUSGSAPIParameters(usgsSiteIds, usgsParameterCodes, latest_report_data)
   apiParameters ||= {}
-  apiParameters['period'] = Settings.usgs.defaultFetchPeriod
+  apiParameters['period'] = getUSGSPeriod(latest_report_data)
   apiParameters['format'] = Settings.usgs.fetchFormat
   apiParameters['sites'] = usgsSiteIds.join(',')
   apiParameters['parameterCd'] = usgsParameterCodes.join(',')
 
   return apiParameters
+end
+
+def getUSGSPeriod(latest_report_data)
+
+  lookback_days = Settings.usgs.lookback_days
+
+  if !latest_report_data.blank?
+    lookback_days = ( ( Date.today - latest_report_data.datetime.to_date ).numerator ) + 1
+  end
+
+  if lookback_days < 1
+    lookback_days = 1
+  elsif lookback_days > Settings.usgs.lookback_days
+    lookback_days = Settings.usgs.lookback_days
+  end
+  period = 'P' + lookback_days.to_s + 'D'
+
+  return period
 end
 
 
@@ -125,18 +151,29 @@ task :download_weather_data => :environment do
     is_forecast = false
     for lookbackDays in 1..Settings.weather_data.lookback_days
       date_to_lookup = Date.today - lookbackDays.days
-      data_JSON = fetchWeatherDataJSON site, is_forecast, date_to_lookup
-      parseAndSaveWeatherData data_JSON, site.id, is_forecast, date_to_lookup
+      existing_site_precipitation_data = SitePrecipitationData.find_by({:site_id => site.id, :date => date_to_lookup, :is_forecast => false})
+      if existing_site_precipitation_data.blank?
+        data_JSON = fetchWeatherDataJSON site, is_forecast, date_to_lookup
+        parseAndSaveWeatherData data_JSON, site.id, is_forecast, date_to_lookup
+      end
     end
     is_forecast = true
-    data_JSON = fetchWeatherDataJSON site, is_forecast, date_to_lookup
-    parseAndSaveWeatherData data_JSON, site.id, is_forecast, nil
+    lookforward_date = Date.today + ( Settings.weather_data.lookforward_days.days - 1 )
+    existing_site_precipitation_data = SitePrecipitationData.find_by({:site_id => site.id, :date => lookforward_date, :is_forecast => true})
+    if existing_site_precipitation_data.blank?
+      data_JSON = fetchWeatherDataJSON site, is_forecast, nil
+      parseAndSaveWeatherData data_JSON, site.id, is_forecast, nil
+    end
   end
 
   puts 'download_weather_data done.'
 end
 
 def fetchWeatherDataJSON(site, is_forecast, date_to_lookup)
+
+  puts 'fetchWeatherDataJSON, site.id: ' + site.id.to_s + ', is_forecast: ' + is_forecast.to_s + ', date_to_lookup: ' + date_to_lookup.to_s
+  return
+
   require 'net/http'
 
   weatherDataURL = buildWeatherDataURL(site, is_forecast, date_to_lookup)
@@ -144,7 +181,7 @@ def fetchWeatherDataJSON(site, is_forecast, date_to_lookup)
   # This is a little ridiculous, but apparently necessary to do a GET with query params.
   #  See here: http://stackoverflow.com/questions/1252210/parametrized-get-request-in-ruby
   uri = URI.parse( weatherDataURL )
-  http = Net::HTTP.new(uri.host, uri.port) 
+  http = Net::HTTP.new(uri.host, uri.port)
   request = Net::HTTP::Get.new(uri.path) 
   request = Net::HTTP::Get.new( uri.path )
   response = http.request(request)
@@ -168,8 +205,6 @@ def buildWeatherDataURL( site, is_forecast, date_to_lookup )
   url += 'q/'
   url += site.latitude + ',' + site.longitude
   url += '.json'
-
-  puts 'URL: ' + url
 
   return url
 end
@@ -195,7 +230,6 @@ def parseWeatherData(dataJSON, site_id, is_forecast, historyDate)
   if is_forecast
 
     if ( dataJSON['forecast'].blank? or dataJSON['forecast']['simpleforecast'].blank? or dataJSON['forecast']['simpleforecast']['forecastday'].blank? )
-      puts 'BLANK FORECAST DATA: ' + dataJSON.inspect
       return
     end
 
@@ -229,7 +263,6 @@ def parseWeatherData(dataJSON, site_id, is_forecast, historyDate)
   else
     date = historyDate
     if ( dataJSON['history'].blank? or dataJSON['history']['dailysummary'].blank? or dataJSON['history']['dailysummary'][0].blank? )
-      puts 'BLANK DATA: ' + dataJSON.inspect
       return
     end
     dailySummary = dataJSON['history']['dailysummary'][0]
