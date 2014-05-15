@@ -1,0 +1,18 @@
+<div id='weatherDataChart' class='weatherDataChart'></div>
+
+
+<%= javascript_tag do -%>
+
+  window.FishKick.weatherChartTitle = "<%= @site.getWeatherDataTitle() %>";
+  window.FishKick.weatherChartData = [['Day', 'Recorded', 'Forecast']];
+  <% @site.getWeatherData().each do |datum| %>
+    window.FishKick.weatherChartData.push(["<%= datum['date'] %>", <%= datum['is_forecast'] ? '0.0, ' + datum['value'].to_s : datum['value'].to_s + ', 0.0'%>]);
+  <% end %>
+
+<% end %>
+
+<% content_for :head do %>
+  <%= javascript_tag do -%>
+    google.setOnLoadCallback(window.FishKick.drawWeatherDataChart);
+  <% end %>
+<% end %>

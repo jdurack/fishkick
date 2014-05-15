@@ -92,45 +92,31 @@ class Site < ActiveRecord::Base
     return @mapPolygonPoints
   end
 
-  def getUSGSReportDataParameter()
+  def getUSGSDataParameter()
 
-    if !@reportDataParameter.blank?
-      return @reportDataParameter
+    if !@usgsDataParameter.blank?
+      return @usgsDataParameter
     end
 
-    @reportDataParameter = ReportDataParameter.find(Settings.report.report_data_parameter_id)
-    return @reportDataParameter
+    @usgsDataParameter = ReportDataParameter.find(Settings.report.report_data_parameter_id)
+    return @usgsDataParameter
   end
 
-  def getUSGSReportDataLabel()
-    reportDataParameter = self.getUSGSReportDataParameter()
-    label = reportDataParameter.name
-    if reportDataParameter.units_abbreviation
-      label += ' (' + reportDataParameter.units_abbreviation + ')'
+  def getUSGSDataLabel()
+    usgsDataParameter = self.getUSGSDataParameter()
+    label = usgsDataParameter.name
+    if usgsDataParameter.units_abbreviation
+      label += ' (' + usgsDataParameter.units_abbreviation + ')'
     end
     return label
   end
 
-  def getUSGSReportData()
-
-    reportDataParameter = self.getUSGSReportDataParameter()
-
-    reportDataString = [
-      ['Date/Time', getUSGSReportDataLabel()]
-    ]
-    startDay = ( Date.today - Settings.report.report_data_lookback_days.days ).to_s
-    whereString = "site_id = " + self.id.to_s + " AND datetime >= '" + startDay + "'" + " AND report_data_parameter_id = " + reportDataParameter.id.to_s
-    reportData = ReportData.where(whereString)
-    return reportData
-
-
-    puts 'here, reportData: ' + reportData.inspect
-    reportData.each do |datum|
-      puts 'datum!'
-      datumForArray = [datum['datetime'], datum['value']]
-      reportDataString.push datumForArray
-    end
-    return reportDataString.to_s
+  def getUSGSData()
+    usgsDataParameter = self.getUSGSDataParameter()
+    startDay = ( Date.today - Settings.report.usgs_data_lookback_days.days ).to_s
+    whereString = "site_id = " + self.id.to_s + " AND datetime >= '" + startDay + "'" + " AND report_data_parameter_id = " + usgsDataParameter.id.to_s
+    usgsData = ReportData.where(whereString)
+    return usgsData
   end
 
   def hasActiveSiteFishInfos()
@@ -140,5 +126,20 @@ class Site < ActiveRecord::Base
       end
     end
     return false
+  end
+
+  def hasWeatherData()
+    return true
+  end
+
+  def getWeatherData()
+    startDay = ( Date.today - Settings.report.weather_data_lookback_days.days ).to_s
+    whereString = "site_id = " + self.id.to_s + " AND date >= '" + startDay + "'"
+    weatherData = SitePrecipitationData.where(whereString)
+    return weatherData
+  end
+
+  def getWeatherDataTitle()
+    return 'Precipitation (inches)'
   end
 end

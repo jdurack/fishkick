@@ -3,21 +3,44 @@
   <a href='/'>Go back</a>
 <% else %>
 
+  <% content_for :title do %>
+    <%= @site.name %> Fishing Report
+  <% end %>
+
+  <% content_for :head do %>
+    <%= javascript_tag do -%>
+      google.load('visualization', '1.0', {'packages':['corechart']});
+    <% end %>
+  <% end %>
+
   <h1><%= @site.name %> Fishing Report</h1>
   <h4><%= Date.today.strftime("%A %B %-d, %Y") %></h4>
 
   <div class='row'>
     <div class='col-md-10'>
 
+      <!-- FishScores and USGS Data -->
       <div class='row'>
         <div class='col-md-5'>
           <%= render @site.fish_scores %>
         </div>
         <div class='col-md-7'>
-          <%= render 'report_data', locals: {site: @site} %>
+          <%= render 'usgs_data', locals: {site: @site} %>
         </div>
       </div>
 
+
+      <!-- Weather -->
+      <% if @site.hasWeatherData() %>
+      <div class='row'>
+        <div class='col-md-12'>
+          <%= render 'weather_data', locals: {site: @site} %>
+        </div>
+      </div>
+      <% end %>
+
+
+      <!-- Description, photos, map -->
       <div class='row'>
         <div class='col-md-7'>
           <% if @site.description %>
@@ -36,32 +59,37 @@
           <% end %>
         </div>
       </div>
+
+      <!-- SiteFishInfos -->
+      <% if @site.hasActiveSiteFishInfos() %>
+        <div class='row'>
+          <div class='col-md-1'>
+            Fish
+          </div>
+          <div class='col-md-11'>
+            <div class='row'>
+              <% for i in 0..11 %>
+                <div class='col-md-1'>
+                  <%= I18n.t('date.abbr_month_names')[i+1] %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <%= render @site.site_fish_infos %>
+      <% end %>
+
     </div>
 
+    <!-- Guides -->
     <div class='col-md-2'>
       <% if @guides.size() > 0 %>
         <h4><center>Book a guide</center></h4>
         <%= render @guides, locals: {site: @site} %>
       <% end %>
     </div>
+
   </div>
   
-  <% if @site.hasActiveSiteFishInfos() %>
-    <div class='row'>
-      <div class='col-md-1'>
-        Fish
-      </div>
-      <div class='col-md-11'>
-        <div class='row'>
-          <% for i in 0..11 %>
-            <div class='col-md-1'>
-              <%= I18n.t('date.abbr_month_names')[i+1] %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <%= render @site.site_fish_infos %>
-  <% end %>
 
 <% end %>

@@ -1,0 +1,18 @@
+<div id='usgsDataChart' class='usgsDataChart'></div>
+
+
+<%= javascript_tag do -%>
+
+  window.FishKick.usgsChartTitle = "<%= @site.getUSGSDataLabel() %>";
+  window.FishKick.usgsChartData = [["Date/time", "<%= @site.getUSGSDataLabel() %>"]];
+  <% @site.getUSGSData().each do |datum| %>
+    window.FishKick.usgsChartData.push(["<%= datum['datetime'] %>", <%= datum['value'] %>]);
+  <% end %>
+  
+<% end %>
+
+<% content_for :head do %>
+  <%= javascript_tag do -%>
+    google.setOnLoadCallback(window.FishKick.drawUSGSDataChart);
+  <% end %>
+<% end %>

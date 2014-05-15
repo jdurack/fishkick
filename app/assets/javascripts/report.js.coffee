@@ -26,16 +26,30 @@ window.FishKick.initializeMap = () ->
   siteMap.setMap map
 
 
-window.FishKick.drawReportDataChart = () ->
+window.FishKick.drawUSGSDataChart = () ->
 
-  data = google.visualization.arrayToDataTable window.FishKick.chartData
+  data = google.visualization.arrayToDataTable window.FishKick.usgsChartData
     
   options =
-    title: window.FishKick.chartTitle
+    title: window.FishKick.usgsChartTitle
     curveType: 'function'
     legend:
       position: 'bottom'
 
-  chartElement = document.getElementById 'reportDataChart'
+  chartElement = document.getElementById 'usgsDataChart'
   chart = new google.visualization.LineChart chartElement
   chart.draw data, options
+
+window.FishKick.drawWeatherDataChart = () ->
+
+  data = google.visualization.arrayToDataTable window.FishKick.weatherChartData
+
+  options =
+    title: window.FishKick.weatherChartTitle
+    hAxis:
+      title: ''
+      titleTextStyle:
+        color: 'red'
+
+  chart = new google.visualization.ColumnChart document.getElementById('weatherDataChart')
+  chart.draw(data, options);
