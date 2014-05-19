@@ -1,0 +1,13 @@
+<div class='row'>
+  <div class='col-md-3'>
+    <% if f.object.new_record? %>
+      <%= f.file_field :image %>
+      <%= f.hidden_field :image_cache %>
+    <% else %>
+      <img src='<%= f.object.image %>' />
+    <% end %>
+  </div>
+  <div class='col-md-9'>
+    <%= f.link_to_remove 'delete' %>
+  </div>
+</div>

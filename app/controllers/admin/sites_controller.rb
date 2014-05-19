@@ -10,6 +10,7 @@ class Admin::SitesController < AdminController
 
   def edit
     @site = Site.find(params[:id])
+    add_site_fish_infos(@site)
     unless @site
       redirect_to(:admin_sites)
     end
@@ -22,14 +23,13 @@ class Admin::SitesController < AdminController
   end
 
   def create
-    @site = Site.create
-    update_site_from_params(@site)
-    @site.save
+    @site = Site.create(site_params)
     redirect_to(:admin_sites)
   end
 
   def new
     @site = Site.new
+    add_site_fish_infos(@site)
     @fish = Fish.all
   end
 
@@ -39,39 +39,15 @@ class Admin::SitesController < AdminController
       return
     end
     @site = Site.find(params[:id])
-    update_site_from_params(@site)
+    @site.update(site_params)
     redirect_to(:admin_sites)
-  end
-
-  def update_site_from_params(site)
-    add_site_fish_infos( site )
-    if @site.update(site_params)
-      @site.site_fish_infos.each do |sfi|
-        params = site_fish_info_params(sfi.id)
-        if !params.blank?
-          if ( params['is_active'] == 'on' )
-            params['is_active'] = true
-          else
-            params['is_active'] = false
-          end
-          sfi.update(params)
-        end
-      end
-    end
   end
 
   private
     def site_params
-      params.require(:site).permit(:name, :name_url, :is_active, :description, :usgs_site_id, :latitude, :longitude, :map_polygon_data, :water_body_type)
-    end
-
-    def site_fish_info_params(site_fish_info_id)
-      begin
-        siteFishInfoParams = params.require('siteFishInfo_' + site_fish_info_id.to_s)
-        siteFishInfoParams.permit(:is_active, :max_score, :month_value_0, :month_value_1, :month_value_2, :month_value_3, :month_value_4, :month_value_5, :month_value_6, :month_value_7, :month_value_8, :month_value_9, :month_value_10, :month_value_11)
-      rescue ActionController::ParameterMissing
-        return false
-      end
+      params.require(:site).permit(:name, :name_url, :is_active, :description, :usgs_site_id, :latitude, :longitude, :map_polygon_data, :water_body_type,
+        site_fish_infos_attributes: [:id, :fish_id, :is_active, :max_score, :month_value_0, :month_value_1, :month_value_2, :month_value_3, :month_value_4, :month_value_5, :month_value_6, :month_value_7, :month_value_8, :month_value_9, :month_value_10, :month_value_11],
+        site_images_attributes: [:id, :image, :image_cache, :_destroy])
     end
 
     def add_site_fish_infos(site)
@@ -79,7 +55,7 @@ class Admin::SitesController < AdminController
       fish.each do |fish|
         existingSFI = site.site_fish_infos.select { |sfi| sfi.fish_id == fish.id }
         unless existingSFI.size() > 0
-          site.site_fish_infos.push SiteFishInfo.create({:site_id => site.id, :fish_id => fish.id})
+          site.site_fish_infos.push SiteFishInfo.new({:site_id => site.id, :fish_id => fish.id})
         end
       end
     end

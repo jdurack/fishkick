@@ -1,9 +1,12 @@
 class Site < ActiveRecord::Base
 
-  has_many :site_fish_infos
+  has_many :site_fish_infos, dependent: :destroy
   has_many :fish, -> { order 'name DESC' }, through: :site_fish_infos
-  has_many :fish_scores, -> { where(fish_scores: {date: Date.today}) }
-  has_many :site_images
+  has_many :fish_scores, -> { where(fish_scores: {date: Date.today}) }, dependent: :destroy
+  has_many :site_images, dependent: :destroy
+
+  accepts_nested_attributes_for :site_fish_infos
+  accepts_nested_attributes_for :site_images, allow_destroy: true
 
   enum water_body_type: [ :stream, :lake ]
 
@@ -129,7 +132,8 @@ class Site < ActiveRecord::Base
   end
 
   def hasWeatherData()
-    return true
+    weatherData = self.getWeatherData()
+    return !weatherData.blank?
   end
 
   def getWeatherData()
