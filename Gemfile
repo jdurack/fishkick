@@ -43,3 +43,5 @@ gem 'spring',        group: :development
 gem 'pg'
 gem 'devise'
 gem 'rails_config'
+gem 'carrierwave'
+gem 'fog'
