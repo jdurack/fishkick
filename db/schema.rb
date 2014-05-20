@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140515022730) do
+ActiveRecord::Schema.define(version: 20140520000254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20140515022730) do
     t.boolean  "is_active"
     t.integer  "water_body_type",  default: 0
     t.string   "usgs_site_id"
+    t.string   "primary_image"
   end
 
   add_index "sites", ["name_url"], name: "index_sites_on_name_url", using: :btree

@@ -1,6 +1,7 @@
 <%= nested_form_for [:admin, @site], :html => {:multipart => true} do |f| %>
+
   <p>
-    <b>Name</b><br>
+    <b>Name</b><br/>
     <%= f.text_field :name %>
   </p>
 
@@ -33,6 +34,14 @@
   </p>
 
   <h4>Images</h4>
+  <b>Primary image</b>
+  <% if !f.object.primary_image.blank? %>
+    <img src='<%= f.object.primary_image %>' class='siteImageImage'/>
+  <% end %>
+  <%= f.file_field :primary_image %>
+  <br/>
+
+  <b>Carousel images</b>
   <p id='site_images'>
     <%= f.fields_for :site_images %>
     <p><%= f.link_to_add 'new image', :site_images, :data => { :target => "#site_images" } %></p>

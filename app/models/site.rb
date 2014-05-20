@@ -10,6 +10,8 @@ class Site < ActiveRecord::Base
 
   enum water_body_type: [ :stream, :lake ]
 
+  mount_uploader :primary_image, SitePrimaryImageUploader
+
   def hasGeoData()
     if !self.latitude.blank? and !self.longitude.blank?
       return true

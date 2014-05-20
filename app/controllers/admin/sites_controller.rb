@@ -45,7 +45,7 @@ class Admin::SitesController < AdminController
 
   private
     def site_params
-      params.require(:site).permit(:name, :name_url, :is_active, :description, :usgs_site_id, :latitude, :longitude, :map_polygon_data, :water_body_type,
+      params.require(:site).permit(:name, :name_url, :is_active, :primary_image, :description, :usgs_site_id, :latitude, :longitude, :map_polygon_data, :water_body_type,
         site_fish_infos_attributes: [:id, :fish_id, :is_active, :max_score, :month_value_0, :month_value_1, :month_value_2, :month_value_3, :month_value_4, :month_value_5, :month_value_6, :month_value_7, :month_value_8, :month_value_9, :month_value_10, :month_value_11],
         site_images_attributes: [:id, :image, :image_cache, :_destroy])
     end
