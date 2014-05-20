@@ -1,0 +1,52 @@
+<div class='row'>
+  <div class='col-md-6'>
+
+    <% @sites.each do |site| %>
+      <% site.fish_scores.each do |fish_score| %>
+        <div class='row'>
+          <div class='col-md-1'>
+            <%= fish_score.value %>
+          </div>
+          <div class='col-md-2'>
+            <%= site.name %>
+          </div>
+          <div class='col-md-9'>
+            <%= fish_score.fish.name %>
+            <% if !fish_score.fish.image.blank? %>
+              <img src='<%= fish_score.fish.image %>' alt='<%= fish_score.fish.name %>' class='fishScoreFishImage'/>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <div class='col-md-6'>
+    <div id='mainMap'>
+
+    <%= javascript_tag do -%>
+      window.FishKick.mainMapZoom = 10;
+      window.FishKick.mainMapCenter = {
+        'latitude': -33.9,
+        'longitude': 151.2
+      };
+
+      /*
+       * Data for the markers consisting of a name, a LatLng and a zIndex for
+       * the order in which these markers should display on top of each
+       * other.
+      */
+      window.FishKick.mainMapMarkers = [
+        ['Bondi Beach', -33.890542, 151.274856, 4],
+        ['Coogee Beach', -33.923036, 151.259052, 5],
+        ['Cronulla Beach', -34.028249, 151.157507, 3],
+        ['Manly Beach', -33.80010128657071, 151.28747820854187, 2],
+        ['Maroubra Beach', -33.950198, 151.259302, 1]
+      ];
+
+      $(document).on( 'page:change', window.FishKick.initializeMainMap );
+    <% end %>
+
+  </div>
+</div>
