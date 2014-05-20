@@ -10,22 +10,15 @@ unless window.FishKick
 # (0,32) to correspond to the base of the flagpole.
 
 window.FishKick.initializeMainMap = () ->
-  console.log 'initializeMainMap running...'
   mapOptions =
     zoom: window.FishKick.mainMapZoom
     center: new google.maps.LatLng window.FishKick.mainMapCenter['latitude'], window.FishKick.mainMapCenter['longitude']
   mapElement = document.getElementById 'mainMap'
-
-  console.log 'mapElement: ', mapElement
-  console.log 'mapOptions: ', mapOptions
-
   map = new google.maps.Map mapElement, mapOptions
-  #window.FishKick.setMainMapMarkers map, window.FishKick.mainMapMarkers
+  window.FishKick.setMainMapMarkers map, window.FishKick.mainMapMarkers
 
 
-window.FishKick.setMainMapMarkers = (map, locations) ->
-
-  console.log 'setMainMapMarkers, map: ', map, ', locations: ', locations
+window.FishKick.setMainMapMarkers = (map, markersInfo) ->
 
   # Add markers to the map
 
@@ -51,13 +44,12 @@ window.FishKick.setMainMapMarkers = (map, locations) ->
       coords: [1, 1, 1, 20, 18, 20, 18 , 1]
       type: 'poly'
 
-  for beach in locations
-    console.log 'here, beach: ', beach
-    myLatLng = new google.maps.LatLng beach[1], beach[2]
-    marker = new google.maps.Marker
+  for markerInfo in markersInfo
+    myLatLng = new google.maps.LatLng markerInfo[1], markerInfo[2]
+    newMarker = new google.maps.Marker
       position: myLatLng
       map: map
       icon: image
       shape: shape
-      title: beach[0]
-      zIndex: beach[3]
+      title: markerInfo[0]
+      zIndex: markerInfo[3]
