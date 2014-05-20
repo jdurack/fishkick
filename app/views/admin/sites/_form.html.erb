@@ -36,7 +36,7 @@
   <h4>Images</h4>
   <b>Primary image</b>
   <% if !f.object.primary_image.blank? %>
-    <img src='<%= f.object.primary_image %>' class='siteImageImage'/>
+    <img src='<%= f.object.primary_image %>' class='imagePreview'/>
   <% end %>
   <%= f.file_field :primary_image %>
   <br/>

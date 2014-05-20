@@ -1,6 +1,8 @@
 <div class='row'>
   <div class='col-md-5'>
-    <img src='<%= guide.image %>' alt="<%= guide.getFullName() %> photo" class='guideImage'/>
+    <% if !guide.primary_image.blank? %>
+      <img src='<%= guide.primary_image %>' alt="<%= guide.getFullName() %> photo" class='guideImage'/>
+    <% end %>
   </div>
   <div class='col-md-7'>
     <p><%= guide.getFullName() %></p>

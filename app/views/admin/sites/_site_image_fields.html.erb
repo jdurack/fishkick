@@ -4,7 +4,7 @@
       <%= f.file_field :image %>
       <%= f.hidden_field :image_cache %>
     <% else %>
-      <img src='<%= f.object.image %>' class='siteImageImage'/>
+      <img src='<%= f.object.image %>' class='imagePreview'/>
     <% end %>
   </div>
   <div class='col-md-10'>
