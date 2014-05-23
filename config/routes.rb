@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'about' => 'main#about'
   get 'faq' => 'main#faq'
   get 'contact' => 'main#contact'
+  get 'reports' => 'main#reports'
 
   get '/admin' => 'admin#index'
   namespace :admin do

@@ -1,6 +1,10 @@
 class MainController < ApplicationController
 
   def home
+    @fish_scores = FishScore.where({:date => Date.today})
+  end
+
+  def reports
     @sites = Site.where({:is_active => true})
   end
 
@@ -12,5 +16,4 @@ class MainController < ApplicationController
 
   def contact
   end
-  
 end
