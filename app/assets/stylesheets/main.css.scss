@@ -3,8 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .fishKickLogo {
-  max-width: 250px;
-  max-height: 65px;
+  max-width: 300px;
+  max-height: 75px;
 }
 
 .mainSiteLink {
@@ -12,7 +12,14 @@
   float: left;
 }
 
+
+.angular-google-map-container { height: 400px; }
+
 .mainMap {
   height: 500px;
   width: 500px;
+}
+
+.topFishScoreFishImage {
+  max-width: 150px;
 }

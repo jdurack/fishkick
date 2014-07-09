@@ -13,5 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree ../../../vendor/assets/javascripts
+//= require ../../../vendor/assets/javascripts/bootstrap.js
+//= require ../../../vendor/assets/javascripts/lodash.min.js
+//= require ../../../vendor/assets/javascripts/angular-google-maps.min.js
 //= require_tree .

@@ -12,3 +12,4 @@ weather_data:
   lookforward_days: 10
   base_url: 'http://api.wunderground.com/api/'
   api_key: 'beb64e8d472df60b'
+max_top_scores: 6

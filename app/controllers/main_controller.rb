@@ -2,6 +2,7 @@ class MainController < ApplicationController
 
   def home
     @fish_scores = FishScore.where({:date => Date.today})
+    @fish = Fish.where({:is_active => true})
   end
 
   def reports
