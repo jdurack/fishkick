@@ -15,17 +15,19 @@
     <%= f.check_box :is_active %>
   </p>
 
+  <b>Location</b>
+  <p>USGS Site ID: <%= f.text_field :usgs_site_id %></p>
+  </p>
+
   <p>
     <b>Type</b><br>
     <%= f.select :water_body_type, [:stream, :lake] %>
   </p>
 
-  <p>
-    <b>Location</b><br>
-    USGS Site ID: <%= f.text_field :usgs_site_id %>
-    Latitude: <%= f.text_field :latitude %>
-    Longitude: <%= f.text_field :longitude %>
-    Map Polygon Data: <%= f.text_area :map_polygon_data %>
+  <b>Map Lines</b>
+  <p id='site_map_lines'>
+    <%= f.fields_for :site_map_lines %>
+    <p><%= f.link_to_add 'new map line', :site_map_lines, :data => { :target => "#site_map_lines" } %></p>
   </p>
 
   <p>

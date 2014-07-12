@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140520001512) do
+ActiveRecord::Schema.define(version: 20140712233720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,13 @@ ActiveRecord::Schema.define(version: 20140520001512) do
     t.datetime "updated_at"
   end
 
+  create_table "site_map_lines", force: true do |t|
+    t.integer  "site_id"
+    t.text     "line_data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "site_precipitation_data", force: true do |t|
     t.integer  "site_id"
     t.decimal  "value"
@@ -137,11 +144,10 @@ ActiveRecord::Schema.define(version: 20140520001512) do
     t.string   "name"
     t.string   "name_url"
     t.text     "description"
-    t.text     "map_polygon_data"
     t.text     "latitude"
     t.text     "longitude"
     t.boolean  "is_active"
-    t.integer  "water_body_type",  default: 0
+    t.integer  "water_body_type", default: 0
     t.string   "usgs_site_id"
     t.string   "primary_image"
   end

@@ -2,14 +2,23 @@
 </div>
 
 <%= javascript_tag do -%>
-  mapCenterLatitude = <%= @site.getMapCenter()['latitude'] %>;
-  mapCenterLongitude = <%= @site.getMapCenter()['longitude'] %>;
+  var mapCenterLatitude = <%= @site.getMapCenter()['latitude'] %>;
+  var mapCenterLongitude = <%= @site.getMapCenter()['longitude'] %>;
 
-  mapZoomLevel = <%= @site.getMapZoomLevel() %>;
+  var mapZoomLevel = <%= @site.getMapZoomLevel() %>;
 
-  mapPolygonPoints = [];
-  <% @site.getMapPolygonPoints().each do |p| %>
-    mapPolygonPoints.push( new google.maps.LatLng(<%= p['latitude'] %>, <%= p['longitude'] %>) );
+  var siteIsLake = false;
+  <% if @site.water_body_type == 'lake' %>
+    siteIsLake = true;
+  <% end %>
+
+  var mapLineData = [];
+  <% @site.getMapLineData().each do |mld| %>
+    var mapLine = [];
+    <% mld.each do |p| %>
+      mapLine.push( new google.maps.LatLng(<%= p['latitude'] %>, <%= p['longitude'] %>) );
+    <% end %>
+    mapLineData.push( mapLine );
   <% end %>
 
   $(document).on( 'page:change', window.FishKick.initializeMap );

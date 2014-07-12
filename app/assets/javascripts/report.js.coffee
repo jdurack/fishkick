@@ -14,16 +14,29 @@ window.FishKick.initializeMap = () ->
 
   map = new google.maps.Map document.getElementById('siteMap'), mapOptions
 
-  # Construct the polygon.
-  siteMap = new google.maps.Polygon
-    paths: mapPolygonPoints
-    strokeColor: '#0000BB'
-    strokeOpacity: 0.8
-    strokeWeight: 0
-    fillColor: '#0000BB'
-    fillOpacity: 0.8
+  if siteIsLake and ( mapLineData.length > 0 )
+    # Construct the polygon.
+    polygon = new google.maps.Polygon
+      paths: mapLineData[0]
+      strokeColor: '#0000BB'
+      strokeOpacity: 0.8
+      strokeWeight: 0
+      fillColor: '#0000BB'
+      fillOpacity: 0.8
 
-  siteMap.setMap map
+    polygon.setMap map
+
+  else #stream
+    for lineData in mapLineData
+      polyLine = new google.maps.Polyline
+        path: lineData
+        geodesic: true
+        strokeColor: '#0000BB'
+        strokeOpacity: 1.0
+        strokeWeight: 4
+
+      polyLine.setMap map
+ 
 
 
 window.FishKick.drawUSGSDataChart = () ->
