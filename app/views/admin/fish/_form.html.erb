@@ -18,6 +18,25 @@
   </p>
 
   <p>
+    <b>Default Month Values</b>
+    <% month_value_options = [[0.0,0.0],[0.25,0.25],[0.50,0.50],[0.75,0.75],[1.0,1.0]] %>
+    <div class='row'>
+      <% for i in 0..11 %>
+        <div class='col-md-1'>
+          <b><%= I18n.t('date.abbr_month_names')[i+1] %></b>
+        </div>
+      <% end %>
+    </div>
+    <div class='row'>
+      <% for i in 0..11 %>
+        <div class='col-md-1'>
+          <%= f.select('month_value_' + i.to_s, options_for_select(month_value_options, f.object['month_value_' + i.to_s])) %>
+        </div>
+      <% end %>
+    </div>
+  </p>
+
+  <p>
     <%= f.submit 'Save', :class => 'btn btn-default' %>
     <%= link_to 'Cancel', :admin_fish_index, :class => 'btn btn-default' %>
   </p>

@@ -46,7 +46,7 @@ class Admin::FishController < AdminController
 
   private
     def fish_params
-      params.require(:fish).permit(:name, :image, :is_active)
+      params.require(:fish).permit(:name, :image, :is_active, :month_value_0, :month_value_1, :month_value_2, :month_value_3, :month_value_4, :month_value_5, :month_value_6, :month_value_7, :month_value_8, :month_value_9, :month_value_10, :month_value_11)
     end
 
 end

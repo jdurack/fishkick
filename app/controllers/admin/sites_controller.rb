@@ -56,7 +56,7 @@ class Admin::SitesController < AdminController
       fish.each do |fish|
         existingSFI = site.site_fish_infos.select { |sfi| sfi.fish_id == fish.id }
         unless existingSFI.size() > 0
-          site.site_fish_infos.push SiteFishInfo.new({:site_id => site.id, :fish_id => fish.id})
+          site.site_fish_infos.push SiteFishInfo.new({:site_id => site.id, :fish_id => fish.id, :month_value_0 => fish.month_value_0, :month_value_1 => fish.month_value_1, :month_value_2 => fish.month_value_2, :month_value_3 => fish.month_value_3, :month_value_4 => fish.month_value_4, :month_value_5 => fish.month_value_5, :month_value_6 => fish.month_value_6, :month_value_7 => fish.month_value_7, :month_value_8 => fish.month_value_8, :month_value_9 => fish.month_value_9, :month_value_10 => fish.month_value_10, :month_value_11 => fish.month_value_11})
         end
       end
     end

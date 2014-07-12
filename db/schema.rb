@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140712233720) do
+ActiveRecord::Schema.define(version: 20140712233924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,18 @@ ActiveRecord::Schema.define(version: 20140712233720) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_active"
+    t.decimal  "month_value_0"
+    t.decimal  "month_value_1"
+    t.decimal  "month_value_2"
+    t.decimal  "month_value_3"
+    t.decimal  "month_value_4"
+    t.decimal  "month_value_5"
+    t.decimal  "month_value_6"
+    t.decimal  "month_value_7"
+    t.decimal  "month_value_8"
+    t.decimal  "month_value_9"
+    t.decimal  "month_value_10"
+    t.decimal  "month_value_11"
   end
 
   create_table "fish_scores", force: true do |t|
