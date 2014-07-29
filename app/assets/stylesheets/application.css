@@ -10,15 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require ../../../vendor/assets/stylesheets/Lato.css
- *= require ../../../vendor/assets/stylesheets/Raleway.css
- *= require ../../../vendor/assets/stylesheets/bootstrap.css
- *= require admin.css
- *= require main.css
- *= require report.css
- *= require admin/fish.css
- *= require admin/guides.css
- *= require admin/site.css
+ *= require_tree ../../../vendor/assets/stylesheets
+ *= require_tree .
  *= require_self
  */
 
