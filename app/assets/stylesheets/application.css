@@ -11,7 +11,12 @@
  * file per style scope.
  *
  *= require_tree ../../../vendor/assets/stylesheets
- *= require_tree .
+ *= require admin.css
+ *= require main.css
+ *= require report.css
+ *= require admin/fish.css
+ *= require admin/guides.css
+ *= require admin/site.css
  *= require_self
  */
 
