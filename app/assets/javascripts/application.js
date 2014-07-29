@@ -16,4 +16,6 @@
 //= require ../../../vendor/assets/javascripts/bootstrap.js
 //= require ../../../vendor/assets/javascripts/lodash.min.js
 //= require ../../../vendor/assets/javascripts/angular-google-maps.min.js
-//= require_tree .
+//= require admin/fish.js
+//= require admin/guides.js
+//= require admin/site.js
