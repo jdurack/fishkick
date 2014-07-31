@@ -1,6 +1,6 @@
-<svg width="60" height="60">
-  <circle class="fishScoreValueCircle" cx="30" cy="30" r="25" stroke-width="4" />
-  <text x="<% if value == 10 %>10<% else %>20<% end %>" y="42" fill="white" font-family="Verdana" font-size="32">
+<svg class="fishScoreValue">
+  <circle class="fishScoreValueCircle_<%= value %>" cx="50%" cy="50%" r="50%" stroke-width="4" />
+  <text x="<% if value == 10 %>7%<% else %>29%<% end %>" y="74%" fill="white" font-family="Verdana" font-size="200%">
     <%= value %>
   </text>
 </svg>

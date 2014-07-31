@@ -21,7 +21,7 @@
 
       <!-- FishScores and USGS Data -->
       <div class='row'>
-        <div class='col-md-5'>
+        <div class='col-md-5 fishScoreArea'>
           <%= render @site.fish_scores %>
         </div>
         <div class='col-md-7'>
@@ -39,6 +39,25 @@
       </div>
       <% end %>
 
+
+      <!-- SiteFishInfos -->
+      <% if @site.hasActiveSiteFishInfos() %>
+        <div class='row'>
+          <div class='col-md-1'>
+            Fish
+          </div>
+          <div class='col-md-11'>
+            <div class='row'>
+              <% for i in 0..11 %>
+                <div class='col-md-1'>
+                  <%= I18n.t('date.abbr_month_names')[i+1] %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <%= render @site.site_fish_infos %>
+      <% end %>
 
       <!-- Description, photos, map -->
       <div class='row'>
@@ -59,25 +78,6 @@
           <% end %>
         </div>
       </div>
-
-      <!-- SiteFishInfos -->
-      <% if @site.hasActiveSiteFishInfos() %>
-        <div class='row'>
-          <div class='col-md-1'>
-            Fish
-          </div>
-          <div class='col-md-11'>
-            <div class='row'>
-              <% for i in 0..11 %>
-                <div class='col-md-1'>
-                  <%= I18n.t('date.abbr_month_names')[i+1] %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <%= render @site.site_fish_infos %>
-      <% end %>
 
     </div>
 

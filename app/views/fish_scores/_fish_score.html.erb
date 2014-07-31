@@ -1,13 +1,13 @@
 <% if fish_score.fish.is_active %>
   <div class='row'>
-    <div class='col-md-1 fishScoreValue'>
+    <div class='col-md-2 fishScoreBox'>
       <%= render partial: 'fish_score_value', locals: {value: ( fish_score.value * Settings.max_fish_score).round} %>
     </div>
-    <div class='col-md-11'>
-      <h4><%= fish_score.fish.name %></h4>
+    <div class='col-md-10 fishScoreBox'>
       <% if !fish_score.fish.image.blank? %>
         <img src='<%= fish_score.fish.image %>' alt='<%= fish_score.fish.name %>' class='fishScoreFishImage'/>
       <% end %>
+      <div class="fishScoreFishName"><%= fish_score.fish.name %></div>
     </div>
   </div>
 <% end %>
