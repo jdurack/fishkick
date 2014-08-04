@@ -2,10 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.guideImage {
-  max-width: 100px;
-}
-
 .usgsDataChart {
   max-width: 600px;
 }
@@ -61,6 +57,22 @@
 .siteMap {
   height: 250px;
 }
+
+
+.guideImage {
+  height: 100px;
+ -webkit-border-radius: 50px;
+ -moz-border-radius: 50px;
+ -ms-border-radius: 50px;
+ -o-border-radius: 50px;
+  border-radius: 50px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+  -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
+}
+
+
+
 
 .fishScoreValueCircle_0 {
   fill: #D11919

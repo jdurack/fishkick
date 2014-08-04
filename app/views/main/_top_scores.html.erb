@@ -10,7 +10,7 @@
           siteNameURL: '<%= fish_score.site.name_url %>',
           siteLatitude: '<%= fish_score.site.latitude %>',
           siteLongitude: '<%= fish_score.site.longitude %>',
-          score: '<%= fish_score.value %>',
+          score: '<%= ( fish_score.value * Settings.max_fish_score).round  %>',
           fishId: '<%= fish_score.fish.id %>',
           fishName: '<%= fish_score.fish.name %>',
           fishImage: '<%= raw fish_score.fish.image %>'
@@ -55,17 +55,27 @@
     </select>
 
     <div>
-      <div ng-repeat="topScore in topScores | filter:{fishId:fishSelect} | limitTo:<%= Settings.max_top_scores %> " class='row'>
-        <div class='col-md-2'>
-          {{topScore.score}}
-        </div>
-        <div class='col-md-2'>
-          {{topScore.siteName}}
-        </div>
-        <div class='col-md-8' ng-bind-html-unsafe='topScore.fishImage'>
-          {{topScore.fishName}}
-          <img ng-src='{{topScore.fishImage}}' alt='{{topScore.fishName}} fish' class='topFishScoreFishImage'/>
-        </div>
+      <div ng-repeat="topScore in topScores | filter:{fishId:fishSelect}  | orderBy:'-score' | limitTo:<%= Settings.max_top_scores %> " class='row'>
+        <a href='/report/{{topScore.siteNameURL}}'>
+          <div class='col-md-2'>
+            <svg class="fishScoreValue">
+              <circle class="fishScoreValueCircle_{{topScore.score}}" cx="50%" cy="50%" r="50%" stroke-width="4" />
+              <text ng-if='topScore.score==10' x="7%" y="74%" fill="white" font-family="Verdana" font-size="200%">
+                {{topScore.score}}
+              </text>
+              <text ng-if='topScore.score<10' x="29%" y="74%" fill="white" font-family="Verdana" font-size="200%">
+                {{topScore.score}}
+              </text>
+            </svg>
+          </div>
+          <div class='col-md-2'>
+            {{topScore.siteName}}
+          </div>
+          <div class='col-md-8' ng-bind-html-unsafe='topScore.fishImage'>
+            {{topScore.fishName}}
+            <img ng-src='{{topScore.fishImage}}' alt='{{topScore.fishName}} fish' class='topFishScoreFishImage'/>
+          </div>
+        </a>
       </div>
     </div>
 

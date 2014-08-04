@@ -22,7 +22,7 @@
       <!-- FishScores and USGS Data -->
       <div class='row'>
         <div class='col-md-5 fishScoreArea'>
-          <%= render @site.fish_scores %>
+          <%= render @site.fish_scores.sort_by {|fs| -fs.value} %>
         </div>
         <div class='col-md-7'>
           <%= render 'usgs_data', locals: {site: @site} %>
@@ -44,7 +44,6 @@
       <% if @site.hasActiveSiteFishInfos() %>
         <div class='row'>
           <div class='col-md-1'>
-            Fish
           </div>
           <div class='col-md-11'>
             <div class='row'>
@@ -56,7 +55,7 @@
             </div>
           </div>
         </div>
-        <%= render @site.site_fish_infos %>
+        <%= render @site.site_fish_infos.sort_by {|sfi| sfi.fish.name} %>
       <% end %>
 
       <!-- Description, photos, map -->
@@ -84,7 +83,7 @@
     <!-- Guides -->
     <div class='col-md-2'>
       <% if @guides.size() > 0 %>
-        <h4><center>Book a guide</center></h4>
+        <h4><center>Talk to a guide</center></h4>
         <%= render @guides, locals: {site: @site} %>
       <% end %>
     </div>
