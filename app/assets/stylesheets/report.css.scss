@@ -58,21 +58,44 @@
   height: 250px;
 }
 
+.guideContainer {
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
 
-.guideImage {
-  height: 100px;
- -webkit-border-radius: 50px;
- -moz-border-radius: 50px;
- -ms-border-radius: 50px;
- -o-border-radius: 50px;
-  border-radius: 50px;
+.guideImageBox {
+  padding: 0px;
+}
+
+.guideEmailLink {
+  color: #555;
+}
+
+.guideInfoBox {
+  padding-left: 15px;
+}
+
+.guideImageCircular {
+  width: 70px;
+  height: 70px;
+  border-radius: 35px;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  background-size: cover;
+  background-position: center;
+  background-repeat:no-repeat;
   box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
   -moz-box-shadow: 0 0 8px rgba(0, 0, 0, .8);
 }
 
+.guidePhone {
+  font-size:14px;
+}
 
-
+.guideEmail {
+  
+}
 
 .fishScoreValueCircle_0 {
   fill: #D11919

@@ -1,20 +1,20 @@
-<div class='row'>
-  <div class='col-md-5'>
+<div class='row guideContainer'>
+  <div class='col-md-4 guideImageBox'>
     <% if !guide.primary_image.blank? %>
-      <img src='<%= guide.primary_image %>' alt="<%= guide.getFullName() %> photo" class='guideImage'/>
+      <div class='guideImageCircular' style="background-image:url(<%= guide.primary_image %>);"></div>
     <% end %>
   </div>
-  <div class='col-md-7'>
-    <p><%= guide.getFullName() %></p>
+  <div class='col-md-8 guideInfoBox'>
+    <strong><%= guide.getFullName() %></strong>
     <% if !guide.phone_number.blank? %>
-      <p><%= guide.phone_number %></p>
+      <div class="guidePhone"><%= guide.phone_number %></div>
     <% end %>
     <% if !guide.email_address.blank? %>
-      <p>
-        <a href="mailto:<%= guide.email_address %>?Subject=<%= u("FishKick: Guide booking on " + @site.name) %>" target="_blank">
+      <div class="guideEmail">
+        <a class="guideEmailLink" href="mailto:<%= guide.email_address %>?Subject=<%= u("FishKick: Guide booking on " + @site.name) %>" target="_blank">
           <%= guide.email_address %>
         </a>
-      </p>
+      </div>
     <% end %>
   </div>
 </div>
