@@ -5,6 +5,16 @@
 unless window.FishKick
   window.FishKick = {}
 
+window.FishKick.setOverlayImages = () ->
+  $('.overlayImage').each (index, overlayImageDiv) ->
+    overlayImage = $(overlayImageDiv)
+    image = overlayImage.attr 'data-image'
+    currentBackgroundImage = overlayImage.css 'background-image'
+    newBackgroundImage = currentBackgroundImage + ", url('" + image + "')"
+    overlayImage.css 'background-image', newBackgroundImage
+
+$(document).on 'page:change', window.FishKick.setOverlayImages
+
 window.FishKick.initializeMap = () ->
 
   mapOptions =
