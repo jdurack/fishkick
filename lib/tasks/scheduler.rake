@@ -26,6 +26,96 @@ def calculateAndSaveFishScore( site_fish_info, date )
 end
 
 
+# Generate Comments
+##################################
+
+task :generate_comments => :environment do
+  puts 'generate_comments running...'
+
+  #first, run calculate_fish_scores
+  Rake::Task["calculate_fish_scores"].execute
+
+  sites = Site.where(is_active: true)
+  
+  sites.each do |site|
+    today = Date.today
+    now = Time.now
+    recent_report_comment = site.report_comments.detect{|c| c.datetime.to_date == Date.today }
+    generateComment site, recent_report_comment
+  end
+
+  puts 'generate_comments done.'
+end
+
+def generateComment( site, recent_report_comment )
+  puts 'generateComment...'
+  if !recent_report_comment.blank?
+    report_comment = recent_report_comment
+  else
+    report_comment = ReportComment.new do |rc|
+      rc.site_id = site.id
+      rc.datetime = Time.now
+    end
+  end
+  report_comment.comment = generateCommentText site
+  report_comment.save()
+end
+
+
+def generateCommentText( site )
+  bestFishScore = getBestFishScore site
+  bestFishScoreValue = (bestFishScore.value * Settings.max_fish_score).round
+  bestFistName = bestFishScore.fish.name.downcase
+  siteName = site.name
+  siteLeadIn = 'on the'
+  if site.water_body_type == 'lake'
+    siteLeadIn = 'at'
+  end
+  comment_text = getCommentTextTemplate bestFishScoreValue
+  comment_text.gsub! "{{fishName}}", bestFistName
+  comment_text.gsub! "{{siteLeadIn}}", siteLeadIn
+  comment_text.gsub! "{{siteName}}", siteName
+  return comment_text
+end
+
+def getBestFishScore( site )
+  fish_scores = site.fish_scores.sort_by {|fs| -fs.value}
+  if !fish_scores.blank?
+    return fish_scores[0]
+  end
+  return nil
+end
+
+def getCommentTextTemplate( fish_score )
+  case fish_score
+  when 0
+    return "There are absolutely no {{fishName}} {{siteLeadIn}} {{siteName}} now – don’t even waste your time."
+  when 1
+    return "Pretty lousy time to fish for {{fishName}} {{siteLeadIn}} {{siteName}} at this point – try to find another place to go this week."
+  when 2
+    return "Not a good week for {{fishName}} {{siteLeadIn}} {{siteName}} – some bites out there, but it’s probably just the locals at this point."
+  when 3
+    return "Pretty anemic {{siteLeadIn}} {{siteName}} for {{fishName}} today – probably a hit or miss day out there."
+  when 4
+    return "Not terrible, but not great out there {{siteLeadIn}} {{siteName}} for {{fishName}}, probably worth seeing if there’s anything better out there today."
+  when 5
+    return "Decent action on {{fishName}} {{siteLeadIn}} {{siteName}} – a good locals day, but don’t drive 4 hours for this!"
+  when 6
+    return "Solid fishing {{siteLeadIn}} {{siteName}} – caught a few {{fishName}}, but I’ve had better days out there."
+  when 7
+    return "A pretty good day all around {{siteLeadIn}} {{siteName}} for {{fishName}}. Definitely worth the trip."
+  when 8
+    return "Great week for {{fishName}} {{siteLeadIn}} {{siteName}} – conditions are right and the fish are biting."
+  when 9
+    return "Phenomenal {{fishName}} fishing out {{siteLeadIn}} {{siteName}} this week. Great time to go and catch a few {{fishName}}."
+  when 10
+    return "Excellent {{fishName}} action {{siteLeadIn}} {{siteName}} right now. It doesn't get better than this. Get out there now if you possibly can."
+  else
+    return "Nothing happening here this week."
+  end
+end
+
+
 # Download USGS Data
 ##################################
 

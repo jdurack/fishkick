@@ -5,6 +5,7 @@ class Site < ActiveRecord::Base
   has_many :fish_scores, -> { where(fish_scores: {date: Date.today}) }, dependent: :destroy
   has_many :site_images, dependent: :destroy
   has_many :site_map_lines, dependent: :destroy
+  has_many :report_comments, dependent: :destroy
 
   accepts_nested_attributes_for :site_fish_infos
   accepts_nested_attributes_for :site_map_lines, allow_destroy: true

@@ -24,25 +24,31 @@
 
     <div class='col-md-10'>
 
-      <!-- FishScores and USGS Data -->
+      <!-- FishScores and Comments -->
       <div class='row'>
         <div class='col-md-5 fishScoreArea'>
           <%= render @site.fish_scores.sort_by {|fs| -fs.value} %>
         </div>
         <div class='col-md-7'>
+          <%= render @site.report_comments.sort_by {|rc| rc.datetime} %>
+        </div>
+      </div>
+
+
+      <!-- Graphs -->
+      <div class='row'>
+        <!-- USGS Data -->
+        <div class='col-md-6'>
           <%= render 'usgs_data', locals: {site: @site} %>
         </div>
-      </div>
 
-
-      <!-- Weather -->
-      <% if @site.hasWeatherData() %>
-      <div class='row'>
-        <div class='col-md-12'>
-          <%= render 'weather_data', locals: {site: @site} %>
+        <!-- Weather -->
+        <div class='col-md-6'>
+          <% if @site.hasWeatherData() %>
+            <%= render 'weather_data', locals: {site: @site} %>
+          <% end %>
         </div>
       </div>
-      <% end %>
 
 
       <!-- SiteFishInfos -->
