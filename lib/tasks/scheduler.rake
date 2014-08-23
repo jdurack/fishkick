@@ -40,7 +40,8 @@ task :generate_comments => :environment do
   sites.each do |site|
     today = Date.today
     now = Time.now
-    recent_report_comment = site.report_comments.detect{|c| c.datetime.to_date == Date.today }
+    #recent_report_comment = site.report_comments.detect{|c| c.datetime.to_date == Date.today }
+    recent_report_comment = nil
     generateComment site, recent_report_comment
   end
 
@@ -58,6 +59,7 @@ def generateComment( site, recent_report_comment )
     end
   end
   report_comment.comment = generateCommentText site
+  report_comment.comment += generateCommentText site
   report_comment.save()
 end
 

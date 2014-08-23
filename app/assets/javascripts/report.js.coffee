@@ -5,6 +5,7 @@
 unless window.FishKick
   window.FishKick = {}
 
+
 window.FishKick.setOverlayImages = () ->
   $('.overlayImage').each (index, overlayImageDiv) ->
     overlayImage = $(overlayImageDiv)
@@ -14,6 +15,7 @@ window.FishKick.setOverlayImages = () ->
     overlayImage.css 'background-image', newBackgroundImage
 
 $(document).on 'page:change', window.FishKick.setOverlayImages
+
 
 window.FishKick.initializeMap = () ->
 
@@ -54,14 +56,19 @@ window.FishKick.drawUSGSDataChart = () ->
   data = google.visualization.arrayToDataTable window.FishKick.usgsChartData
     
   options =
-    title: window.FishKick.usgsChartTitle
+    #title: window.FishKick.usgsChartTitle
     curveType: 'function'
     legend:
-      position: 'bottom'
+      position: 'none'
+    backgroundColor:
+      fill:'transparent'
+    hAxis:
+      minTextSpacing: 150
 
   chartElement = document.getElementById 'usgsDataChart'
   chart = new google.visualization.LineChart chartElement
   chart.draw data, options
+
 
 window.FishKick.drawWeatherDataChart = () ->
 
@@ -73,6 +80,8 @@ window.FishKick.drawWeatherDataChart = () ->
       title: ''
       titleTextStyle:
         color: 'red'
+    backgroundColor:
+      fill:'transparent'
 
   chart = new google.visualization.ColumnChart document.getElementById('weatherDataChart')
   chart.draw(data, options);

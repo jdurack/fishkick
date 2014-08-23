@@ -1,0 +1,16 @@
+<div class='row siteFishInfosArea'>
+  <div class='row'>
+    <div class='col-md-1'>
+    </div>
+    <div class='col-md-11'>
+      <div class='row'>
+        <% for i in 0..11 %>
+          <div class='col-md-1 siteFishInfoMonth'>
+            <%= I18n.t('date.abbr_month_names')[i+1] %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= render @site.site_fish_infos.sort_by {|sfi| sfi.fish.name} %>
+</div>

@@ -1,9 +1,9 @@
 <% if fish_score.fish.is_active %>
-  <div class='row'>
-    <div class='col-md-2 fishScoreBox'>
+  <div class='row fishScoreBox'>
+    <div class='col-md-3 '>
       <%= render partial: 'shared/fish_score_value', locals: {value: ( fish_score.value * Settings.max_fish_score).round} %>
     </div>
-    <div class='col-md-10 fishScoreBox'>
+    <div class='col-md-9 fishScoreImageAndLabelBox'>
       <% if !fish_score.fish.image.blank? %>
         <img src='<%= fish_score.fish.image %>' alt='<%= fish_score.fish.name %>' class='fishScoreFishImage'/>
       <% end %>

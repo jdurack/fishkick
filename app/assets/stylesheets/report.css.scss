@@ -2,6 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.reportSection {
+  margin-bottom: 45px;
+}
+
+.subheader {
+  margin-bottom: 10px;
+  font-size:140%;
+  text-align:left;
+}
+
 .usgsDataChart {
   max-width: 600px;
 }
@@ -11,8 +21,8 @@
   max-height: 300px;
 }
 
+
 .fishScoreArea {
-  margin-top: 40px;
 }
 
 .fishScoreValue {
@@ -21,8 +31,12 @@
 }
 
 .fishScoreBox {
-  display: inline-block;
   margin-top: 20px;
+}
+
+.fishScoreImageAndLabelBox {
+  margin-top: -3px;
+  padding-left: 23px;
 }
 
 .fishScoreFishImage {
@@ -36,9 +50,44 @@
   font-size: 15px;
 }
 
+.reportCommentsArea {
+  padding-right: 50px;
+}
+
+.recentReports {
+  display: inline-block;
+}
+
+.addReportComment {
+  float: right;
+  display: inline-block;
+}
+
+.reportCommentBox {
+  margin-top:20px;
+}
+
+.reportCommentDate {
+  font-style:italic;
+}
+
+
+.siteFishInfosArea {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.siteFishInfoMonth {
+  text-align: center;
+}
+
 .siteFishInfoCircleGraphic {
   height: 30px;
   width: 30px;
+}
+
+.siteFishInfoCircleGraphicBox {
+  text-align: center
 }
 
 .siteFishInfoCircle {

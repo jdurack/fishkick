@@ -1,2 +1,6 @@
-<%= report_comment.comment %>
-<i><%= report_comment.datetime.to_date.strftime("%A %B %-d") %></i>
+<div class='reportCommentBox'>
+  <div class='reportCommentDate'>
+    <%= report_comment.datetime.to_date.strftime("%A, %B %-d") %>
+  </div>
+  <%= report_comment.comment %>
+</div>

@@ -15,7 +15,7 @@
 
   <div class='row'>
 
-    <div>
+    <div class="reportSection">
       <div class="reportPrimaryImage overlayImage" data-image="<%= @site.primary_image %>">
         <h1 class="overlayText left"><%= @site.name %> Fishing Report</h1>
         <h4 class="overlayText right"><%= Date.today.strftime("%A %B %-d, %Y") %></h4>
@@ -25,55 +25,52 @@
     <div class='col-md-10'>
 
       <!-- FishScores and Comments -->
-      <div class='row'>
-        <div class='col-md-5 fishScoreArea'>
+      <div class='row reportSection'>
+        <div class='col-md-3 fishScoreArea'>
+          <div class='subheader'>Fish Scores</div>
           <%= render @site.fish_scores.sort_by {|fs| -fs.value} %>
         </div>
-        <div class='col-md-7'>
+        <div class='col-md-9 reportCommentsArea'>
+          <div class='subheader recentReports'>Recent Reports</div>
+          <div class='addReportComment btn btn-default'>add report</div>  
           <%= render @site.report_comments.sort_by {|rc| rc.datetime} %>
         </div>
       </div>
 
 
       <!-- Graphs -->
-      <div class='row'>
-        <!-- USGS Data -->
-        <div class='col-md-6'>
-          <%= render 'usgs_data', locals: {site: @site} %>
-        </div>
+      <% if @site.hasUSGSData() or @site.hasWeatherData() %>
+        <div class='row reportSection'>
+          <!-- USGS Data -->
+          <div class='col-md-6'>
+            <% if @site.hasUSGSData() %>
+              <%= render 'usgs_data', locals: {site: @site} %>
+            <% end %>
+          </div>
 
-        <!-- Weather -->
-        <div class='col-md-6'>
-          <% if @site.hasWeatherData() %>
-            <%= render 'weather_data', locals: {site: @site} %>
-          <% end %>
+          <!-- Weather -->
+          <div class='col-md-6'>
+            <% if @site.hasWeatherData() %>
+              <%= render 'weather_data', locals: {site: @site} %>
+            <% end %>
+          </div>
         </div>
-      </div>
-
+      <% end %>
 
       <!-- SiteFishInfos -->
       <% if @site.hasActiveSiteFishInfos() %>
-        <div class='row'>
-          <div class='col-md-1'>
-          </div>
-          <div class='col-md-11'>
-            <div class='row'>
-              <% for i in 0..11 %>
-                <div class='col-md-1'>
-                  <%= I18n.t('date.abbr_month_names')[i+1] %>
-                </div>
-              <% end %>
-            </div>
+        <div class='row reportSection'>
+          <div class='col-md-12'>
+            <div class='subheader'>Seasonality</div>
+            <%= render 'site_fish_infos', locals: {site_fish_infos: @site.site_fish_infos.sort_by {|sfi| sfi.fish.name} } %>
           </div>
         </div>
-        <%= render @site.site_fish_infos.sort_by {|sfi| sfi.fish.name} %>
       <% end %>
 
       <!-- Description, photos, map -->
-      <div class='row'>
+      <div class='row reportSection'>
         <div class='col-md-7'>
           <% if @site.description %>
-            <h4>Description of <%= @site.name %></h4>
             <p>
               <%= @site.description %>
             </p>
@@ -94,7 +91,7 @@
     <!-- Guides -->
     <div class='col-md-2'>
       <% if @guides.size() > 0 %>
-        <h4><left>Talk to a guide</left></h4>
+        <div class='subheader'>Talk to a guide</div>
         <%= render @guides, locals: {site: @site} %>
       <% end %>
     </div>
