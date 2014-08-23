@@ -3,8 +3,12 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
+
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#JRD: dropping sqlite3 because we're using postgresql
+#based on: http://stackoverflow.com/questions/10455527/sqlite3-h-missing-when-pushing-rails-app-to-heroku
+#gem 'sqlite3'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
