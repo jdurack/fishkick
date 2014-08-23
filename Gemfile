@@ -55,3 +55,6 @@ gem 'fog'
 gem 'nested_form'
 gem 'tzinfo-data'
 gem 'rails_12factor', group: :production
+
+#from https://devcenter.heroku.com/articles/getting-started-with-rails4
+gem 'unicorn'
