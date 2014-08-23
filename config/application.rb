@@ -22,5 +22,6 @@ module Fishkick
 
     #JRD
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
+    config.serve_static_assets = true
   end
 end
