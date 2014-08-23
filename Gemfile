@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+#JRD Setting ruby version
+ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.0'
@@ -43,6 +45,7 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 
+
 #JRD
 gem 'pg'
 gem 'devise'
@@ -51,3 +54,4 @@ gem 'carrierwave'
 gem 'fog'
 gem 'nested_form'
 gem 'tzinfo-data'
+gem 'rails_12factor', group: :production
