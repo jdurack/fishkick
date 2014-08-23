@@ -10,7 +10,7 @@
 
             <svg class="siteFishInfoCircleGraphic">
               <clipPath id="cut-off-line-<%= site_fish_info.id.to_s + "-" + i.to_s %>">
-                <rect x="0" y="0" width="<% if site_fish_info['month_value_' + i.to_s ] == 0 %>0%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.25 %>30%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.5 %>50%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.75 %>70%<% else %>100%<% end %>" height="100%" />
+                <rect x="0" y="<% if site_fish_info['month_value_' + i.to_s ] == 0 %>100%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.25 %>70%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.5 %>50%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.75 %>30%<% else %>0%<% end %>" height="100%" width="100%" />
               </clipPath>
               <circle cx="50%" cy="50%" r="46%" class="siteFishInfoCircle" clip-path="url(#cut-off-line-<%= site_fish_info.id.to_s + "-" + i.to_s%>)" />
               <circle cx="50%" cy="50%" r="46%" stroke-width="8%" fill="none" class="siteFishInfoCircleBorder" />
