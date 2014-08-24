@@ -13,3 +13,4 @@
 
 #= require jquery.min
 #= require bootstrap
+#= require googleAnalytics
