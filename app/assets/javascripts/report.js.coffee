@@ -35,10 +35,10 @@ window.FK.initializeSiteMap = () ->
     # Construct the polygon.
     polygon = new google.maps.Polygon
       paths: mapLineData[0]
-      strokeColor: '#0000BB'
+      strokeColor: '#26569E'
       strokeOpacity: 0.8
       strokeWeight: 0
-      fillColor: '#0000BB'
+      fillColor: '#26569E'
       fillOpacity: 0.8
 
     polygon.setMap map
@@ -48,7 +48,7 @@ window.FK.initializeSiteMap = () ->
       polyLine = new google.maps.Polyline
         path: lineData
         geodesic: true
-        strokeColor: '#0000BB'
+        strokeColor: '#26569E'
         strokeOpacity: 1.0
         strokeWeight: 4
 
