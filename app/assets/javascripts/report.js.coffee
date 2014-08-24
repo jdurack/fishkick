@@ -66,11 +66,21 @@ window.FK.drawUSGSDataChart = () ->
       position: 'none'
     backgroundColor:
       fill:'transparent'
-    hAxis:
-      slantedText: false
-      maxTextLines: 1
-      minTextSpacing: 40
-
+    hAxis: 
+      ticks: window.FK.usgsChartDataTicks
+      gridlines:
+          color: 'transparent'
+      baselineColor: '#aaaaaa'
+    vAxis:
+      gridlines:
+          color: 'transparent'
+      baselineColor: '#aaaaaa'
+      minValue: 0
+    lineWidth: 7
+    colors: ['#2a5d5d']
+    fontName: 'Lato'
+    fontSize: '14'
+      
   chartElement = document.getElementById 'usgsDataChart'
   chart = new google.visualization.LineChart chartElement
   chart.draw data, options

@@ -6,10 +6,34 @@
 
   window.FK.usgsChartTitle = "<%= @site.getUSGSDataLabel() %>";
   window.FK.usgsChartData = [["Date/time", "<%= @site.getUSGSDataLabel() %>"]];
+  var minDate = null;
+  var maxDate = new Date();
   <% @site.getUSGSData().each do |datum| %>
-    window.FK.usgsChartData.push(["<%= datum['datetime'].strftime("%-m/%-d") %>", <%= datum['value'] %>]);
+    window.FK.usgsChartData.push([new Date("<%= datum['datetime'] %>"), <%= datum['value'] %>]);
+    
+    var date = new Date("<%= datum['datetime'] %>")
+    if ( ( minDate == null ) || ( date < minDate ) ) {
+      minDate = date;
+    }
   <% end %>
-  
+
+  window.FK.usgsChartDataTicks = [];
+  if ( minDate ) {
+    var date = minDate;
+    while ( date <= maxDate ) {
+
+
+      var tickDate = new Date( date );
+      var tickLabel = ( (date.getMonth() + 1) + '/' + date.getDate() );
+
+      var newTick = {
+          v: tickDate
+        , f: tickLabel
+      };
+      window.FK.usgsChartDataTicks.push(newTick);
+      date.setDate(date.getDate() + 1);
+    }
+  }
 <% end %>
 
 <% content_for :head do %>
