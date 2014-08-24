@@ -13,12 +13,9 @@
 }
 
 .usgsDataChart {
-  max-width: 600px;
 }
 
 .weatherDataChart {
-  max-width: 900px;
-  max-height: 300px;
 }
 
 
@@ -97,6 +94,11 @@
 .siteFishInfoCircleBorder {
   fill: none;
   stroke: #444444;
+}
+
+.siteMediaBox {
+  padding-left: 15px;
+  padding-bottom: 30px;
 }
 
 .siteMap {

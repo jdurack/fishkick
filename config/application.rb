@@ -23,5 +23,9 @@ module Fishkick
     #JRD
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
     config.serve_static_assets = true
+
+    config.assets.precompile += %w( admin.js )
+    config.assets.precompile += %w( main.js )
+    config.assets.precompile += %w( report.js )
   end
 end

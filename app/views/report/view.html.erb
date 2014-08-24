@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'report' %>
+<% end %>
+
 <% unless @site %>
   <h4>Site not found</h4>
   <a href='/'>Go back</a>
@@ -5,12 +9,6 @@
 
   <% content_for :title do %>
     <%= @site.name %> Fishing Report
-  <% end %>
-
-  <% content_for :head do %>
-    <%= javascript_tag do -%>
-      google.load('visualization', '1.0', {'packages':['corechart']});
-    <% end %>
   <% end %>
 
   <div class='row'>
@@ -69,20 +67,31 @@
 
       <!-- Description, photos, map -->
       <div class='row reportSection'>
-        <div class='col-md-7'>
-          <% if @site.description %>
-            <p>
-              <%= @site.description %>
-            </p>
-          <% end %>
+        <div class='row'>
+          <div class='col-md-12'>
+            <div class='subheader'><%= @site.name %></div>
+          </div>
         </div>
-        <div class='col-md-5'>
-          <% if @site.site_images.size() > 0 %>
-            <%= render 'site_image_carousel', locals: {site: @site} %>
-          <% end %>
-          <% if @site.hasGeoData() %>
-            <%= render 'site_map', locals: {site: @site} %>
-          <% end %>
+        <div class='row'>
+          <div class='col-md-7'>
+            <% if @site.description %>
+              <p>
+                <%= @site.description %>
+              </p>
+            <% end %>
+          </div>
+          <div class='col-md-5'>
+            <% if @site.site_images.size() > 0 %>
+              <div class='siteMediaBox'>
+                <%= render 'site_image_carousel', locals: {site: @site} %>
+              </div>
+            <% end %>
+            <% if @site.hasGeoData() %>
+              <div class='siteMediaBox'>
+                <%= render 'site_map', locals: {site: @site} %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
 
@@ -99,4 +108,8 @@
   </div>
   
 
+<% end %>
+
+<% content_for :head do %>
+  window.FK.init()
 <% end %>

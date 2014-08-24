@@ -156,12 +156,6 @@ class Site < ActiveRecord::Base
     startDay = ( Date.today - Settings.report.usgs_data_lookback_days.days ).to_s
     whereString = "site_id = " + self.id.to_s + " AND datetime >= '" + startDay + "'" + " AND report_data_parameter_id = " + usgsDataParameter.id.to_s
     usgsData = ReportData.where(whereString)
-    usgsData.each do |d|
-
-      puts 'datetime before: ' + d.datetime.to_s
-      d.datetime = d.datetime.to_date.strftime("%-m / %-d")
-      puts 'datetime after: ' + d.datetime.to_s
-    end
     return usgsData
   end
 

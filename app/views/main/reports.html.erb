@@ -1,3 +1,7 @@
+<% content_for :head do %>
+  <%= javascript_include_tag 'main' %>  
+<% end %>
+
 <% @sites.each do |site| %>
   <p>
     <a href='/report/<%= site.name_url %>' alt='<%= site.name %> fishing report'>

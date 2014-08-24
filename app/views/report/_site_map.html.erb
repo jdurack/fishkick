@@ -2,10 +2,10 @@
 </div>
 
 <%= javascript_tag do -%>
-  var mapCenterLatitude = <%= @site.getMapCenter()['latitude'] %>;
-  var mapCenterLongitude = <%= @site.getMapCenter()['longitude'] %>;
 
-  var mapZoomLevel = <%= @site.getMapZoomLevel() %>;
+  window.FK.mapCenterLatitude = <%= @site.getMapCenter()['latitude'] %>;
+  window.FK.mapCenterLongitude = <%= @site.getMapCenter()['longitude'] %>;
+  window.FK.mapZoomLevel = <%= @site.getMapZoomLevel() %>;
 
   var siteIsLake = false;
   <% if @site.water_body_type == 'lake' %>
@@ -20,7 +20,5 @@
     <% end %>
     mapLineData.push( mapLine );
   <% end %>
-
-  $(document).on( 'page:change', window.FishKick.initializeMap );
 
 <% end %>

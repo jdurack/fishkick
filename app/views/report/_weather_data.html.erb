@@ -3,16 +3,16 @@
 
 <%= javascript_tag do -%>
 
-  window.FishKick.weatherChartTitle = "<%= @site.getWeatherDataTitle() %>";
-  window.FishKick.weatherChartData = [['Day', 'Recorded', 'Forecast']];
+  window.FK.weatherChartTitle = "<%= @site.getWeatherDataTitle() %>";
+  window.FK.weatherChartData = [['Day', 'Recorded', 'Forecast']];
   <% @site.getWeatherData().each do |date, datum| %>
-    window.FishKick.weatherChartData.push(["<%= date.to_s %>", <%= !datum['is_forecast'].blank? ? '0.0, ' + datum['value'].to_s : datum['value'].to_s + ', 0.0'%>]);
+    window.FK.weatherChartData.push(["<%= date.to_s %>", <%= !datum['is_forecast'].blank? ? '0.0, ' + datum['value'].to_s : datum['value'].to_s + ', 0.0'%>]);
   <% end %>
 
 <% end %>
 
 <% content_for :head do %>
   <%= javascript_tag do -%>
-    google.setOnLoadCallback(window.FishKick.drawWeatherDataChart);
+    google.setOnLoadCallback(window.FK.drawWeatherDataChart);
   <% end %>
 <% end %>

@@ -2,11 +2,24 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-unless window.FishKick
-  window.FishKick = {}
+#= require google-maps-api.min
+#= require jsapi.min
+
+console.log 'report.js running'
+
+window.FK || = {}
 
 
-window.FishKick.setOverlayImages = () ->
+window.FK.init = () ->
+
+  console.log 'init running (google viz load)'
+
+  google.load 'visualization', '1.0', {'packages':['corechart']}
+  window.FK.setOverlayImages()
+  window.FK.initializeSiteMap()
+
+
+window.FK.setOverlayImages = () ->
   $('.overlayImage').each (index, overlayImageDiv) ->
     overlayImage = $(overlayImageDiv)
     image = overlayImage.attr 'data-image'
@@ -14,14 +27,12 @@ window.FishKick.setOverlayImages = () ->
     newBackgroundImage = currentBackgroundImage + ", url('" + image + "')"
     overlayImage.css 'background-image', newBackgroundImage
 
-$(document).on 'page:change', window.FishKick.setOverlayImages
 
-
-window.FishKick.initializeMap = () ->
+window.FK.initializeSiteMap = () ->
 
   mapOptions =
-    zoom: mapZoomLevel
-    center: new google.maps.LatLng(mapCenterLatitude, mapCenterLongitude)
+    zoom: window.FK.mapZoomLevel
+    center: new google.maps.LatLng window.FK.mapCenterLatitude, window.FK.mapCenterLongitude
     mapTypeId: google.maps.MapTypeId.TERRAIN
 
   map = new google.maps.Map document.getElementById('siteMap'), mapOptions
@@ -48,34 +59,35 @@ window.FishKick.initializeMap = () ->
         strokeWeight: 4
 
       polyLine.setMap map
- 
 
 
-window.FishKick.drawUSGSDataChart = () ->
+window.FK.drawUSGSDataChart = () ->
 
-  data = google.visualization.arrayToDataTable window.FishKick.usgsChartData
+  data = google.visualization.arrayToDataTable window.FK.usgsChartData
     
   options =
-    #title: window.FishKick.usgsChartTitle
+    #title: window.FK.usgsChartTitle
     curveType: 'function'
     legend:
       position: 'none'
     backgroundColor:
       fill:'transparent'
     hAxis:
-      minTextSpacing: 150
+      slantedText: false
+      maxTextLines: 1
+      minTextSpacing: 40
 
   chartElement = document.getElementById 'usgsDataChart'
   chart = new google.visualization.LineChart chartElement
   chart.draw data, options
 
 
-window.FishKick.drawWeatherDataChart = () ->
+window.FK.drawWeatherDataChart = () ->
 
-  data = google.visualization.arrayToDataTable window.FishKick.weatherChartData
+  data = google.visualization.arrayToDataTable window.FK.weatherChartData
 
   options =
-    title: window.FishKick.weatherChartTitle
+    title: window.FK.weatherChartTitle
     hAxis:
       title: ''
       titleTextStyle:
@@ -83,5 +95,8 @@ window.FishKick.drawWeatherDataChart = () ->
     backgroundColor:
       fill:'transparent'
 
-  chart = new google.visualization.ColumnChart document.getElementById('weatherDataChart')
-  chart.draw(data, options);
+  chart = new google.visualization.ColumnChart document.getElementById 'weatherDataChart'
+  chart.draw data, options
+
+
+window.FK.init()

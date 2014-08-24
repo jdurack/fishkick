@@ -4,16 +4,16 @@
 
 <%= javascript_tag do -%>
 
-  window.FishKick.usgsChartTitle = "<%= @site.getUSGSDataLabel() %>";
-  window.FishKick.usgsChartData = [["Date/time", "<%= @site.getUSGSDataLabel() %>"]];
+  window.FK.usgsChartTitle = "<%= @site.getUSGSDataLabel() %>";
+  window.FK.usgsChartData = [["Date/time", "<%= @site.getUSGSDataLabel() %>"]];
   <% @site.getUSGSData().each do |datum| %>
-    window.FishKick.usgsChartData.push(["<%= datum['datetime'] %>", <%= datum['value'] %>]);
+    window.FK.usgsChartData.push(["<%= datum['datetime'].strftime("%-m/%-d") %>", <%= datum['value'] %>]);
   <% end %>
   
 <% end %>
 
 <% content_for :head do %>
   <%= javascript_tag do -%>
-    google.setOnLoadCallback(window.FishKick.drawUSGSDataChart);
+    google.setOnLoadCallback(window.FK.drawUSGSDataChart);
   <% end %>
 <% end %>
