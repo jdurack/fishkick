@@ -24,9 +24,6 @@ class @GoogleAnalytics
       GoogleAnalytics.trackPageview()
 
   @trackPageview: (url) ->
-
-    console.log 'trackPageview'
-
     unless GoogleAnalytics.isLocalRequest()
       if url
         window._gaq.push ["_trackPageview", url]

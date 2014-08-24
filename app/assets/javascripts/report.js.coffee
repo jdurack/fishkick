@@ -5,15 +5,9 @@
 #= require google-maps-api.min
 #= require jsapi.min
 
-console.log 'report.js running'
-
 window.FK || = {}
 
-
 window.FK.init = () ->
-
-  console.log 'init running (google viz load)'
-
   google.load 'visualization', '1.0', {'packages':['corechart']}
   window.FK.setOverlayImages()
   window.FK.initializeSiteMap()
@@ -97,6 +91,3 @@ window.FK.drawWeatherDataChart = () ->
 
   chart = new google.visualization.ColumnChart document.getElementById 'weatherDataChart'
   chart.draw data, options
-
-
-window.FK.init()
