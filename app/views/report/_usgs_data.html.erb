@@ -11,7 +11,7 @@
   <% @site.getUSGSData().each do |datum| %>
     window.FK.usgsChartData.push([new Date("<%= datum['datetime'] %>"), <%= datum['value'] %>]);
     
-    var date = new Date("<%= datum['datetime'] %>")
+    var date = new Date("<%= datum['datetime'] %>");
     if ( ( minDate == null ) || ( date < minDate ) ) {
       minDate = date;
     }

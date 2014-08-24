@@ -263,7 +263,6 @@ end
 def fetchWeatherDataJSON(site, is_forecast, date_to_lookup)
 
   puts 'fetchWeatherDataJSON, site.id: ' + site.id.to_s + ', is_forecast: ' + is_forecast.to_s + ', date_to_lookup: ' + date_to_lookup.to_s
-  return
 
   require 'net/http'
 

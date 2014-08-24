@@ -1,13 +1,41 @@
-<div id='weatherDataChart' class='weatherDataChart'></div>
+<div class='subheader'>Precipitation (in)</div>
 
+<div id='weatherDataChart' class='weatherDataChart'></div>
 
 <%= javascript_tag do -%>
 
   window.FK.weatherChartTitle = "<%= @site.getWeatherDataTitle() %>";
   window.FK.weatherChartData = [['Day', 'Recorded', 'Forecast']];
+  var minDate = null;
+  var maxDate = new Date();
   <% @site.getWeatherData().each do |date, datum| %>
-    window.FK.weatherChartData.push(["<%= date.to_s %>", <%= !datum['is_forecast'].blank? ? '0.0, ' + datum['value'].to_s : datum['value'].to_s + ', 0.0'%>]);
+    window.FK.weatherChartData.push([new Date("<%= date.to_s %>"), <%= !datum['is_forecast'].blank? ? '0.0, ' + datum['value'].to_s : datum['value'].to_s + ', 0.0'%>]);
+
+    var date = new Date("<%= datum['datetime'] %>");
+    if ( ( minDate == null ) || ( date < minDate ) ) {
+      minDate = date;
+    }
+    if ( ( maxDate == null ) || ( date > maxDate ) ) {
+      maxDate = date;
+    }
   <% end %>
+
+  window.FK.weatherChartDataTicks = [];
+  if ( minDate ) {
+    var date = minDate;
+    while ( date <= maxDate ) {
+
+      var tickDate = new Date( date );
+      var tickLabel = ( (date.getMonth() + 1) + '/' + date.getDate() );
+
+      var newTick = {
+          v: tickDate
+        , f: tickLabel
+      };
+      window.FK.weatherChartDataTicks.push(newTick);
+      date.setDate(date.getDate() + 1);
+    }
+  }
 
 <% end %>
 

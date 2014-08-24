@@ -91,13 +91,26 @@ window.FK.drawWeatherDataChart = () ->
   data = google.visualization.arrayToDataTable window.FK.weatherChartData
 
   options =
-    title: window.FK.weatherChartTitle
-    hAxis:
-      title: ''
-      titleTextStyle:
-        color: 'red'
+    #title: window.FK.weatherChartTitle
+    legend:
+      position: 'none'
     backgroundColor:
       fill:'transparent'
+    hAxis: 
+      ticks: window.FK.weatherChartDataTicks
+      gridlines:
+          color: 'transparent'
+      baselineColor: '#aaaaaa'
+    vAxis:
+      gridlines:
+          color: 'transparent'
+      baselineColor: '#aaaaaa'
+      minValue: 0
+    lineWidth: 7
+    colors: ['#2a5d5d']
+    fontName: 'Lato'
+    fontSize: '14'
+
 
   chart = new google.visualization.ColumnChart document.getElementById 'weatherDataChart'
   chart.draw data, options
