@@ -4,6 +4,7 @@
 
 #= require google-maps-api.min
 #= require jsapi.min
+#= require readmore.min
 
 window.FK || = {}
 
@@ -11,6 +12,7 @@ window.FK.init = () ->
   google.load 'visualization', '1.0', {'packages':['corechart']}
   window.FK.setOverlayImages()
   window.FK.initializeSiteMap()
+  window.FK.setReadMore()
 
 
 window.FK.setOverlayImages = () ->
@@ -21,6 +23,12 @@ window.FK.setOverlayImages = () ->
     newBackgroundImage = currentBackgroundImage + ", url('" + image + "')"
     overlayImage.css 'background-image', newBackgroundImage
 
+window.FK.setReadMore = () ->
+  $('#siteDescription').readmore
+    speed: 300
+    maxHeight: 510
+    moreLink: '<div class="btn btn-default">read more</div>'
+    lessLink: '<div class="btn btn-default">close</div>'
 
 window.FK.initializeSiteMap = () ->
 
