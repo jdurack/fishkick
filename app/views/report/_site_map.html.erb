@@ -3,10 +3,6 @@
 
 <%= javascript_tag do -%>
 
-  window.FK.mapCenterLatitude = <%= @site.getMapCenter()['latitude'] %>;
-  window.FK.mapCenterLongitude = <%= @site.getMapCenter()['longitude'] %>;
-  window.FK.mapZoomLevel = <%= @site.getMapZoomLevel() %>;
-
   var siteIsLake = false;
   <% if @site.water_body_type == 'lake' %>
     siteIsLake = true;

@@ -51,67 +51,6 @@ class Site < ActiveRecord::Base
     return center
   end
 
-  def getMapZoomLevel()
-
-
-    if !@zoomLevel.blank?
-      return @zoomLevel
-    end
-
-    # Zoom level should scale between 8 and 15
-    minZoom = 9
-    defaultZoom = 12
-    maxZoom = 15
-
-    # Calibration distances
-    minZoomCalibration = 10
-    maxZoomCalibration = 15
-    minZoomCalibrationDistance = 0.222
-    maxZoomCalibrationDistance = 0.005
-
-    minLatitude = nil
-    maxLatitude = nil
-    minLongitude = nil
-    maxLongitude = nil
-    numPoints = 0
-    self.getMapLineData().each do |mld|
-      mld.each do |point|
-        numPoints += 1
-        latitude = point['latitude'].to_f
-        longitude = point['longitude'].to_f
-        if minLatitude.nil? or latitude < minLatitude
-          minLatitude = latitude
-        end
-        if maxLatitude.nil? or latitude > maxLatitude
-          maxLatitude = latitude
-        end
-        if minLongitude.nil? or longitude < minLongitude
-          minLongitude = longitude
-        end
-        if maxLongitude.nil? or longitude > maxLongitude
-          maxLongitude = longitude
-        end
-      end
-    end
-
-    if numPoints == 0
-      @zoomLevel = defaultZoom
-    else
-      distance = Math.sqrt( ( (maxLatitude - minLatitude) ** 2 ) + ( (maxLongitude - minLongitude) ** 2 ) )
-      slope = ( minZoomCalibration - maxZoomCalibration ) / ( minZoomCalibrationDistance - maxZoomCalibrationDistance )
-      intercept = minZoomCalibration - ( slope * minZoomCalibrationDistance )
-      @zoomLevel = ( ( slope * distance ) + intercept ).round
-    end
-
-    if @zoomLevel > maxZoom
-      @zoomLevel = maxZoom
-    elsif @zoomLevel < minZoom
-      @zoomLevel = minZoom
-    end
-
-    return @zoomLevel
-  end
-
   def convertMapPointsToData(mapPoints)
     data = []
     dataPoints = mapPoints.split(/\)\(/)

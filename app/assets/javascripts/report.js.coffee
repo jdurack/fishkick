@@ -23,6 +23,7 @@ window.FK.setOverlayImages = () ->
     newBackgroundImage = currentBackgroundImage + ", url('" + image + "')"
     overlayImage.css 'background-image', newBackgroundImage
 
+
 window.FK.setReadMore = () ->
   $('#siteDescription').readmore
     speed: 300
@@ -30,14 +31,16 @@ window.FK.setReadMore = () ->
     moreLink: '<div class="btn btn-default">read more</div>'
     lessLink: '<div class="btn btn-default">close</div>'
 
+
 window.FK.initializeSiteMap = () ->
 
   mapOptions =
-    zoom: window.FK.mapZoomLevel
-    center: new google.maps.LatLng window.FK.mapCenterLatitude, window.FK.mapCenterLongitude
     mapTypeId: google.maps.MapTypeId.TERRAIN
+    #zoom: window.FK.mapZoomLevel
+    #center: new google.maps.LatLng window.FK.mapCenterLatitude, window.FK.mapCenterLongitude
 
   map = new google.maps.Map document.getElementById('siteMap'), mapOptions
+  bounds = new google.maps.LatLngBounds()
 
   if siteIsLake and ( mapLineData.length > 0 )
     # Construct the polygon.
@@ -48,6 +51,8 @@ window.FK.initializeSiteMap = () ->
       strokeWeight: 0
       fillColor: '#26569E'
       fillOpacity: 0.8
+    for mapPoint in mapLineData[0]
+        bounds.extend mapPoint
 
     polygon.setMap map
 
@@ -61,6 +66,10 @@ window.FK.initializeSiteMap = () ->
         strokeWeight: 4
 
       polyLine.setMap map
+      for mapPoint in lineData
+        bounds.extend mapPoint
+
+  map.fitBounds bounds
 
 
 window.FK.drawUSGSDataChart = () ->
