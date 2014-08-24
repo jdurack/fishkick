@@ -75,9 +75,12 @@
         <div class='row'>
           <div class='col-md-7'>
             <% if @site.description %>
-              <p>
+              <div id='siteDescription'>
                 <%= @site.description %>
-              </p>
+              </div>
+              <button type="button" class="btn btn-default moreDescriptionButton" data-toggle="collapse" data-target="#siteDescription">
+                read more...
+              </button>
             <% end %>
           </div>
           <div class='col-md-5'>
