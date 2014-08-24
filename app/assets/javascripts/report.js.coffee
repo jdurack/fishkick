@@ -36,6 +36,7 @@ window.FK.initializeSiteMap = () ->
 
   mapOptions =
     mapTypeId: google.maps.MapTypeId.TERRAIN
+    streetViewControl: false
     #zoom: window.FK.mapZoomLevel
     #center: new google.maps.LatLng window.FK.mapCenterLatitude, window.FK.mapCenterLongitude
 
