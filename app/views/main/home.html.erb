@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <%= javascript_include_tag 'main' %>  
+  <%= javascript_include_tag 'main' %>
 <% end %>
 
 <h1>FishKick home!</h1>
@@ -10,6 +10,6 @@
 
 <%= render 'top_scores', local: {sites: @sites} %>
 
-<% content_for :head do %>
+<%= javascript_tag do -%>
   window.FK.init()
 <% end %>

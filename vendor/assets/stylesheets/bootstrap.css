@@ -2681,7 +2681,9 @@ input[type="button"].btn-block {
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  /* JRD - changed '../fonts' to '/assets' */
+  /* JRD - changed '../fonts' to '/assets'
+  http://stackoverflow.com/questions/20255711/ruby-on-rails-bootstrap-glyphicons-not-working
+  */
   src: url('/assets/glyphicons-halflings-regular.eot');
   src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/assets/glyphicons-halflings-regular.woff') format('woff'), url('../assets/glyphicons-halflings-regular.ttf') format('truetype'), url('/assets/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }

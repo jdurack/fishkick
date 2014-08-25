@@ -6,7 +6,7 @@
     <h2>Top FishKick Scores</h2>
 
 
-    <select ng-model='fishSelect'>
+    <select ng-model='fishSelect' id='fishSelect'>
       <option value='' selected>All fish</option>
       <% @fish.each do |fish| %>
         <option value="<%= fish.id %>"><%= fish.name %></option>
@@ -43,13 +43,15 @@
   <!-- map -->
   <div class='col-md-6'>
 
-    <google-map center="map.center" zoom="map.zoom" >
+    <div class='mainMapContainer'>
+      <ui-gmap-google-map center="map.center" zoom="map.zoom" control='googleMap' options='googleMapOptions'>
 
-      <div ng-repeat="topScore in topScores | filter:{fishId:fishSelect} | limitTo:<%= Settings.max_top_scores %> " >
-        <marker coords="{latitude:topScore.siteLatitude,longitude:topScore.siteLongitude}" icon="'<%= image_path('beachflag.png') %>'"></marker>
-      </div>
+        <div ng-repeat="topScore in topScores | filter:{fishId:fishSelect} | limitTo:<%= Settings.max_top_scores %> " >
+          <ui-gmap-marker idKey="topScore.$$hashKey" coords="{latitude:topScore.siteLatitude,longitude:topScore.siteLongitude}" ></ui-gmap-marker>
+        </div>
 
-    </google-map>
+      </ui-gmap-google-map>
+    </div>
 
   </div>
 
@@ -58,12 +60,12 @@
 
 <%= javascript_tag do -%>
 
-  console.log('top_scores template js running')
+  window.FK.initializeTopScoreController()
 
-  window.FK.bootstrapAngular()
+  window.FK.topScores = []
 
   <% @fish_scores.each do |fish_score| %>
-    window.FK.pushTopScore({
+    window.FK.topScores.push({
       siteName: '<%= fish_score.site.name %>',
       siteNameURL: '<%= fish_score.site.name_url %>',
       siteLatitude: '<%= fish_score.site.latitude %>',
@@ -74,5 +76,16 @@
       fishImage: '<%= raw fish_score.fish.image %>'
     });
   <% end %>
+
+  scope = window.FK.getTopScoresAngularScope()
+
+  if ( scope ) {
+    scope.$apply( function() {
+      scope.topScores = window.FK.topScores;
+      window.FK.initializeMainMap()
+    });
+  }
+
+  
 
 <% end %>
