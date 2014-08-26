@@ -2,6 +2,38 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.headerLink {
+  margin-top: 27px;
+  font-size: 24px;
+}
+
+.footerLink {
+  font-size: 16px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.reportsPageBox {
+  margin-top: 45px;
+  margin-top: 45px;
+}
+
+
+.fishingReportsTitle {
+  font-size: 33px;
+}
+
+.reportLinkBox {
+}
+
+.reportLink {
+  font-size: 18px;
+}
+
+.reportsPageImage {
+  width: 100%;
+}
+
 .mainImage {
   /* full-bleed instructions: http://css-tricks.com/perfect-full-page-background-image/ */;
   width: 100%;

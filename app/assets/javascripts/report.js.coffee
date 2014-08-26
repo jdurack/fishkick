@@ -94,7 +94,7 @@ window.FK.drawUSGSDataChart = () ->
           color: 'transparent'
       baselineColor: '#aaaaaa'
       minValue: 0
-    lineWidth: 7
+    lineWidth: 6
     colors: ['#2a5d5d']
     fontName: 'Lato'
     fontSize: '14'
@@ -124,7 +124,7 @@ window.FK.drawWeatherDataChart = () ->
           color: 'transparent'
       baselineColor: '#aaaaaa'
       minValue: 0
-    lineWidth: 7
+    lineWidth: 6
     colors: ['#2a5d5d']
     fontName: 'Lato'
     fontSize: '14'

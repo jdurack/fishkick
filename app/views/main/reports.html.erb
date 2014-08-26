@@ -2,10 +2,29 @@
   <%= javascript_include_tag 'main' %>  
 <% end %>
 
-<% @sites.each do |site| %>
-  <p>
-    <a href='/report/<%= site.name_url %>' alt='<%= site.name %> fishing report'>
-      <%= site.name %>
-    </a>
-  </p>
-<% end %>
+<div class='reportsPageBox'>
+  <div class='row'>
+    <div class='col-md-1'>
+    </div>
+
+    <div class='col-md-3'>
+      <div class='fishingReportsTitle'>Fishing Reports</h1>
+
+      <% @sites.each do |site| %>
+        <div class='reportLinkBox'>
+          <a class='reportLink' href='/report/<%= site.name_url %>' alt='<%= site.name %> fishing report'>
+            <%= site.name %>
+          </a>
+        </div>
+      <% end %>
+      </div>
+    </div>
+
+    <div class='col-md-6'>
+      <%= image_tag('dusy-vertical.png', :class => 'reportsPageImage') %>
+    </div>
+
+    <div class='col-md-2'>
+    </div>
+  </div>
+</div>
