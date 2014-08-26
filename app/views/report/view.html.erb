@@ -13,7 +13,7 @@
 
   <div class='row'>
 
-    <div class="reportSection">
+    <div class="pageSection">
       <div class="reportPrimaryImage overlayImage" data-image="<%= @site.primary_image %>">
         <h1 class="overlayText left"><%= @site.name %> Fishing Report</h1>
         <h4 class="overlayText right"><%= Date.today.strftime("%A %B %-d, %Y") %></h4>
@@ -23,7 +23,7 @@
     <div class='col-md-10'>
 
       <!-- FishScores and Comments -->
-      <div class='row reportSection'>
+      <div class='row pageSection'>
         <div class='col-md-3 fishScoreArea'>
           <div class='subheader'>Fish Scores</div>
           <%= render @site.fish_scores.sort_by {|fs| -fs.value} %>
@@ -38,7 +38,7 @@
 
       <!-- Graphs -->
       <% if @site.hasUSGSData() or @site.hasWeatherData() %>
-        <div class='row reportSection'>
+        <div class='row pageSection'>
           <!-- USGS Data -->
           <div class='col-md-6'>
             <% if @site.hasUSGSData() %>
@@ -57,7 +57,7 @@
 
       <!-- SiteFishInfos -->
       <% if @site.hasActiveSiteFishInfos() %>
-        <div class='row reportSection'>
+        <div class='row pageSection'>
           <div class='col-md-12'>
             <div class='subheader'>Seasonality</div>
             <%= render 'site_fish_infos', locals: {site_fish_infos: @site.site_fish_infos.sort_by {|sfi| sfi.fish.name} } %>
@@ -66,7 +66,7 @@
       <% end %>
 
       <!-- Description, photos, map -->
-      <div class='row reportSection'>
+      <div class='row pageSection'>
         <div class='row'>
           <div class='col-md-12'>
             <div class='subheader'><%= @site.name %></div>

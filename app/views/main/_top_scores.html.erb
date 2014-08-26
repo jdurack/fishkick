@@ -1,47 +1,48 @@
 <div ng-controller="TopScoreCtrl" id='topScores' class='row'>
-
   <!-- top fish scores -->
-  <div class='col-md-6'>
+  <div class='col-md-5'>
+    
+    <!-- select -->
+    <div class='row'>
+      <div class='col-md-12'>
+        <select ng-model='fishSelect' id='fishSelect' class="form-control">
+          <option value='' selected>All fish</option>
+          <% @fish.each do |fish| %>
+            <option value="<%= fish.id %>"><%= fish.name %></option>
+          <% end %>
+        </select>
+      </div>
+    </div>
 
-    <h2>Top FishKick Scores</h2>
-
-
-    <select ng-model='fishSelect' id='fishSelect'>
-      <option value='' selected>All fish</option>
-      <% @fish.each do |fish| %>
-        <option value="<%= fish.id %>"><%= fish.name %></option>
-      <% end %>
-    </select>
-
-    <div>
-      <div ng-repeat="topScore in topScores | filter:{fishId:fishSelect}  | orderBy:'-score' | limitTo:<%= Settings.max_top_scores %> " class='row'>
-        <a href='/report/{{topScore.siteNameURL}}'>
-          <div class='col-md-2'>
-            <svg class="fishScoreValue">
-              <circle class="fishScoreValueCircle_{{topScore.score}}" cx="50%" cy="50%" r="50%" stroke-width="4" />
-              <text ng-if='topScore.score==10' x="7%" y="74%" fill="white" font-family="Verdana" font-size="200%">
-                {{topScore.score}}
-              </text>
-              <text ng-if='topScore.score<10' x="29%" y="74%" fill="white" font-family="Verdana" font-size="200%">
-                {{topScore.score}}
-              </text>
-            </svg>
-          </div>
-          <div class='col-md-2'>
-            {{topScore.siteName}}
-          </div>
-          <div class='col-md-8' ng-bind-html-unsafe='topScore.fishImage'>
+    <div ng-repeat="topScore in topScores | filter:{fishId:fishSelect}  | orderBy:'-score' | limitTo:<%= Settings.max_top_scores %> " class='row'>
+      <div data-href="/report/{{topScore.siteNameURL}}" onclick='location.href=this.getAttribute("data-href");' class='topFishScoreBox'>
+        <div class='col-md-2'>
+          <svg class="topFishScoreValue">
+            <circle class="fishScoreValueCircle_{{topScore.score}}" cx="50%" cy="50%" r="50%" stroke-width="4" />
+            <text ng-if='topScore.score==10' x="10%" y="73%" fill="white" font-family="Verdana" font-size="240%">
+              {{topScore.score}}
+            </text>
+            <text ng-if='topScore.score<10' x="30%" y="75%" fill="white" font-family="Verdana" font-size="240%">
+              {{topScore.score}}
+            </text>
+          </svg>
+        </div>
+        <div class='col-md-4' ng-bind-html-unsafe='topScore.fishImage' class='topFishScoreImageAndLabelBox'>
+          <img ng-src='{{topScore.fishImage}}' alt='{{topScore.fishName}} fish' class='topFishScoreFishImage'/>
+          <div class='topFishScoreFishName'>
             {{topScore.fishName}}
-            <img ng-src='{{topScore.fishImage}}' alt='{{topScore.fishName}} fish' class='topFishScoreFishImage'/>
           </div>
-        </a>
+        </div>
+        <div class='col-md-6 topFishScoreSiteName'>
+          {{topScore.siteName}}
+        </div>
       </div>
     </div>
 
   </div>
 
   <!-- map -->
-  <div class='col-md-6'>
+  <div class='col-md-7'>
 
     <div class='mainMapContainer'>
       <ui-gmap-google-map center="map.center" zoom="map.zoom" control='googleMap' options='googleMapOptions'>

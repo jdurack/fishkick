@@ -7,7 +7,9 @@
       <% if !fish_score.fish.image.blank? %>
         <img src='<%= fish_score.fish.image %>' alt='<%= fish_score.fish.name %>' class='fishScoreFishImage'/>
       <% end %>
-      <div class="fishScoreFishName"><%= fish_score.fish.name %></div>
+      <div class="fishScoreFishName">
+        <%= fish_score.fish.name %>
+      </div>
     </div>
   </div>
 <% end %>

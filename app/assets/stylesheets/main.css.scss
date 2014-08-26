@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.mainImage {
+  /* full-bleed instructions: http://css-tricks.com/perfect-full-page-background-image/ */;
+  width: 100%;
+}
+
+.pageSection {
+  margin-bottom: 45px;
+}
+
 .fishKickLogo {
   max-width: 300px;
   max-height: 75px;
@@ -12,7 +21,7 @@
   float: left;
 }
 
-.headerimage {
+.headerImage {
 	margin-top: -60px;
 	margin-bottom: 25px;
 }
@@ -24,12 +33,47 @@
   margin-bottom: 50px;
 }
 
+.topFishKickScoresHeader {
+  font-size: 33px;
+}
+
 .angular-google-map-container {
-  height: 500px;
+  height: 480px;
+}
+
+#fishSelect {
+  width: 137px;
+}
+
+
+.topFishScoreBox {
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.topFishScoreValue {
+  width: 60px;
+  height: 60px;
+}
+
+.topFishScoreImageAndLabelBox {
+  margin-top: -3px;
+  padding-left: 23px;
 }
 
 .topFishScoreFishImage {
   max-width: 150px;
+  max-height: 52px;
+  margin-top: -6px;
+}
+
+.topFishScoreFishName {
+  margin-top: -8px;
+  font-size: 15px;
+}
+
+.topFishScoreSiteName {
+  font-size: 25px;
 }
 
 .teambox {

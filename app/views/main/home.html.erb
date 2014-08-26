@@ -2,11 +2,13 @@
   <%= javascript_include_tag 'main' %>
 <% end %>
 
-<h1>FishKick home!</h1>
-
-<p>Welcome to FishKick</p>
-
-<br/>
+<div class='row pageSection'>
+  <div class='col-md-12'>
+    <div class="reportPrimaryImage overlayImage" data-image="<%= image_path('dusy2.png') %>">
+      <h1 class="overlayText left">Today's Top FishKick Scores</h1>
+    </div>
+  </div>
+</div>
 
 <%= render 'top_scores', local: {sites: @sites} %>
 

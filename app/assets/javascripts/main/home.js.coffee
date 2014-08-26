@@ -3,7 +3,16 @@ window.FK || = {}
 
 
 window.FK.init = () ->
+  window.FK.setMainOverlayImage()
 
+
+window.FK.setMainOverlayImage = () ->
+  $('.overlayImage').each (index, overlayImageDiv) ->
+    overlayImage = $(overlayImageDiv)
+    image = overlayImage.attr 'data-image'
+    currentBackgroundImage = overlayImage.css 'background-image'
+    newBackgroundImage = currentBackgroundImage + ", url('" + image + "')"
+    overlayImage.css 'background-image', newBackgroundImage
 
 window.FK.initializeTopScoreController = () ->
 
