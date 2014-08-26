@@ -2,9 +2,13 @@
   <%= javascript_include_tag 'main' %>  
 <% end %>
 
-<% content_for :title do %>Contact<% end %>
-
-<%= image_tag('contact/Contact_Us.jpg', class: 'headerImage') %>
+<div class='row pageSection'>
+  <div class='col-md-12'>
+    <div class="primaryImage overlayImage" data-image="<%= image_path('contact/contactUs.png') %>">
+      <h1 class="overlayText left">Contact</h1>
+    </div>
+  </div>
+</div>
 
 <div class="contactbox">
 	<p><strong>Need help booking a trip?</strong></p>
@@ -23,3 +27,7 @@
 	<p>(415) 275-8422</p>
 	<p><a href="mailto:fishkick@fishkick.com">fishkick@fishkick.com</a></p>
 </div>
+
+<%= javascript_tag do -%>
+  window.FK.init()
+<% end %>

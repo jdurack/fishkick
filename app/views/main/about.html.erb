@@ -4,45 +4,48 @@
 
 <% content_for :title do %>About<% end %>
 
-<%= image_tag('about_us/About_Us.jpg', class: 'headerImage') %>
-
+<div class='row pageSection'>
+  <div class='col-md-12'>
+    <div class="primaryImage overlayImage" data-image="<%= image_path('about/aboutUs.png') %>">
+      <h1 class="overlayText left">About FishKick</h1>
+    </div>
+  </div>
+</div>
 
 <p>Fishkick was started by two fishing buddies, Justin and Mike, to make the world a better place to fish. We set out to organize the world’s fishing information and make it easier for you to sneak an afternoon fishing during a business trip, discover a hidden stream near your home, or plan that bucket list trip to Alaska.</p>
 <p>We’d love to hear from you any comments on how we can do our jobs better or if you’re interested in joining our growing team: <a href="mailto:fishy@fishkick.com">fishy@fishkick.com</a></p>
 
 <h2>Team</h2>
-<div class="teambox">
-	<%= image_tag('about_us/Justin.jpg', class: 'teammateimg') %>
+<div class="teamBox">
+	<%= image_tag('about/Justin.jpg', class: 'teammateimg') %>
 	<p><strong>Justin</strong></p>
 	<p>Product Chief</p>
 </div>
 
-<div class="teambox">
-	<%= image_tag('about_us/Mike.jpg', class: 'teammateimg') %>
+<div class="teamBox">
+	<%= image_tag('about/Mike.jpg', class: 'teammateimg') %>
 	<p><strong>Mike</strong></p>
 	<p>Sales Chief</p>
 </div>
 
-<div class="teambox">
-	<%= image_tag('about_us/Avra.jpg', class: 'teammateimg') %>
+<div class="teamBox">
+	<%= image_tag('about/Avra.jpg', class: 'teammateimg') %>
 	<p><strong>Avra</strong></p>
 	<p>Operations Chief</p>
 </div>
 
-<div class="teambox">
-	<%= image_tag('about_us/Caroline.jpg', class: 'teammateimg') %>
+<div class="teamBox">
+	<%= image_tag('about/Caroline.jpg', class: 'teammateimg') %>
 	<p><strong>Caroline</strong></p>
 	<p>Marketing Chief</p>
 </div>
 
-<div class="teambox">
-	<%= image_tag('about_us/Nash.jpg', class: 'teammateimg') %>
-	<p><strong>Nash</strong></p>
-	<p>Developer Chief</p>
-</div>
-
-<div class="teambox">
-	<%= image_tag('about_us/Liam.jpg', class: 'teammateimg') %>
+<div class="teamBox">
+	<%= image_tag('about/Liam.jpg', class: 'teammateimg') %>
 	<p><strong>Liam</strong></p>
 	<p>Finance Chief</p>
 </div>
+
+<%= javascript_tag do -%>
+  window.FK.init()
+<% end %>
