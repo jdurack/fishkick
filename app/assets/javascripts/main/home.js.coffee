@@ -16,7 +16,7 @@ window.FK.setMainOverlayImage = () ->
 
 window.FK.initializeTopScoreController = () ->
 
-  angular.module('fishKickApp', ['google-maps'.ns()]).controller 'TopScoreCtrl', ($scope) ->
+  angular.module('fishKickApp', ['google-maps'.ns()]).controller 'TopScoreCtrl', ["$scope", ($scope) ->
 
     $scope.googleMapOptions =
       mapTypeId: google.maps.MapTypeId.TERRAIN
@@ -41,6 +41,7 @@ window.FK.initializeTopScoreController = () ->
 
     $scope.$watch 'topScores', () ->
       window.FK.zoomToFit $scope
+  ]
       
 
 window.FK.getTopScoresAngularScope = () ->
