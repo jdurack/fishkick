@@ -7,7 +7,7 @@
   </ol>
 
   <!-- Wrapper for slides -->
-  <div class="carousel-inner">
+  <div class="carousel-inner siteImageCarousel">
     <% @site.site_images.each_with_index do |image, index| %>
       <div class="item <% if index == 0 %> active<% end %>">
         <img src="<%= image.image %>" alt="<%= @site.name %> fishing">
