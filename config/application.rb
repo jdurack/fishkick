@@ -27,5 +27,9 @@ module Fishkick
     config.assets.precompile += %w( admin.js )
     config.assets.precompile += %w( main.js )
     config.assets.precompile += %w( report.js )
+
+    #Turning off asset compilation because it fucks up angular
+    config.assets.enabled = false
+
   end
 end

@@ -3,10 +3,9 @@ Rails.application.routes.draw do
 
   root 'main#home'
   get 'report/:site_name_url' => 'report#view'
-  get 'about' => 'main#about'
-  get 'faq' => 'main#faq'
-  get 'contact' => 'main#contact'
   get 'reports' => 'main#reports'
+  get 'about' => 'main#about'
+  get 'contact' => 'main#contact'
 
   get '/admin' => 'admin#index'
   namespace :admin do

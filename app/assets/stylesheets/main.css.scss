@@ -4,7 +4,7 @@
 
 .headerLink {
   margin-top: 27px;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .footerLink {
@@ -118,7 +118,10 @@
 .overlayText {
   color: #FFFFFF;
   position: absolute; bottom: 0;
-  font-size: 40px;
+  
+  &.headerText {
+    font-size: 40px;
+  }
 
   &.left {
     left: 0;
