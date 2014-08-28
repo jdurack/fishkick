@@ -71,7 +71,7 @@
       siteNameURL: '<%= fish_score.site.name_url %>',
       siteLatitude: '<%= fish_score.site.latitude %>',
       siteLongitude: '<%= fish_score.site.longitude %>',
-      score: '<%= ( fish_score.value * Settings.max_fish_score).round  %>',
+      score: <%= ( fish_score.value * Settings.max_fish_score).round  %>,
       fishId: '<%= fish_score.fish.id %>',
       fishName: '<%= fish_score.fish.name %>',
       fishImage: '<%= raw fish_score.fish.image %>'
