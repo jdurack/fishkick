@@ -65,11 +65,7 @@ window.FK.zoomToFit = ( scope ) ->
       bounds.extend mapPoint
   map.fitBounds bounds
 
-  console.log 'zoomToFit, bounds: ', bounds, ', zoom: ', map.getZoom()
-
   if map.getZoom() < scope.minZoom
     map.setZoom scope.minZoom
   if map.getZoom() > scope.maxZoom
     map.setZoom scope.maxZoom
-
-  console.log 'zoomToFit 2, zoom: ', map.getZoom()
