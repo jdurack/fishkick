@@ -2,7 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-#= require google-maps-api.min
 #= require jsapi.min
 #= require readmore.min
 

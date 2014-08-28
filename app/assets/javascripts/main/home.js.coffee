@@ -16,6 +16,8 @@ window.FK.setMainOverlayImage = () ->
 
 window.FK.initializeTopScoreController = () ->
 
+  # Note: Need to use this bizarre array-based argument for $scope, because...
+  # http://jorshasaur.us/angular-directives-breaking-when-minified/
   angular.module('fishKickApp', ['google-maps'.ns()]).controller 'TopScoreCtrl', ["$scope", ($scope) ->
 
     $scope.googleMapOptions =

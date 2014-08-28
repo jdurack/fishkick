@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-#= require google-maps-api.min
 #= require angular.min
 #= require lodash.min
 #= require angular-google-maps.min

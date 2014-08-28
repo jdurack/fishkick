@@ -10,6 +10,8 @@
     <meta name="description" content="<%= 'FishKick: ' + ( content_for?(:description) ? yield(:description) : 'Your fishing sidekick.  FishKick is the best site for fishing reports and finding fishing guides.' ) %>">
     <meta name="author" content="FishKick">
 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= Settings.google_maps_api_key %>"></script>
+
     <%= favicon_link_tag 'favicon.ico?v=2' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
