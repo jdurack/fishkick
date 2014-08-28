@@ -27,10 +27,5 @@ module Fishkick
     config.assets.precompile += %w( admin.js )
     config.assets.precompile += %w( main.js )
     config.assets.precompile += %w( report.js )
-
-    #Trying non-minification because of angular errors
-    # See https://github.com/hiravgandhi/angularjs-rails/issues/39
-    config.assets.js_compressor = Uglifier.new(mangle: false)
-
   end
 end
