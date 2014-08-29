@@ -58,7 +58,6 @@ def generateComment( site, recent_report_comment )
     end
   end
   report_comment.comment = generateCommentText site
-  report_comment.comment += generateCommentText site
   report_comment.save()
 end
 
