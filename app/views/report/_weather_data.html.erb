@@ -2,6 +2,8 @@
 
 <div id='weatherDataChart' class='weatherDataChart'></div>
 
+Source: <a href='<%= Settings.weather_data.forecast_base_url %><%= @site.latitude %>,<%= @site.longitude %>' target='_blank'>Weather Underground</a>
+
 <%= javascript_tag do -%>
 
   window.FK.weatherChartTitle = "<%= @site.getWeatherDataTitle() %>";

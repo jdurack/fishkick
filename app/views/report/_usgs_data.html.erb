@@ -2,6 +2,10 @@
 
 <div id='usgsDataChart' class='usgsDataChart'></div>
 
+Source:
+<a href='<%= Settings.usgs.data_base_url%><%= @site.usgs_site_id %>' target='_blank'>USGS</a>
+<a href='<%= Settings.usgs.map_base_url%><%= @site.usgs_site_id %>' target='_blank'>(map)</a>
+
 <%= javascript_tag do -%>
 
   window.FK.usgsChartTitle = "<%= @site.getUSGSDataLabel() %>";
