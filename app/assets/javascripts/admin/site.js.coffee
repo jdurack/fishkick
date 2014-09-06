@@ -2,4 +2,5 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-console.log 'admin/site running'
+tinymce.init
+  selector: ".descriptionInputTextbox"
