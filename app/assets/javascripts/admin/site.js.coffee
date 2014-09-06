@@ -4,3 +4,4 @@
 
 tinymce.init
   selector: ".descriptionInputTextbox"
+  plugins: "link"
