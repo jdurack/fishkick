@@ -15,7 +15,7 @@
     </div>
 
     <div ng-repeat="topScore in topScores | filter:{fishId:fishSelect}  | orderBy:'-score' | limitTo:<%= Settings.max_top_scores %> " class='row'>
-      <div data-href="/report/{{topScore.siteNameURL}}" onclick='location.href=this.getAttribute("data-href");' class='topFishScoreBox'>
+      <div data-href="/fishing-report/{{topScore.siteNameURL}}" onclick='location.href=this.getAttribute("data-href");' class='topFishScoreBox'>
         <div class='col-md-2'>
           <svg class="topFishScoreValue">
             <circle class="fishScoreValueCircle_{{topScore.score}}" cx="50%" cy="50%" r="50%" stroke-width="4" />

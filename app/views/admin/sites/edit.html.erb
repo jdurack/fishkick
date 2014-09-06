@@ -10,7 +10,7 @@
 
 <h2>Admin: Edit Site</h2>
 <h1><%= @site.name %></h1>
-<%= link_to 'see report page', '/report/' + @site.name_url, :target => '_blank' %>
+<%= link_to 'see report page', '/fishing-report/' + @site.name_url, :target => '_blank' %>
 <br/><br/>
 
 <%= render partial: 'form', locals: {site: @site, fish: @fish} %>

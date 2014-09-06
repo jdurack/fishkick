@@ -1,6 +1,6 @@
 usgs:
-  apiBaseURL: 'http://waterservices.usgs.gov/nwis/iv/'
-  fetchFormat: 'json'
+  api_base_url: 'http://waterservices.usgs.gov/nwis/iv/'
+  fetch_format: 'json'
   lookback_days: 10
   map_base_url: 'http://waterdata.usgs.gov/ca/nwis/nwismap/?agency_cd=USGS&site_no='
   data_base_url: 'http://waterdata.usgs.gov/nwis/uv?site_no='

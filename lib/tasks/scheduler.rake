@@ -147,7 +147,7 @@ def fetchUSGSDataJSON(site)
   
   # This is a little ridiculous, but apparently necessary to do a GET with query params.
   #  See here: http://stackoverflow.com/questions/1252210/parametrized-get-request-in-ruby
-  uri = URI.parse( Settings.usgs.apiBaseURL )
+  uri = URI.parse( Settings.usgs.api_base_url )
   http = Net::HTTP.new(uri.host, uri.port) 
   request = Net::HTTP::Get.new(uri.path) 
   request.set_form_data( apiParameters )
@@ -162,7 +162,7 @@ end
 def getUSGSAPIParameters(usgsSiteIds, usgsParameterCodes, latest_report_data)
   apiParameters ||= {}
   apiParameters['period'] = getUSGSPeriod(latest_report_data)
-  apiParameters['format'] = Settings.usgs.fetchFormat
+  apiParameters['format'] = Settings.usgs.fetch_format
   apiParameters['sites'] = usgsSiteIds.join(',')
   apiParameters['parameterCd'] = usgsParameterCodes.join(',')
 
