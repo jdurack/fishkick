@@ -2,6 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-tinymce.init
-  selector: ".descriptionInputTextbox"
-  plugins: "link"
+$( document ).ready ->
+  tinymce.init
+    selector: ".descriptionInputTextbox"
+    plugins: "link"

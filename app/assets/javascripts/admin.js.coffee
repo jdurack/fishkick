@@ -3,5 +3,4 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 #= require nested_form
-#= require tinymce/tinymce.min
 #= require_tree ./admin
