@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root 'main#home'
   get 'fishing-report/:site_name_url' => 'report#view'
-  get 'reports' => 'main#reports'
+  get 'fishing-report' => 'main#reports'
   get 'about' => 'main#about'
   get 'contact' => 'main#contact'
 
