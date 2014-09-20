@@ -150,7 +150,7 @@ window.FK.drawWeatherDataChart = () ->
   newLine.setAttribute 'y1', chart.getChartLayoutInterface().getChartAreaBoundingBox().top
   newLine.setAttribute 'x2', chart.getChartLayoutInterface().getXLocation( xValue )
   newLine.setAttribute 'y2', chart.getChartLayoutInterface().getChartAreaBoundingBox().height + chart.getChartLayoutInterface().getChartAreaBoundingBox().top
-  $('#weatherDataChart svg').append newLine
+  $('#weatherDataChart svg').prepend newLine
 
   actualText = document.createElementNS svgns, "text"
   actualText.setAttributeNS null,"x", xLocation - 70
