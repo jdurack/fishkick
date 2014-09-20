@@ -24,7 +24,7 @@
 
   <body>
 
-    <div id="navigation" class="navbar navbar-default navbar-fixed-top">
+    <div id="navigation" class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,11 +37,13 @@
             <%= image_tag('logo/FISHKICK 1.png', class: 'fishKickLogo') %>
           </a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href='/fishing-report' class='headerLink'>Reports</a></li>
-          <li><a href='/about' class='headerLink'>About</a></li>
-          <li><a href='/contact' class='headerLink'>Contact</a></li>
-        </ul>
+        <div class='navbar-collapse collapse'>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href='/fishing-report' class='headerLink'>Reports</a></li>
+            <li><a href='/about' class='headerLink'>About</a></li>
+            <li><a href='/contact' class='headerLink'>Contact</a></li>
+          </ul>
+        </div>
       </div>
     </div>
 
