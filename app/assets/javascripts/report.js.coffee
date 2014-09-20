@@ -110,6 +110,7 @@ window.FK.drawWeatherDataChart = () ->
 
   options =
     #title: window.FK.weatherChartTitle
+    #curveType: 'function'
     legend:
       position: 'none'
     backgroundColor:
@@ -119,16 +120,50 @@ window.FK.drawWeatherDataChart = () ->
       gridlines:
           color: 'transparent'
       baselineColor: '#aaaaaa'
+      slantedText: false
+      maxAlternation: 1
     vAxis:
       gridlines:
           color: 'transparent'
       baselineColor: '#aaaaaa'
-      minValue: 0
+      viewWindow:
+        min: 0.0
     lineWidth: 6
     colors: ['#2a5d5d']
     fontName: 'Lato'
     fontSize: '14'
 
 
-  chart = new google.visualization.ColumnChart document.getElementById 'weatherDataChart'
+  chart = new google.visualization.LineChart document.getElementById 'weatherDataChart'
   chart.draw data, options
+
+  svgns = "http://www.w3.org/2000/svg"
+
+  newLine = document.createElementNS svgns, 'line'
+  newLine.setAttribute 'id', 'lineId'
+  newLine.setAttribute 'class', 'weatherDataChartDividingLine'
+
+  xValue = new Date()
+  xLocation = chart.getChartLayoutInterface().getXLocation xValue
+
+  newLine.setAttribute 'x1', xLocation
+  newLine.setAttribute 'y1', chart.getChartLayoutInterface().getChartAreaBoundingBox().top
+  newLine.setAttribute 'x2', chart.getChartLayoutInterface().getXLocation( xValue )
+  newLine.setAttribute 'y2', chart.getChartLayoutInterface().getChartAreaBoundingBox().height + chart.getChartLayoutInterface().getChartAreaBoundingBox().top
+  $('#weatherDataChart svg').append newLine
+
+  actualText = document.createElementNS svgns, "text"
+  actualText.setAttributeNS null,"x", xLocation - 70
+  actualText.setAttributeNS null,"y", 50
+  actualText.setAttribute 'class', 'weatherDataChartDividingLineText'
+  actualTextNode = document.createTextNode "actual"
+  actualText.appendChild actualTextNode
+  $('#weatherDataChart svg').append actualText
+
+  forecastText = document.createElementNS svgns, "text"
+  forecastText.setAttributeNS null,"x", xLocation + 20
+  forecastText.setAttributeNS null,"y", 50
+  forecastText.setAttribute 'class', 'weatherDataChartDividingLineText'
+  forecastTextNode = document.createTextNode "forecast"
+  forecastText.appendChild forecastTextNode
+  $('#weatherDataChart svg').append forecastText

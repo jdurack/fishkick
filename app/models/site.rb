@@ -143,20 +143,12 @@ class Site < ActiveRecord::Base
 
     dataDay = earliestDataDay
     while dataDay <= latestDataDay
-      @weatherData[dataDay] = {'value' => nil, 'is_forecast' => nil}
+      @weatherData[dataDay] = {'value' => nil, 'date' => dataDay}
       dataDay = dataDay + 1.day
     end
 
     weatherDataFromDB.each do |weatherDatum|
-      if weatherDatum.is_forecast
-        if @weatherData[weatherDatum.date]['is_forecast'] != false
-          @weatherData[weatherDatum.date]['is_forecast'] = true
-          @weatherData[weatherDatum.date]['value'] = weatherDatum.value
-        end
-      else
-        @weatherData[weatherDatum.date]['is_forecast'] = false
-        @weatherData[weatherDatum.date]['value'] = weatherDatum.value
-      end
+      @weatherData[weatherDatum.date]['value'] = weatherDatum.value
     end
     
     return @weatherData

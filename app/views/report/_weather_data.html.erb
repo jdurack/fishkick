@@ -7,13 +7,16 @@ Source: <a href='<%= Settings.weather_data.forecast_base_url %><%= @site.latitud
 <%= javascript_tag do -%>
 
   window.FK.weatherChartTitle = "<%= @site.getWeatherDataTitle() %>";
-  window.FK.weatherChartData = [['Day', 'Recorded', 'Forecast']];
+  window.FK.weatherChartData = [['Day', 'Precipitation']];
   var minDate = null;
   var maxDate = new Date();
   <% @site.getWeatherData().each do |date, datum| %>
-    window.FK.weatherChartData.push([new Date("<%= date.to_s %>"), <%= !datum['is_forecast'].blank? ? '0.0, ' + datum['value'].to_s : datum['value'].to_s + ', 0.0'%>]);
+  
+    var dataPoint = [new Date("<%= date.to_s %>"), <%= datum['value'].to_s %>];
+    window.FK.weatherChartData.push( dataPoint );
 
-    var date = new Date("<%= datum['datetime'] %>");
+    var date = new Date("<%= datum['date'] %>");
+
     if ( ( minDate == null ) || ( date < minDate ) ) {
       minDate = date;
     }
