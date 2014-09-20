@@ -16,12 +16,13 @@
 
 .weatherDataChartDividingLine {
   stroke: #666666;
-  stroke-width: 2;
+  stroke-width: 1;
 }
 
 .weatherDataChartDividingLineText {
-  font-size: 18px;
-  stroke: #666666;
+  font-size: 17px;
+  color: #999;
+  font-weight: 300;
   stroke-width: 0px;
 }
 
