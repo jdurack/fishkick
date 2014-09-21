@@ -75,10 +75,6 @@
   font-size: 33px;
 }
 
-.angular-google-map-container {
-  height: 532px;
-}
-
 #fishSelect {
   width: 137px;
 }
@@ -94,14 +90,19 @@
   height: 60px;
 }
 
-.topFishScoreImageAndLabelBox {
-  margin-top: -3px;
+#mainMap {
+  height: 500px;
+  margin: 0;
+  padding: 0;
+}
+
+.mainMapFishImageAndLabelBox {
+  margin-top: 30px;
   padding-left: 23px;
 }
 
-.topFishScoreFishImage {
-  max-width: 150px;
-  max-height: 52px;
+.mainMapFishImage {
+  max-width: 250px;
   margin-top: -6px;
 }
 

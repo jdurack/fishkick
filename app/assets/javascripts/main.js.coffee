@@ -2,8 +2,4 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-
-#= require angular.min
-#= require lodash.min
-#= require angular-google-maps.min
 #= require_tree ./main

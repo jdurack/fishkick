@@ -14,47 +14,51 @@ window.FK.setMainOverlayImage = () ->
     newBackgroundImage = currentBackgroundImage + ", url('" + image + "')"
     overlayImage.css 'background-image', newBackgroundImage
 
-window.FK.initializeTopScoreController = () ->
 
-  # Note: Need to use this bizarre array-based argument for $scope, because...
-  # http://jorshasaur.us/angular-directives-breaking-when-minified/
-  angular.module('fishKickApp', ['google-maps'.ns()]).controller 'TopScoreCtrl', ["$scope", ($scope) ->
+window.FK.initializeMap = () ->
 
-    $scope.googleMapOptions =
-      mapTypeId: google.maps.MapTypeId.TERRAIN
-      streetViewControl: false
+  mapOptions =
+    mapTypeId: google.maps.MapTypeId.TERRAIN
+    streetViewControl: false
+    center:
+      lat: 40.8688
+      lng: -123.2295
+    zoom: 8
 
-    $scope.googleMap = {}
-    $scope.map =
-      center:
-        latitude: 40.8688
-        longitude: -123.2295
-      zoom: 8
-    $scope.maxZoom = 12
-    $scope.minZoom = 9
+  window.FK.mainMap = new google.maps.Map document.getElementById('mainMap'), mapOptions
+  
 
-    if window.FK.topScores
-      $scope.topScores = window.FK.topScores
-    else
-      $scope.topScores = []
-    
-    $scope.$watch 'fishSelect', () ->
-      window.FK.zoomToFit $scope
+window.FK.drawSites = () ->
+  
+  for site in window.FK.sites
 
-    $scope.$watch 'topScores', () ->
-      window.FK.zoomToFit $scope
-  ]
-      
+    if site.isLake 
+      if ( site.mapLineData.length > 0 )
+        polygon = new google.maps.Polygon
+          paths: site.mapLineData[0]
+          strokeColor: '#26569E'
+          strokeOpacity: 0.8
+          strokeWeight: 0
+          fillColor: '#26569E'
+          fillOpacity: 0.8
 
-window.FK.getTopScoresAngularScope = () ->
-  scope = angular.element(document.getElementById("topScores")).scope()
-  scope
+        polygon.setMap window.FK.mainMap
+
+    else # river
+      for lineData in site.mapLineData
+        polyLine = new google.maps.Polyline
+          path: lineData
+          geodesic: true
+          strokeColor: '#26569E'
+          strokeOpacity: 1.0
+          strokeWeight: 4
+
+        polyLine.setMap window.FK.mainMap
 
 
-window.FK.zoomToFit = ( scope ) ->
+window.FK.zoomToFit = () ->
 
-  unless scope
-    scope = window.FK.getTopScoresAngularScope()
+###
   map = scope.googleMap.getGMap()
   bounds = new google.maps.LatLngBounds()
 
@@ -69,3 +73,4 @@ window.FK.zoomToFit = ( scope ) ->
     map.setZoom scope.minZoom
   if map.getZoom() > scope.maxZoom
     map.setZoom scope.maxZoom
+###

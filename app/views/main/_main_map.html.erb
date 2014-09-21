@@ -1,0 +1,73 @@
+<div class='row'>
+  <!-- top fish scores -->
+  <div class='col-md-4'>
+    
+    <!-- select -->
+    <% @fish.each do |fish| %>
+    <div class='row'>
+      <div class='col-md-12 mainMapFishImageAndLabelBox'>
+        <img src='<%= fish.image %>' alt='<%= fish.name %> fish' class='mainMapFishImage'/>
+        <div class='topFishScoreFishName'>
+          <%= fish.name %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+
+  <!-- map -->
+  <div class='col-md-8'>
+    <div id="mainMap"></div>
+  </div>
+
+</div>
+
+
+<%= javascript_tag do -%>
+
+  window.FK.initializeMap()
+
+  window.FK.sites = [];
+
+  <% @sites.each do |site| %>
+
+    var mapLineData = [];
+    <% site.getMapLineData().each do |mld| %>
+      var mapLine = [];
+      <% mld.each do |p| %>
+        mapLine.push( new google.maps.LatLng(<%= p['latitude'] %>, <%= p['longitude'] %>) );
+      <% end %>
+      mapLineData.push( mapLine );
+    <% end %>
+
+    window.FK.sites.push({
+        id: '<%= site.id %>'
+      , name: '<%= site.name %>'
+      , nameURL: '<%= site.name_url %>'
+      , latitude: '<%= site.latitude %>'
+      , longitude: '<%= site.longitude %>'
+      , isLake: <%= site.water_body_type == 'lake' %>
+      , fishScores: []
+      , mapLineData: mapLineData
+    });
+
+
+  <% end %>
+
+  <% @fish_scores.each do |fish_score| %>
+    for ( var i=0; i<window.FK.sites.length; i++ ) {
+      if ( window.FK.sites[i].id == <%= fish_score.site.id %> ) {
+        window.FK.sites[i].fishScores.push({
+            score: <%= ( fish_score.value * Settings.max_fish_score).round  %>
+          , fishId: '<%= fish_score.fish.id %>'
+          , fishName: '<%= fish_score.fish.name %>'
+          , fishImage: '<%= raw fish_score.fish.image %>'
+        });
+      }
+    }
+  <% end %>
+
+  window.FK.drawSites()
+  
+<% end %>
