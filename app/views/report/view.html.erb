@@ -2,6 +2,11 @@
   <%= javascript_include_tag 'report' %>
 <% end %>
 
+<% content_for :description do %>
+  <%= @site.name %> fishing report for <%= Date.today.strftime("%A %B %-d, %Y") %>.  Find the latest fishing conditions, including recent reports, FishKick fish scores, USGS stream flow data, weather data, photos, location map, fish seasonality, recommended fishing gear, similar sites, and more.
+<% end %>
+
+
 <% unless @site %>
   <h4>Site not found</h4>
   <a href='/'>Go back</a>
