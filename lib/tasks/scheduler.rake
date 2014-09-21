@@ -375,7 +375,7 @@ end
 
 def saveWeatherData(weatherData)
   weatherData.each do |weatherDatum|
-    findParams = {:site_id => weatherDatum['site_id'], :value => weatherDatum['value'], :date => weatherDatum['date'], :is_forecast => weatherDatum['is_forecast']}
+    findParams = {:site_id => weatherDatum['site_id'], :date => weatherDatum['date'], :is_forecast => weatherDatum['is_forecast']}
     weatherData = SitePrecipitationData.find_or_initialize_by(findParams)
     weatherData.update(weatherDatum)
   end
