@@ -24,28 +24,7 @@
 
   <body>
 
-    <div id="navigation" class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/#">
-            <!--<b>FishKick</b>-->
-            <%= image_tag('logo/FISHKICK 1.png', class: 'fishKickLogo') %>
-          </a>
-        </div>
-        <div class='navbar-collapse collapse'>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href='/fishing-report' class='headerLink'>Reports</a></li>
-            <li><a href='/about' class='headerLink'>About</a></li>
-            <li><a href='/contact' class='headerLink'>Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'layouts/header' %>
 
     <div class="container">
       <div class="row centered mainContentBox">
@@ -62,44 +41,7 @@
       </div>
     </div>
 
-
-    <div class='navbar navbar-fixed-bottom'>
-      <div class='footer'>
-        <div class="container">
-          <div class='row'>
-            <div class='col-md-1'>
-              <a href='/fishing-report' class='footerLink'>Reports</a>
-            </div>
-            <div class='col-md-1'>
-              <a href='/about' class='footerLink'>About</a>
-            </div>
-            <div class='col-md-1'>
-              <a href='/contact' class='footerLink'>Contact</a>
-            </div>
-            
-            <div class='col-md-3'>
-              <a href="https://plus.google.com/116672312545175409850" rel="publisher" target="_blank">
-                <%= image_tag('social/color-circle/googleplus.png', class: 'socialIcon') %>
-              </a>
-              <a href="https://twitter.com/_fishkick" rel="publisher" target="_blank">
-                <%= image_tag('social/color-circle/twitter.png', class: 'socialIcon') %>
-              </a>
-              <a href="https://www.youtube.com/channel/UCNmkqLWRkxfpjg3qgh-Isaw" rel="publisher" target="_blank">
-                <%= image_tag('social/color-circle/youtube.png', class: 'socialIcon') %>
-              </a>
-              <a href="https://www.facebook.com/fishkicked" rel="publisher" target="_blank">
-                <%= image_tag('social/color-circle/facebook.png', class: 'socialIcon') %>
-              </a>
-              
-            </div>
-
-            <div class='col-md-6'>
-              <a href='/' class='footerLink'>FishKick</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'layouts/footer' %>
 
   </body>
 

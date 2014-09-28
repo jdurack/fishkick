@@ -45,8 +45,7 @@
         id: '<%= site.id %>'
       , name: '<%= site.name %>'
       , nameURL: '<%= site.name_url %>'
-      , latitude: '<%= site.latitude %>'
-      , longitude: '<%= site.longitude %>'
+      , center: new google.maps.LatLng(<%= site.latitude %>, <%= site.longitude %>)
       , isLake: <%= site.water_body_type == 'lake' %>
       , fishScores: []
       , mapLineData: mapLineData

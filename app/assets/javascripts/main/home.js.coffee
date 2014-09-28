@@ -30,6 +30,7 @@ window.FK.initializeMap = () ->
 
 window.FK.drawSites = () ->
   
+  bounds = new google.maps.LatLngBounds()
   for site in window.FK.sites
 
     if site.isLake 
@@ -43,6 +44,8 @@ window.FK.drawSites = () ->
           fillOpacity: 0.8
 
         polygon.setMap window.FK.mainMap
+        for mapPoint in site.mapLineData[0]
+          bounds.extend mapPoint
 
     else # river
       for lineData in site.mapLineData
@@ -54,6 +57,33 @@ window.FK.drawSites = () ->
           strokeWeight: 4
 
         polyLine.setMap window.FK.mainMap
+        for mapPoint in lineData
+          bounds.extend mapPoint
+
+    window.FK.mainMap.fitBounds bounds
+
+    score = window.FK.getTopScoreForSite site
+    marker = new google.maps.Marker
+      position: site.center
+      map: window.FK.mainMap
+      icon: window.FK.getMapMarkerFromScore score
+      opacity: .9
+    
+
+window.FK.getMapMarkerFromScore = (score) ->
+  base = '/assets/fishScores/'
+  path = base + score + '.svg'
+  path
+
+
+window.FK.getTopScoreForSite = (site) ->
+  #TODO: filter by fish
+  topScore = 0
+  for fishScore in site.fishScores
+    if fishScore.score > topScore
+      topScore = fishScore.score
+
+  topScore
 
 
 window.FK.zoomToFit = () ->

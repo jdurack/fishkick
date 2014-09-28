@@ -41,8 +41,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mainContentBox {
-  margin-top: 56px;
-  margin-bottom:50px;
+  margin-top: 33px;
+  margin-bottom: 33px;
 }
 
 .footer {
@@ -50,8 +50,6 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 15px;
   text-align: right;
   color: white;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 50px;   /* Height of the footer */
 }

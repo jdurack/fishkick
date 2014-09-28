@@ -2,8 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.navbar-brand {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .headerLink {
-  margin-top: 27px;
+  margin-top: 18px;
   font-size: 22px;
 }
 
@@ -16,7 +21,8 @@
 .socialIcon {
   height: 30px;
   width: 30px;
-  margin-left: 10px;
+  margin-left: 20px;
+  margin-top: -4px;
 }
 
 .reportsPageBox {
@@ -50,8 +56,7 @@
 }
 
 .fishKickLogo {
-  max-width: 300px;
-  max-height: 75px;
+  max-height: 62px;
 }
 
 .mainSiteLink {
@@ -142,8 +147,8 @@
 }
 
 .primaryImage {
-  width:100%;
-  height:250px;
+  width: 100%;
+  height: 200px;
 }
 
 .overlayImage {
