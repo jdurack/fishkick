@@ -95,7 +95,7 @@ window.FK.setInfoWindowContent = (site) ->
     
 
 window.FK.getMapMarkerFromScore = (score) ->
-  base = '/assets/fishScores/'
+  base = '/images/fishScores/'
   path = base + score + '.svg'
   path
 
