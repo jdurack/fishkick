@@ -46,6 +46,7 @@ window.FK.drawSites = () ->
           fillOpacity: 0.8
 
         polygon.setMap window.FK.mainMap
+        window.FK.addInfoWindow site, polygon
         for mapPoint in site.mapLineData[0]
           bounds.extend mapPoint
 
@@ -59,6 +60,7 @@ window.FK.drawSites = () ->
           strokeWeight: 4
 
         polyLine.setMap window.FK.mainMap
+        window.FK.addInfoWindow site, polyLine
         for mapPoint in lineData
           bounds.extend mapPoint
 
