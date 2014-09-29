@@ -108,23 +108,3 @@ window.FK.getTopScoreForSite = (site) ->
       topScore = fishScore.score
 
   topScore
-
-
-window.FK.zoomToFit = () ->
-
-###
-  map = scope.googleMap.getGMap()
-  bounds = new google.maps.LatLngBounds()
-
-  
-  for topScore in scope.topScores
-    if (! scope.fishSelect) or topScore.fishId is scope.fishSelect
-      mapPoint = new google.maps.LatLng topScore['siteLatitude'], topScore['siteLongitude']
-      bounds.extend mapPoint
-  map.fitBounds bounds
-
-  if map.getZoom() < scope.minZoom
-    map.setZoom scope.minZoom
-  if map.getZoom() > scope.maxZoom
-    map.setZoom scope.maxZoom
-###
