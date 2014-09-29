@@ -26,6 +26,7 @@
       <div id='mapInfoWindowClose'></div>
       <div id='mapInfoWindowContent'>
         <div id='mapInfoWindowTitle'></div>
+        <div id='mapInfoWindowUSGSData'></div>
         <div id='mapInfoWindowFishScores'></div>
         <a id='mapInfoWindowReportButton' class='btn btn-default'>FULL REPORT</a>
       </div>
@@ -69,10 +70,12 @@
       , nameURL: '<%= site.name_url %>'
       , center: new google.maps.LatLng(<%= site.latitude %>, <%= site.longitude %>)
       , isLake: <%= site.water_body_type == 'lake' %>
+      , mostRecentUSGSDataValue: '<%= site.getMostRecentUSGSData().value %>'
+      , usgsDataParameterLabel: '<%= site.getUSGSDataParameter().name %>'
+      , usgsDataParameterUnits: '<%= site.getUSGSDataParameter().units_abbreviation %>'
       , fishScores: []
       , mapLineData: mapLineData
     });
-
 
   <% end %>
 
@@ -89,6 +92,7 @@
     }
   <% end %>
 
+  window.FK.sortSiteFishScores()
   window.FK.drawSites()
   
 <% end %>

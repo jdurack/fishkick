@@ -30,6 +30,15 @@ window.FK.initializeMap = () ->
   window.FK.mainMap = new google.maps.Map document.getElementById('mainMap'), mapOptions
   
 
+window.FK.sortSiteFishScores = () ->
+  for site in window.FK.sites
+    site.fishScores.sort (a, b) ->
+      if ( a.score < b.score )
+        return -1
+      if ( a.score > b.score )
+        return 1
+      return 0
+
 window.FK.drawSites = () ->
   
   bounds = new google.maps.LatLngBounds()
@@ -86,6 +95,16 @@ window.FK.setInfoWindowContent = (site) ->
   $('#mapInfoWindowTitle').html site.name
   $('#mapInfoWindowTitle').click () ->
     window.location = '/fishing-report/' + site.nameURL
+
+  if site.mostRecentUSGSDataValue
+    dataValue = site.mostRecentUSGSDataValue
+    if dataValue.indexOf('.') isnt -1
+      dataValue = dataValue.substring 0, dataValue.indexOf('.')
+    usgsDataValueContent = site.usgsDataParameterLabel + ': ' + dataValue + ' ' + site.usgsDataParameterUnits
+    $('#mapInfoWindowUSGSData').html usgsDataValueContent
+    $('#mapInfoWindowUSGSData').show()
+  else
+    $('#mapInfoWindowUSGSData').hide()
 
   $("#mapInfoWindowFishScores").empty()
   for fishScore in site.fishScores

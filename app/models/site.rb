@@ -91,11 +91,28 @@ class Site < ActiveRecord::Base
   end
 
   def getUSGSData()
+
+    if !@usgsData.blank?
+      return @usgsData
+    end
+
     usgsDataParameter = self.getUSGSDataParameter()
     startDay = ( Date.today - Settings.report.usgs_data_lookback_days.days ).to_s
     whereString = "site_id = " + self.id.to_s + " AND datetime >= '" + startDay + "'" + " AND report_data_parameter_id = " + usgsDataParameter.id.to_s
-    usgsData = ReportData.where(whereString)
-    return usgsData
+    @usgsData = ReportData.where(whereString)
+    return @usgsData
+  end
+
+  def getMostRecentUSGSData()
+    if !@mostRecentUSGSData.blank?
+      return @mostRecentUSGSData
+    end
+
+    usgsDataParameter = self.getUSGSDataParameter()
+    whereString = "site_id = " + self.id.to_s + " AND report_data_parameter_id = " + usgsDataParameter.id.to_s
+    @mostRecentUSGSData = ReportData.where(whereString).order(datetime: :desc).first
+
+    return @mostRecentUSGSData
   end
 
   def hasActiveSiteFishInfos()

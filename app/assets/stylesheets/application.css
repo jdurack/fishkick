@@ -27,6 +27,9 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Footer, layout help from here:
+  http://www.lwis.net/journal/2008/02/08/pure-css-sticky-footer/
+*/
 html, body, #contentContainer {
   height: 100%;
 }
