@@ -276,6 +276,8 @@ def fetchWeatherDataJSON(site, is_forecast, date_to_lookup)
   response = http.request(request)
   dataJSON = JSON.parse( response.body )
 
+  sleep( Settings.weather_data.fetch_delay_seconds )
+
   return dataJSON
 end
 
