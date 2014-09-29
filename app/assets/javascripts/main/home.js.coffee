@@ -4,6 +4,8 @@ window.FK || = {}
 
 window.FK.init = () ->
   window.FK.setMainOverlayImage()
+  $('#mapInfoWindowClose').click () ->
+    $('#mapInfoWindow').hide()
 
 
 window.FK.setMainOverlayImage = () ->
@@ -68,6 +70,26 @@ window.FK.drawSites = () ->
       map: window.FK.mainMap
       icon: window.FK.getMapMarkerFromScore score
       opacity: .9
+
+    window.FK.addInfoWindow site, marker
+
+
+window.FK.addInfoWindow = (site, marker) ->
+  google.maps.event.addListener marker, 'click', () ->
+    window.FK.setInfoWindowContent site
+    $('#mapInfoWindow').show()
+
+
+window.FK.setInfoWindowContent = (site) ->
+  $('#mapInfoWindowTitle').html site.name
+  $('#mapInfoWindowTitle').click () ->
+    window.location = '/fishing-report/' + site.nameURL
+
+  $("#mapInfoWindowFishScores").empty()
+  for fishScore in site.fishScores
+    $("#mainMapFishScore").tmpl(fishScore).prependTo("#mapInfoWindowFishScores")
+
+  $('#mapInfoWindowReportButton').attr('href','/fishing-report/' + site.nameURL);
     
 
 window.FK.getMapMarkerFromScore = (score) ->

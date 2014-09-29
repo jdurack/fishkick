@@ -1,13 +1,13 @@
 <div class='row'>
   <!-- top fish scores -->
-  <div class='col-md-4'>
+  <div class='col-md-3'>
     
     <!-- select -->
     <% @fish.each do |fish| %>
     <div class='row'>
       <div class='col-md-12 mainMapFishImageAndLabelBox'>
         <img src='<%= fish.image %>' alt='<%= fish.name %> fish' class='mainMapFishImage'/>
-        <div class='topFishScoreFishName'>
+        <div class='mainMapFishName'>
           <%= fish.name %>
         </div>
       </div>
@@ -17,11 +17,31 @@
   </div>
 
   <!-- map -->
-  <div class='col-md-8'>
+  <div class='col-md-9'>
     <div id="mainMap"></div>
+
+    <div id='mapInfoWindow' class='mapInfoWindow'>
+      <div id='mapInfoWindowClose'></div>
+      <div id='mapInfoWindowContent'>
+        <div id='mapInfoWindowTitle'></div>
+        <div id='mapInfoWindowFishScores'></div>
+        <a id='mapInfoWindowReportButton' class='btn btn-default'>FULL REPORT</a>
+      </div>
+    </div>
+
   </div>
 
 </div>
+
+<script id="mainMapFishScore" type="text/html">
+  <div class='mainMapFishScoreImageAndLabelBox'>
+    <img src='/assets/fishScores/${score}.svg' class='mainMapFishScoreScoreImage'/>
+    <img src='${fishImage}' alt='${fishName} fish' class='mainMapFishScoreFishImage'/>
+    <div class='mainMapFishName'>
+      ${fishName}
+    </div>
+  </div>
+</script> 
 
 
 <%= javascript_tag do -%>
