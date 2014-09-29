@@ -132,10 +132,10 @@
   width: 25px;
   margin: 5px;
   cursor: pointer;
-  background-image: url('/assets/close.svg');
+  background-image: url('/images/close.svg');
   background-repeat: no-repeat;
   &:hover {
-    background-image: url('/assets/close_hover.svg');
+    background-image: url('/images/close_hover.svg');
   }
 }
 
