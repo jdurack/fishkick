@@ -1,13 +1,16 @@
 <div class='row'>
 
   <!-- top fish scores -->
-  <!--
-  <div class='col-md-3'>
+  <div class='col-md-2'>
     
+    <div class='subheader' id='fishFilterHeader'>
+      Filter by fish
+    </div>
+
     <% @fish.each do |fish| %>
     <div class='row'>
-      <div class='col-md-12 mainMapFishImageAndLabelBox'>
-        <img src='<%= fish.image %>' alt='<%= fish.name %> fish' class='mainMapFishImage'/>
+      <div class='col-md-12 mainMapFishImageAndLabelBox selected' id='fishSelect_<%= fish.id %>'>
+        <img src='<%= fish.image %>' alt='<%= fish.name %> fish' class='mainMapFishFilterFishImage'/>
         <div class='mainMapFishName'>
           <%= fish.name %>
         </div>
@@ -16,10 +19,9 @@
     <% end %>
 
   </div>
-  -->
 
   <!-- map -->
-  <div class='col-md-12'>
+  <div class='col-md-10'>
     <div id="mainMap"></div>
 
     <div id='mapInfoWindow' class='mapInfoWindow'>
@@ -40,7 +42,7 @@
   <div class='mainMapFishScoreImageAndLabelBox'>
     <img src='/images/fishScores/${score}.svg' class='mainMapFishScoreScoreImage'/>
     <img src='${fishImage}' alt='${fishName} fish' class='mainMapFishScoreFishImage'/>
-    <div class='mainMapFishName'>
+    <div class='mainMapInfoWindowFishName'>
       ${fishName}
     </div>
   </div>

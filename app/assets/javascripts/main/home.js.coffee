@@ -1,11 +1,13 @@
 
 window.FK || = {}
-
+window.FK.selectedFishId = null
+window.FK.mapMarkers = []
 
 window.FK.init = () ->
   window.FK.setMainOverlayImage()
   $('#mapInfoWindowClose').click () ->
     $('#mapInfoWindow').hide()
+  $('.mainMapFishImageAndLabelBox'). click window.FK.fishSelectClick
 
 
 window.FK.setMainOverlayImage = () ->
@@ -75,14 +77,26 @@ window.FK.drawSites = () ->
 
     window.FK.mainMap.fitBounds bounds
 
-    score = window.FK.getTopScoreForSite site
-    marker = new google.maps.Marker
-      position: site.center
-      map: window.FK.mainMap
-      icon: window.FK.getMapMarkerFromScore score
-      opacity: .9
+  window.FK.redrawMarkers()
+    
 
-    window.FK.addInfoWindow site, marker
+window.FK.redrawMarkers = () ->
+  for marker in window.FK.mapMarkers
+    marker.setMap null
+  window.FK.mapMarkers.length = 0
+
+  for site in window.FK.sites
+    score = window.FK.getTopScoreForSite site
+    if score isnt null
+      marker = new google.maps.Marker
+        position: site.center
+        map: window.FK.mainMap
+        icon: window.FK.getMapMarkerFromScore score
+        opacity: .9
+
+      window.FK.addInfoWindow site, marker
+      window.FK.mapMarkers.push marker
+
 
 
 window.FK.addInfoWindow = (site, marker) ->
@@ -120,10 +134,32 @@ window.FK.getMapMarkerFromScore = (score) ->
 
 
 window.FK.getTopScoreForSite = (site) ->
-  #TODO: filter by fish
-  topScore = 0
+  topScore = null
   for fishScore in site.fishScores
-    if fishScore.score > topScore
-      topScore = fishScore.score
+    if ( window.FK.selectedFishId is null ) or ( fishScore.fishId is window.FK.selectedFishId )
+      if ( topScore is null ) or ( fishScore.score > topScore )
+        topScore = fishScore.score
 
   topScore
+
+
+window.FK.selectFish = (fishId) ->
+  window.FK.selectedFishId = fishId
+  window.FK.redrawMarkers()
+
+
+window.FK.fishSelectClick = (event) ->
+  element = $(event.target).closest('.mainMapFishImageAndLabelBox')[0]
+  idSelector = 'fishSelect_'
+  fishId = element.id.substring idSelector.length
+
+  selectedClass = 'selected'
+
+  if window.FK.selectedFishId is fishId
+    #unselecting a single one (and selecting all instead)
+    $('.mainMapFishImageAndLabelBox').addClass selectedClass
+    window.FK.selectFish null
+  else
+    $('.mainMapFishImageAndLabelBox').removeClass selectedClass
+    $(element).addClass selectedClass
+    window.FK.selectFish fishId
