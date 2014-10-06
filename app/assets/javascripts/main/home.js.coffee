@@ -1,13 +1,27 @@
 
 window.FK || = {}
 window.FK.selectedFishId = null
+window.FK.selectedSiteId = null
 window.FK.mapMarkers = []
+window.FK.waterBodyElements = {}
+window.FK.waterBodyIsLake = {}
+
+window.FK.lakeStrokeWeight = 0
+window.FK.lakeStrokeWeightHover = 10
+window.FK.riverStrokeWeight = 4
+window.FK.riverStrokeWeightHover = 10
+window.FK.waterBodyOpacity = .8
+window.FK.markerOpacity = .9
 
 window.FK.init = () ->
   window.FK.setMainOverlayImage()
+  
   $('#mapInfoWindowClose').click () ->
     $('#mapInfoWindow').hide()
-  $('.mainMapFishImageAndLabelBox'). click window.FK.fishSelectClick
+    window.FK.setHoverState false, window.FK.waterBodyElements[window.FK.selectedSiteId], window.FK.waterBodyIsLake[window.FK.selectedSiteId]
+    window.FK.selectedSiteId = null
+
+  $('.mainMapFishImageAndLabelBox').click window.FK.fishSelectClick
 
 
 window.FK.setMainOverlayImage = () ->
@@ -41,43 +55,87 @@ window.FK.sortSiteFishScores = () ->
         return 1
       return 0
 
+
 window.FK.drawSites = () ->
   
   bounds = new google.maps.LatLngBounds()
   for site in window.FK.sites
+    window.FK.drawSite site, bounds
 
-    if site.isLake 
-      if ( site.mapLineData.length > 0 )
-        polygon = new google.maps.Polygon
-          paths: site.mapLineData[0]
-          strokeColor: '#26569E'
-          strokeOpacity: 0.8
-          strokeWeight: 0
-          fillColor: '#26569E'
-          fillOpacity: 0.8
-
-        polygon.setMap window.FK.mainMap
-        window.FK.addInfoWindow site, polygon
-        for mapPoint in site.mapLineData[0]
-          bounds.extend mapPoint
-
-    else # river
-      for lineData in site.mapLineData
-        polyLine = new google.maps.Polyline
-          path: lineData
-          geodesic: true
-          strokeColor: '#26569E'
-          strokeOpacity: 1.0
-          strokeWeight: 4
-
-        polyLine.setMap window.FK.mainMap
-        window.FK.addInfoWindow site, polyLine
-        for mapPoint in lineData
-          bounds.extend mapPoint
-
-    window.FK.mainMap.fitBounds bounds
-
+  window.FK.mainMap.fitBounds bounds
   window.FK.redrawMarkers()
+
+
+window.FK.drawSite = (site, bounds) ->
+  if site.isLake 
+    if ( site.mapLineData.length > 0 )
+      polygon = new google.maps.Polygon
+        paths: site.mapLineData[0]
+        strokeColor: '#26569E'
+        strokeOpacity: window.FK.waterBodyOpacity
+        strokeWeight: window.FK.lakeStrokeWeight
+        fillColor: '#26569E'
+        fillOpacity: window.FK.waterBodyOpacity
+
+      polygon.setMap window.FK.mainMap
+      window.FK.addInfoWindow site, polygon
+      window.FK.addWaterBodyHoverStyling site.id, [polygon], true
+      for mapPoint in site.mapLineData[0]
+        bounds.extend mapPoint
+
+  else # river
+    polyLines = []
+    for lineData in site.mapLineData
+      polyLine = new google.maps.Polyline
+        path: lineData
+        geodesic: true
+        strokeColor: '#26569E'
+        strokeOpacity: window.FK.waterBodyOpacity
+        strokeWeight: window.FK.riverStrokeWeight
+
+      polyLines.push polyLine
+
+      polyLine.setMap window.FK.mainMap
+      window.FK.addInfoWindow site, polyLine
+      for mapPoint in lineData
+        bounds.extend mapPoint    
+    window.FK.addWaterBodyHoverStyling site.id, polyLines
+
+
+window.FK.addWaterBodyHoverStyling = (siteId, mapElements, isLake) ->
+
+  window.FK.waterBodyElements[siteId] = mapElements
+  window.FK.waterBodyIsLake[siteId] = isLake
+
+  for mapElement in mapElements
+    google.maps.event.addListener mapElement, 'mouseover', () ->
+      window.FK.setHoverState true, mapElements, isLake
+
+
+    google.maps.event.addListener mapElement, 'mouseout', () ->
+      unless window.FK.selectedSiteId is siteId
+        window.FK.setHoverState false, mapElements, isLake
+        
+
+window.FK.setHoverState = (isHover, mapElements, isLake) ->
+
+  strokeWeight = window.FK.riverStrokeWeight
+  strokeWeightHover = window.FK.riverStrokeWeightHover
+  if isLake
+    strokeWeight = window.FK.lakeStrokeWeight
+    strokeWeightHover = window.FK.lakeStrokeWeightHover
+
+  for mapElement in mapElements
+    if isHover
+      mapElement.setOptions
+        strokeWeight: strokeWeightHover
+        strokeOpacity: 1
+        fillOpacity: 1
+    else
+      mapElement.setOptions
+        strokeWeight: strokeWeight
+        strokeOpacity: window.FK.waterBodyOpacity
+        fillOpacity: window.FK.waterBodyOpacity
     
 
 window.FK.redrawMarkers = () ->
@@ -92,15 +150,30 @@ window.FK.redrawMarkers = () ->
         position: site.center
         map: window.FK.mainMap
         icon: window.FK.getMapMarkerFromScore score
-        opacity: .9
+        opacity: window.FK.markerOpacity
+
+
+      window.FK.addMarkerHoverStyling marker, site.id
 
       window.FK.addInfoWindow site, marker
       window.FK.mapMarkers.push marker
 
 
+window.FK.addMarkerHoverStyling = (marker, siteId) ->
+  google.maps.event.addListener marker, 'mouseover', () ->
+    window.FK.setHoverState true, window.FK.waterBodyElements[siteId], window.FK.waterBodyIsLake[siteId]
+
+  google.maps.event.addListener marker, 'mouseout', () ->
+    unless window.FK.selectedSiteId is siteId
+      window.FK.setHoverState false, window.FK.waterBodyElements[siteId], window.FK.waterBodyIsLake[siteId]
+
+
 
 window.FK.addInfoWindow = (site, marker) ->
   google.maps.event.addListener marker, 'click', () ->
+    if window.FK.selectedSiteId and window.FK.selectedSiteId isnt site.id
+      window.FK.setHoverState false, window.FK.waterBodyElements[window.FK.selectedSiteId], window.FK.waterBodyIsLake[window.FK.selectedSiteId]
+    window.FK.selectedSiteId = site.id
     window.FK.setInfoWindowContent site
     $('#mapInfoWindow').show()
 
