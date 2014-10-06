@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="25"
-   height="25"
+   width="18.000002"
+   height="18.000002"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="15.674629"
-     inkscape:cx="-0.38375536"
-     inkscape:cy="10.684588"
+     inkscape:zoom="19.367465"
+     inkscape:cx="-13.164292"
+     inkscape:cy="11.00695"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -56,28 +56,28 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-21.763509,-1007.2208)">
+     transform="translate(-25.332511,-1010.8067)">
     <path
        sodipodi:type="arc"
-       style="fill:#bbbbbb;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       style="fill:#dddddd;fill-opacity:1;fill-rule:evenodd;stroke:none"
        id="path2989"
        sodipodi:cx="170"
        sodipodi:cy="882.36218"
        sodipodi:rx="170"
        sodipodi:ry="170"
-       d="m 340,882.36218 c 0,93.88841 -76.11159,170.00002 -170,170.00002 -93.888407,0 -170,-76.11161 -170,-170.00002 0,-93.8884 76.111593,-170 170,-170 93.88841,0 170,76.1116 170,170 z"
-       transform="matrix(0.07352941,0,0,0.07352941,21.763509,954.84124)" />
+       d="m 340,882.36218 a 170,170 0 1 1 -340,0 170,170 0 1 1 340,0 z"
+       transform="matrix(0.05294118,0,0,0.05294118,25.332511,973.0934)" />
     <text
        xml:space="preserve"
-       style="font-size:19.47500229px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#666666;fill-opacity:1;stroke:#666666;stroke-width:0.78408408;stroke-opacity:1;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
-       x="28.089933"
-       y="1026.469"
+       style="font-size:14.02200031px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#888888;fill-opacity:1;stroke:#888888;stroke-width:0.56454057;stroke-opacity:1;font-family:Ubuntu;-inkscape-font-specification:Ubuntu"
+       x="29.887537"
+       y="1024.6653"
        id="text3778"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan3780"
-         x="28.089933"
-         y="1026.469"
-         style="stroke-width:0.78408408">X</tspan></text>
+         x="29.887537"
+         y="1024.6653"
+         style="stroke-width:0.56454057">X</tspan></text>
   </g>
 </svg>
