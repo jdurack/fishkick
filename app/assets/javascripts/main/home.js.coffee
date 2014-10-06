@@ -8,9 +8,10 @@ window.FK.waterBodyIsLake = {}
 
 window.FK.lakeStrokeWeight = 0
 window.FK.lakeStrokeWeightHover = 10
-window.FK.riverStrokeWeight = 4
-window.FK.riverStrokeWeightHover = 10
-window.FK.waterBodyOpacity = .8
+window.FK.riverStrokeWeight = 5
+window.FK.riverStrokeWeightHover = 9
+window.FK.waterBodyOpacity = .7
+window.FK.waterBodyOpacityHover = .8
 window.FK.markerOpacity = .9
 
 window.FK.init = () ->
@@ -129,8 +130,8 @@ window.FK.setHoverState = (isHover, mapElements, isLake) ->
     if isHover
       mapElement.setOptions
         strokeWeight: strokeWeightHover
-        strokeOpacity: 1
-        fillOpacity: 1
+        strokeOpacity: window.FK.waterBodyOpacityHover
+        fillOpacity: window.FK.waterBodyOpacityHover
     else
       mapElement.setOptions
         strokeWeight: strokeWeight
