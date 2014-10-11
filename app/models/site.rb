@@ -10,6 +10,7 @@ class Site < ActiveRecord::Base
   accepts_nested_attributes_for :site_fish_infos
   accepts_nested_attributes_for :site_map_lines, allow_destroy: true
   accepts_nested_attributes_for :site_images, allow_destroy: true
+  accepts_nested_attributes_for :report_comments, allow_destroy: true
 
   enum water_body_type: [ :stream, :lake ]
 

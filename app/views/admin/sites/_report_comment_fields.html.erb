@@ -1,0 +1,11 @@
+<div class='row siteReportCommentBox'>
+  <div class='col-md-3'>
+    <%= f.datetime_select :datetime %>
+  </div>
+  <div class='col-md-7'>
+    <%= f.text_area :comment, class: 'reportCommentInputTextbox' %>
+  </div>
+  <div class='col-md-2 deleteReportComment'>
+    <%= f.link_to_remove 'delete', class: 'btn btn-default' %>
+  </div>
+</div>

@@ -35,7 +35,7 @@
         </div>
         <div class='col-md-9 reportCommentsArea'>
           <div class='subheader recentReports'>Recent Reports</div>
-          <div class='addReportComment btn btn-default'>add report</div>  
+          <div class='addReportComment btn btn-default'>add report</div>
           <%= render @site.report_comments.sort_by {|rc| rc.datetime} %>
         </div>
       </div>
