@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'about' => 'main#about'
   get 'contact' => 'main#contact'
 
+  resources :report_comments, only: [:create]
+
   get '/admin' => 'admin#index'
   namespace :admin do
     resources :sites

@@ -35,8 +35,28 @@
         </div>
         <div class='col-md-9 reportCommentsArea'>
           <div class='subheader recentReports'>Recent Reports</div>
-          <div class='addReportComment btn btn-default'>add report</div>
-          <%= render @site.report_comments.sort_by {|rc| rc.datetime} %>
+          <div class='addReportComment btn btn-default' data-toggle='modal' data-target='#addReportCommentModal'>add report</div>
+          <%= render @site.report_comments.sort_by {|rc| rc.datetime}.reverse %>
+        </div>
+      </div>
+
+      <!-- Add Report Comment Modal -->
+      <div class="modal fade" id="addReportCommentModal" tabindex="-1" role="dialog" aria-labelledby="addReportCommentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="addReportCommentModalLabel">Add a <%= @site.name %> fishing report</h4>
+            </div>
+            <div>
+              <input type='hidden' id='addReportCommentSiteId' value="<%= @site.id %>" />
+              <textarea id='addReportCommentComment'></textarea>
+            </div>
+            <div class="modal-footer addReportCommentModalFooter">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary" data-dismiss="modal" id='addReportCommentSaveButton'>Save</button>
+            </div>
+          </div>
         </div>
       </div>
 

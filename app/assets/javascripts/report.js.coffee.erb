@@ -12,6 +12,30 @@ window.FK.init = () ->
   window.FK.setOverlayImages()
   window.FK.initializeSiteMap()
   window.FK.setReadMore()
+  $('#addReportCommentModal').on 'shown.bs.modal', window.FK.addReportCommentModalShown
+  $('#addReportCommentSaveButton').on 'click', window.FK.addReportCommentSave
+
+
+window.FK.addReportCommentModalShown = () ->
+  $('#addReportCommentComment').focus()
+
+
+window.FK.addReportCommentSave = () ->
+  comment = $('#addReportCommentComment').val()
+  siteId = $('#addReportCommentSiteId').val()
+
+  data =
+    report_comment:
+      comment: comment
+      site_id: siteId
+
+  path = "<%= Rails.application.routes.url_helpers.report_comments_path %>"
+  $.post path, data, (response) ->
+    location.reload()
+
+
+  
+
 
 
 window.FK.setOverlayImages = () ->
