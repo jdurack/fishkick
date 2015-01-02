@@ -92,6 +92,10 @@
 .siteFishInfoCircleGraphic {
   height: 30px;
   width: 30px;
+  @media (max-width: 767px) {
+    height: 15px;
+    width: 15px;
+  }
 }
 
 .siteFishInfoCircleGraphicBox {

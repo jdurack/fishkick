@@ -1,24 +1,22 @@
 <% if site_fish_info.is_active and site_fish_info.fish.is_active %>
-  <div class='row'>
-    <div class='col-md-1'>
+  <tr>
+    <td>
       <%= site_fish_info.fish.name %>
-    </div>
-    <div class='col-md-11'>
-      <div class='row'>
-        <% for i in 0..11 %>
-          <div class='col-md-1 siteFishInfoCircleGraphicBox'>
+    </td>
+    <% for i in 0..11 %>
+      <td>
+        <div class='col-md-1 siteFishInfoCircleGraphicBox'>
 
-            <svg class="siteFishInfoCircleGraphic">
-              <clipPath id="cut-off-line-<%= site_fish_info.id.to_s + "-" + i.to_s %>">
-                <rect x="0" y="<% if site_fish_info['month_value_' + i.to_s ] == 0 %>100%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.25 %>70%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.5 %>50%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.75 %>30%<% else %>0%<% end %>" height="100%" width="100%" />
-              </clipPath>
-              <circle cx="50%" cy="50%" r="46%" class="siteFishInfoCircle" clip-path="url(#cut-off-line-<%= site_fish_info.id.to_s + "-" + i.to_s%>)" />
-              <circle cx="50%" cy="50%" r="46%" stroke-width="8%" fill="none" class="siteFishInfoCircleBorder" />
-            </svg>
-           
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
+          <svg class="siteFishInfoCircleGraphic">
+            <clipPath id="cut-off-line-<%= site_fish_info.id.to_s + "-" + i.to_s %>">
+              <rect x="0" y="<% if site_fish_info['month_value_' + i.to_s ] == 0 %>100%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.25 %>70%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.5 %>50%<% elsif site_fish_info['month_value_' + i.to_s ] <= 0.75 %>30%<% else %>0%<% end %>" height="100%" width="100%" />
+            </clipPath>
+            <circle cx="50%" cy="50%" r="46%" class="siteFishInfoCircle" clip-path="url(#cut-off-line-<%= site_fish_info.id.to_s + "-" + i.to_s%>)" />
+            <circle cx="50%" cy="50%" r="46%" stroke-width="8%" fill="none" class="siteFishInfoCircleBorder" />
+          </svg>
+         
+        </div>
+      </td>
+    <% end %>
+  </tr>
 <% end %>

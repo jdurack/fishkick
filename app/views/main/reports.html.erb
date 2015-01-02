@@ -6,32 +6,31 @@
   Fishing Reports
 <% end %>
 
-<div class='reportsPageBox'>
-  <div class='row'>
-    <div class='col-md-1'>
-    </div>
+<table>
+  <tr>
 
-    <div class='col-md-3'>
-      <div class='fishingReportsTitle'>Fishing Reports</h1>
+    <td class='reportLinksTableCell'>
+      <div class='reportLinksBox'>
+        <div class='fishingReportsTitle'>Fishing Reports</h1>
 
-      <% @sites.each do |site| %>
-        <div class='reportLinkBox'>
-          <a class='reportLink' href='/fishing-report/<%= site.name_url %>' alt='<%= site.name %> fishing report'>
-            <%= site.name %>
-          </a>
+        <% @sites.each do |site| %>
+          <div class='reportLinkBox'>
+            <a class='reportLink' href='/fishing-report/<%= site.name_url %>' alt='<%= site.name %> fishing report'>
+              <%= site.name %>
+            </a>
+          </div>
+        <% end %>
         </div>
-      <% end %>
       </div>
-    </div>
+    </td>
 
-    <div class='col-md-6'>
-      <%= image_tag('dusy-vertical.jpg', :class => 'reportsPageImage') %>
-    </div>
+    <td>
+      <%= image_tag('dusy-vertical.jpg', :class => 'reportsPageImage hidden-xs hidden-sm') %>
+    </td>
 
-    <div class='col-md-2'>
-    </div>
-  </div>
-</div>
+  </tr>
+
+</table>
 
 <%= javascript_tag do -%>
   window.FK.init()

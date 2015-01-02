@@ -1,15 +1,22 @@
 <% if fish_score.fish.is_active %>
-  <div class='row fishScoreBox'>
-    <div class='col-md-3 '>
-      <%= render partial: 'shared/fish_score_value', locals: {value: ( fish_score.value * Settings.max_fish_score).round} %>
-    </div>
-    <div class='col-md-9 fishScoreImageAndLabelBox'>
-      <% if !fish_score.fish.image.blank? %>
-        <img src='<%= fish_score.fish.image %>' alt='<%= fish_score.fish.name %>' class='fishScoreFishImage'/>
-      <% end %>
-      <div class="fishScoreFishName">
-        <%= fish_score.fish.name %>
-      </div>
-    </div>
+  <div class='fishScoreBox'>
+    <table>
+      <tr>
+
+        <td>
+          <%= render partial: 'shared/fish_score_value', locals: {value: ( fish_score.value * Settings.max_fish_score).round} %>
+        </td>
+
+        <td>
+          <div class='fishScoreImageAndLabelBox'>
+          <% if !fish_score.fish.image.blank? %>
+            <img src='<%= fish_score.fish.image %>' alt='<%= fish_score.fish.name %>' class='fishScoreFishImage'/>
+          <% end %>
+          <div class="fishScoreFishName">
+            <%= fish_score.fish.name %>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 <% end %>

@@ -16,13 +16,11 @@ class Site < ActiveRecord::Base
 
   mount_uploader :primary_image, SitePrimaryImageUploader
 
-  def update(params)
+  def updateMapCenter(paramsIn)
     center = self.getMapCenter()
     if !center.blank?
-      params['latitude'] = center['latitude']
-      params['longitude'] = center['longitude']
+      update(center)
     end
-    super(params)
   end
 
   def hasGeoData()
@@ -43,12 +41,22 @@ class Site < ActiveRecord::Base
         totalLatitude += point['latitude'].to_f
         totalLongitude += point['longitude'].to_f
         numPoints += 1
+
+        #TEMP
+        tempCenter = {'latitude' => totalLatitude / numPoints, 'longitude' => totalLongitude / numPoints}
+        puts 'lat: ' + point['latitude'].to_s + ', long: '  + point['longitude'].to_s + ', tempCenter: ' + tempCenter.to_s
       end
     end
     center = nil
     if numPoints > 0
       center = {'latitude' => totalLatitude / numPoints, 'longitude' => totalLongitude / numPoints}
     end
+
+    puts 'numPoints: ' + numPoints.to_s
+    puts 'totalLongitude: ' + totalLongitude.to_s
+    puts 'totalLatitude: ' + totalLatitude.to_s
+    puts 'center: ' + center.inspect
+
     return center
   end
 

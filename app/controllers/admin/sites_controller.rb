@@ -24,6 +24,7 @@ class Admin::SitesController < AdminController
 
   def create
     @site = Site.create(site_params)
+    @site.updateMapCenter(site_params)
     redirect_to(:admin_sites)
   end
 
@@ -40,6 +41,7 @@ class Admin::SitesController < AdminController
     end
     @site = Site.find(params[:id])
     @site.update(site_params)
+    @site.updateMapCenter(site_params)
     redirect_to(:admin_sites)
   end
 
