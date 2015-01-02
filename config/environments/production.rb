@@ -35,7 +35,7 @@ Rails.application.configure do
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
 
-  config.assets.precompile = ['*.css.scss.erb']
+  config.assets.precompile = ['*.js','*.css','*.css.scss','*.css.scss.erb']
 
 
   # Specifies the header that your server uses for sending files.
