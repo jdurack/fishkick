@@ -117,7 +117,22 @@
 }
 
 .siteImageCarousel{
+  width: 384px;
   height: 254px;
+}
+
+
+.carousel-control.carouselControlNoGradient {
+  background-image: none;
+}
+
+.carouselImage {
+  background-size: contain;
+  position: absolute;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
 }
 
 .siteMap {

@@ -56,10 +56,9 @@
   <div class='row siteFormSection'>
     <div id='report_comments'>
         <%= f.fields_for :report_comments %>
-      </div>
-      <div>
-        <%= f.link_to_add 'new report comment', :report_comments, :data => { :target => "#report_comments" }, class: 'btn btn-default' %>
-      </div>
+    </div>
+    <div>
+      <%= f.link_to_add 'new report comment', :report_comments, :data => { :target => "#report_comments" }, class: 'btn btn-default' %>
     </div>
   </div>
 

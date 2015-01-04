@@ -1,25 +1,34 @@
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-  </ol>
+<% if @site.site_images.size > 1 %>
 
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner siteImageCarousel">
-    <% @site.site_images.each_with_index do |image, index| %>
-      <div class="item <% if index == 0 %> active<% end %>">
-        <img src="<%= image.image %>" alt="<%= @site.name %> fishing">
-      </div>
-    <% end %>
+  <div id="site-images" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <% @site.site_images.each_with_index do |image, index| %>
+        <li data-target="#site-images" data-slide-to="<%= index %>" class="<% if index == 0 %> active<% end %>"></li>
+      <% end %>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner siteImageCarousel">
+      <% @site.site_images.each_with_index do |image, index| %>
+        <div class="item <% if index == 0 %> active<% end %> carouselImage" style="background-image:url('<%= image.image %>');">
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control carouselControlNoGradient" href="#site-images" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control carouselControlNoGradient" href="#site-images" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
   </div>
 
-  <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left"></span>
-  </a>
-  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right"></span>
-  </a>
-</div>
+<% else %>
+  <% if @site.site_images.size > 0 %>
+    <div class="siteImageCarousel">
+      <img src="<%= @site.site_images[0].image %>" alt="<%= @site.name %> fishing" class='carouselImage'>
+    </div>
+  <% end %>
+<% end %>
