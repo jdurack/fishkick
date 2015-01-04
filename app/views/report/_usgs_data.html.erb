@@ -2,9 +2,11 @@
 
 <div id='usgsDataChart' class='usgsDataChart'></div>
 
-Source:
-<a href='<%= Settings.usgs.data_base_url%><%= @site.usgs_site_id %>' target='_blank'>USGS</a>
-<a href='<%= Settings.usgs.map_base_url%><%= @site.usgs_site_id %>' target='_blank'>(map)</a>
+<% if @site.hasUSGSData() %>
+  Source:
+  <a href='<%= Settings.usgs.data_base_url%><%= @site.usgs_site_id %>' target='_blank'>USGS</a>
+  <a href='<%= Settings.usgs.map_base_url%><%= @site.usgs_site_id %>' target='_blank'>(map)</a>
+<% end %>
 
 <%= javascript_tag do -%>
 
@@ -22,21 +24,24 @@ Source:
   <% end %>
 
   window.FK.usgsChartDataTicks = [];
-  if ( minDate ) {
-    var date = minDate;
-    while ( date <= maxDate ) {
 
+  if ( ! minDate ) {
+    minDate = new Date();
+    minDate.setDate(minDate.getDate()- <%= Settings.report.usgs_data_lookback_days %>);
+  }
 
-      var tickDate = new Date( date );
-      var tickLabel = ( (date.getMonth() + 1) + '/' + date.getDate() );
+  var date = minDate;
+  while ( date <= maxDate ) {
 
-      var newTick = {
-          v: tickDate
-        , f: tickLabel
-      };
-      window.FK.usgsChartDataTicks.push(newTick);
-      date.setDate(date.getDate() + 1);
-    }
+    var tickDate = new Date( date );
+    var tickLabel = ( (date.getMonth() + 1) + '/' + date.getDate() );
+
+    var newTick = {
+        v: tickDate
+      , f: tickLabel
+    };
+    window.FK.usgsChartDataTicks.push(newTick);
+    date.setDate(date.getDate() + 1);
   }
 <% end %>
 

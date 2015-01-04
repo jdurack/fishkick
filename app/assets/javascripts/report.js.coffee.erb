@@ -99,6 +99,13 @@ window.FK.initializeSiteMap = () ->
 
 window.FK.drawUSGSDataChart = () ->
 
+  lineWidth = 6
+  noData = false
+  if window.FK.usgsChartData.length == 1
+    window.FK.usgsChartData.push [new Date(), 0.0]
+    noData = true
+    lineWidth = 0
+
   data = google.visualization.arrayToDataTable window.FK.usgsChartData
     
   options =
@@ -118,7 +125,7 @@ window.FK.drawUSGSDataChart = () ->
           color: 'transparent'
       baselineColor: '#aaaaaa'
       minValue: 0
-    lineWidth: 6
+    lineWidth: lineWidth
     colors: ['#2a5d5d']
     fontName: 'Lato'
     fontSize: '14'
@@ -126,6 +133,15 @@ window.FK.drawUSGSDataChart = () ->
   chartElement = document.getElementById 'usgsDataChart'
   chart = new google.visualization.LineChart chartElement
   chart.draw data, options
+
+  if noData
+    svgns = "http://www.w3.org/2000/svg"
+    noDataText = document.createElementNS svgns, "text"
+    noDataText.setAttributeNS null,"x", 100
+    noDataText.setAttributeNS null,"y", 75
+    noDataTextNode = document.createTextNode "(no USGS stream flow data available)"
+    noDataText.appendChild noDataTextNode
+    $('#usgsDataChart svg').append noDataText
 
 
 window.FK.drawWeatherDataChart = () ->

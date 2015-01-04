@@ -80,6 +80,11 @@
   margin-top: 0px;
 }
 
+.noStreamFlowData {
+  position: absolute;
+  bottom: 5px;
+}
+
 .siteFishInfosArea {
   margin-left: 0px;
   margin-right: 0px;
@@ -133,6 +138,10 @@
   background-repeat: no-repeat;
   height: 100%;
   width: 100%;
+
+  &.singleImage {
+    position: relative;
+  }
 }
 
 .siteMap {

@@ -28,7 +28,8 @@
 <% else %>
   <% if @site.site_images.size > 0 %>
     <div class="siteImageCarousel">
-      <img src="<%= @site.site_images[0].image %>" alt="<%= @site.name %> fishing" class='carouselImage'>
+      <div class="carouselImage singleImage" style="background-image:url('<%= @site.site_images[0].image %>');">
+      </div>
     </div>
   <% end %>
 <% end %>

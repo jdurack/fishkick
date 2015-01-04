@@ -66,9 +66,7 @@
         <div class='row pageSection'>
           <!-- USGS Data -->
           <div class='col-md-6'>
-            <% if @site.hasUSGSData() %>
-              <%= render 'usgs_data', locals: {site: @site} %>
-            <% end %>
+            <%= render 'usgs_data', locals: {site: @site} %>
           </div>
 
           <!-- Weather -->
