@@ -234,7 +234,7 @@ window.FK.drawUSGSDataChartBoxLabel = (boundingBox, isGood, text, boxStartY, box
   textElement.setAttribute 'class', classNames
   textElementNode = document.createTextNode text
   textElement.appendChild textElementNode
-  $('#usgsDataChart svg').append textElement
+  $('#usgsDataChart svg').prepend textElement
 
 
 window.FK.drawUSGSDataChartBox = (boundingBox, isGood, startY, height) ->

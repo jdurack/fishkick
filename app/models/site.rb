@@ -24,6 +24,10 @@ class Site < ActiveRecord::Base
     end
   end
 
+  def recalculateFishScores()
+    # TODO: write this...
+  end
+
   def updateMapCenter(paramsIn)
     center = self.getMapCenter()
     if !center.blank?

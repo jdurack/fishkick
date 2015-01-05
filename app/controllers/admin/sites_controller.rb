@@ -25,6 +25,7 @@ class Admin::SitesController < AdminController
   def create
     @site = Site.create(site_params)
     @site.updateMapCenter(site_params)
+    @site.recalculateFishScores()
     if @site.valid?
       redirect_to(:admin_sites)
     else
@@ -45,6 +46,7 @@ class Admin::SitesController < AdminController
     @site = Site.find(params[:id])
     @site.update(site_params)
     @site.updateMapCenter(site_params)
+    @site.recalculateFishScores()
     if @site.valid?
       redirect_to(:admin_sites)
     else
