@@ -6,7 +6,7 @@ usgs:
   data_base_url: 'http://waterdata.usgs.gov/nwis/uv?site_no='
 report:
   report_data_parameter_id: 2
-  usgs_data_lookback_days: 5
+  usgs_data_lookback_days: 10
   weather_data_lookback_days: 10
 max_fish_score: 10.0
 weather_data:

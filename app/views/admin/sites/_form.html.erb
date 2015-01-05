@@ -4,6 +4,20 @@
 
 <%= nested_form_for [:admin, @site], :html => {:multipart => true} do |f| %>
 
+  <% if @site.errors.any? %>
+    <div id="errorExplanation">
+      <div class='errorTitle'>
+        Save Failed with <%= pluralize(@site.errors.count, "error") %>!
+      </div>
+   
+      <ul>
+      <% @site.errors.each do |key, msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class='row siteFormSection'>
     <div class='col-md-1'>
       <%= f.submit 'Save', :class => 'btn btn-default' %>
@@ -38,6 +52,16 @@
       <div class="form-group">
         <label for='site_water_body_type'>Water Body Type</label>
         <%= f.select :water_body_type, [:stream, :lake], {}, {class: "form-control waterBodySelect"} %>
+      </div>
+
+      <div class="form-group">
+        <label for='site_max_stream_flow_cfs'>Max Discharge (cf/s)</label>
+        <%= f.text_field :max_stream_flow_cfs %>
+      </div>
+
+      <div class="form-group">
+        <label for='site_min_stream_flow_cfs'>Min Discharge (cf/s)</label>
+        <%= f.text_field :min_stream_flow_cfs %>
       </div>
     </div>
 

@@ -8,7 +8,31 @@
   text-align:left;
 }
 
+.chartContainer {
+  min-height: 200px;
+}
+
 .usgsDataChart {
+}
+
+.streamFlowGoodRect {
+  fill: #1f7a1f;
+  opacity: .12;
+}
+
+.streamFlowBadRect {
+  fill: #d11919;
+  opacity: .12;
+}
+
+.usgsDataChartRangeText {
+  font-size: 13px;
+  &.good {
+    color: #1f7a1f; /* doesn't seem to work, but actually looks fine. */
+  }
+  &.bad {
+    color: #d11919; /* doesn't seem to work, but actually looks fine. */
+  }
 }
 
 .weatherDataChart {

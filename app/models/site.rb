@@ -1,5 +1,7 @@
 class Site < ActiveRecord::Base
 
+  validate :min_discharge_must_be_less_than_max_discharge
+
   has_many :site_fish_infos, dependent: :destroy
   has_many :fish, -> { order 'name DESC' }, through: :site_fish_infos
   has_many :fish_scores, -> { where(fish_scores: {date: Date.today}) }, dependent: :destroy
@@ -15,6 +17,12 @@ class Site < ActiveRecord::Base
   enum water_body_type: [ :stream, :lake ]
 
   mount_uploader :primary_image, SitePrimaryImageUploader
+
+  def min_discharge_must_be_less_than_max_discharge
+    if self.min_stream_flow_cfs and self.max_stream_flow_cfs and self.min_stream_flow_cfs >= self.max_stream_flow_cfs
+      errors.add(:min_stream_flow_cfs, "Min discharge must be less than max discharge")
+    end
+  end
 
   def updateMapCenter(paramsIn)
     center = self.getMapCenter()

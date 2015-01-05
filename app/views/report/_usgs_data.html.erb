@@ -1,6 +1,6 @@
 <div class='subheader'><%= @site.getUSGSDataLabel() %></div>
 
-<div id='usgsDataChart' class='usgsDataChart'></div>
+<div id='usgsDataChart' class='usgsDataChart chartContainer'></div>
 
 <% if @site.hasUSGSData() %>
   Source:
@@ -12,6 +12,15 @@
 
   window.FK.usgsChartTitle = "<%= @site.getUSGSDataLabel() %>";
   window.FK.usgsChartData = [["Date/time", "<%= @site.getUSGSDataLabel() %>"]];
+  window.FK.usgsChartMinStreamFlow = null;
+  window.FK.usgsChartMaxStreamFlow = null;
+  <% if @site.min_stream_flow_cfs %>
+    window.FK.usgsChartMinStreamFlow = <%= @site.min_stream_flow_cfs %>;
+  <% end %>
+  <% if @site.max_stream_flow_cfs %>
+    window.FK.usgsChartMaxStreamFlow = <%= @site.max_stream_flow_cfs %>;
+  <% end %>
+
   var minDate = null;
   var maxDate = new Date();
   <% @site.getUSGSData().each do |datum| %>

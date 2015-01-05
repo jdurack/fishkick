@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140823195025) do
+ActiveRecord::Schema.define(version: 20150104233853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,9 +168,11 @@ ActiveRecord::Schema.define(version: 20140823195025) do
     t.text     "latitude"
     t.text     "longitude"
     t.boolean  "is_active"
-    t.integer  "water_body_type", default: 0
+    t.integer  "water_body_type",     default: 0
     t.string   "usgs_site_id"
     t.string   "primary_image"
+    t.decimal  "min_stream_flow_cfs"
+    t.decimal  "max_stream_flow_cfs"
   end
 
   add_index "sites", ["name_url"], name: "index_sites_on_name_url", using: :btree

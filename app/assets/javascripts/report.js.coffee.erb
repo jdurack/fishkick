@@ -6,6 +6,7 @@
 #= require readmore.min
 
 window.FK || = {}
+window.FK.svgns = "http://www.w3.org/2000/svg"
 
 window.FK.init = () ->
   google.load 'visualization', '1.0', {'packages':['corechart']}
@@ -32,10 +33,6 @@ window.FK.addReportCommentSave = () ->
   path = "<%= Rails.application.routes.url_helpers.report_comments_path %>"
   $.post path, data, (response) ->
     location.reload()
-
-
-  
-
 
 
 window.FK.setOverlayImages = () ->
@@ -118,8 +115,10 @@ window.FK.drawUSGSDataChart = () ->
     hAxis: 
       ticks: window.FK.usgsChartDataTicks
       gridlines:
-          color: 'transparent'
+        color: 'transparent'
       baselineColor: '#aaaaaa'
+      slantedText: false
+      maxAlternation: 1
     vAxis:
       gridlines:
           color: 'transparent'
@@ -129,19 +128,129 @@ window.FK.drawUSGSDataChart = () ->
     colors: ['#2a5d5d']
     fontName: 'Lato'
     fontSize: '14'
+    height: 200
       
   chartElement = document.getElementById 'usgsDataChart'
   chart = new google.visualization.LineChart chartElement
   chart.draw data, options
 
   if noData
-    svgns = "http://www.w3.org/2000/svg"
-    noDataText = document.createElementNS svgns, "text"
-    noDataText.setAttributeNS null,"x", 100
-    noDataText.setAttributeNS null,"y", 75
-    noDataTextNode = document.createTextNode "(no USGS stream flow data available)"
-    noDataText.appendChild noDataTextNode
-    $('#usgsDataChart svg').append noDataText
+    window.FK.drawUSGSDataChartNoData()
+  else
+    if window.FK.usgsChartMinStreamFlow or window.FK.usgsChartMaxStreamFlow
+      window.FK.drawUSGSDataChartMinMaxStreamFlow chart
+
+
+window.FK.drawUSGSDataChartNoData = () ->
+  noDataText = document.createElementNS window.FK.svgns, "text"
+  noDataText.setAttributeNS null,"x", 100
+  noDataText.setAttributeNS null,"y", 75
+  noDataTextNode = document.createTextNode "(no USGS stream flow data available)"
+  noDataText.appendChild noDataTextNode
+  $('#usgsDataChart svg').append noDataText
+
+
+window.FK.drawUSGSDataChartMinMaxStreamFlow = (chart) ->
+  cli = chart.getChartLayoutInterface()
+  boundingBox = cli.getChartAreaBoundingBox()
+
+  hasTooLowBox = false
+  hasGoodBox = false
+  hasTooHighBox = false
+  tooLowY = null
+  tooHighY = null
+
+  if window.FK.usgsChartMinStreamFlow
+    tooLowY = cli.getYLocation window.FK.usgsChartMinStreamFlow
+    hasTooLowBox = true
+    if tooLowY > boundingBox.top
+      hasGoodBox = true
+  if window.FK.usgsChartMaxStreamFlow
+    tooHighY = cli.getYLocation window.FK.usgsChartMaxStreamFlow
+    hasGoodBox = true
+    if tooHighY > boundingBox.top
+      hasTooHighBox = true
+  
+
+  if hasTooLowBox
+    # draw 'too low' box...
+    boxStartY = boundingBox.top
+    boxHeight = boundingBox.height
+    if hasGoodBox
+      boxStartY = tooLowY
+      boxHeight = boundingBox.height - ( tooLowY - boundingBox.top )
+    window.FK.drawUSGSDataChartBox boundingBox, false, boxStartY, boxHeight
+    window.FK.drawUSGSDataChartBoxLabel boundingBox, false, 'too low', boxStartY, boxHeight
+
+
+  if hasGoodBox
+    # draw 'good' box...
+    boxStartY = 0
+    boxHeight = 0
+
+    if hasTooLowBox
+      if hasTooHighBox
+        boxStartY = tooHighY
+        boxHeight = tooLowY - tooHighY
+      else
+        boxStartY = boundingBox.top
+        boxHeight = tooLowY - boundingBox.top
+    else
+      if hasTooHighBox
+        boxStartY = tooHighY
+        boxHeight = boundingBox.height - ( tooHighY - boundingBox.top )
+      else
+        boxStartY = boundingBox.top
+        boxHeight = boundingBox.height
+
+    window.FK.drawUSGSDataChartBox boundingBox, true, boxStartY, boxHeight
+    window.FK.drawUSGSDataChartBoxLabel boundingBox, true, 'good', boxStartY, boxHeight
+
+
+  if hasTooHighBox
+    # draw 'too high' box...
+    boxStartY = boundingBox.top
+    boxHeight = tooHighY - boundingBox.top
+
+    window.FK.drawUSGSDataChartBox boundingBox, false, boxStartY, boxHeight
+    window.FK.drawUSGSDataChartBoxLabel boundingBox, false, 'too high', boxStartY, boxHeight
+
+
+window.FK.drawUSGSDataChartBoxLabel = (boundingBox, isGood, text, boxStartY, boxHeight) ->
+  textElement = document.createElementNS window.FK.svgns, "text"
+  textX = boundingBox.left + boundingBox.width + 2
+  textY = boxStartY + ( boxHeight / 2 ) + 5
+  console.log 'boxStartY: ', boxStartY, ', boxHeight: ', boxHeight
+
+  console.log 'writing ', text, ', at textX: ', textX, ', textY: ', textY
+
+  textElement.setAttributeNS null,"x", textX
+  textElement.setAttributeNS null,"y", textY
+  classNames = 'usgsDataChartRangeText'
+  if isGood
+    classNames += ' good'
+  else
+    classNames += ' bad'
+  textElement.setAttribute 'class', classNames
+  textElementNode = document.createTextNode text
+  textElement.appendChild textElementNode
+  $('#usgsDataChart svg').append textElement
+
+
+window.FK.drawUSGSDataChartBox = (boundingBox, isGood, startY, height) ->
+  rect = document.createElementNS window.FK.svgns, 'rect'
+  if isGood
+    rect.setAttribute 'class', 'streamFlowGoodRect'
+  else
+    rect.setAttribute 'class', 'streamFlowBadRect'
+
+  rect.setAttribute 'x', boundingBox.left
+  rect.setAttribute 'width', boundingBox.width
+
+  rect.setAttribute 'y', startY
+  rect.setAttribute 'height', height
+
+  $('#usgsDataChart svg').prepend rect
 
 
 window.FK.drawWeatherDataChart = () ->
@@ -172,14 +281,16 @@ window.FK.drawWeatherDataChart = () ->
     colors: ['#2a5d5d']
     fontName: 'Lato'
     fontSize: '14'
+    height: 200
 
 
   chart = new google.visualization.LineChart document.getElementById 'weatherDataChart'
   chart.draw data, options
+  window.FK.drawWeatherDataChartLineActualAndForecast chart
 
-  svgns = "http://www.w3.org/2000/svg"
 
-  newLine = document.createElementNS svgns, 'line'
+window.FK.drawWeatherDataChartLineActualAndForecast = (chart) ->
+  newLine = document.createElementNS window.FK.svgns, 'line'
   newLine.setAttribute 'id', 'lineId'
   newLine.setAttribute 'class', 'weatherDataChartDividingLine'
 
@@ -188,11 +299,11 @@ window.FK.drawWeatherDataChart = () ->
 
   newLine.setAttribute 'x1', xLocation
   newLine.setAttribute 'y1', chart.getChartLayoutInterface().getChartAreaBoundingBox().top
-  newLine.setAttribute 'x2', chart.getChartLayoutInterface().getXLocation( xValue )
+  newLine.setAttribute 'x2', xLocation
   newLine.setAttribute 'y2', chart.getChartLayoutInterface().getChartAreaBoundingBox().height + chart.getChartLayoutInterface().getChartAreaBoundingBox().top
   $('#weatherDataChart svg').prepend newLine
 
-  actualText = document.createElementNS svgns, "text"
+  actualText = document.createElementNS window.FK.svgns, "text"
   actualText.setAttributeNS null,"x", xLocation - 70
   actualText.setAttributeNS null,"y", 50
   actualText.setAttribute 'class', 'weatherDataChartDividingLineText'
@@ -200,7 +311,7 @@ window.FK.drawWeatherDataChart = () ->
   actualText.appendChild actualTextNode
   $('#weatherDataChart svg').append actualText
 
-  forecastText = document.createElementNS svgns, "text"
+  forecastText = document.createElementNS window.FK.svgns, "text"
   forecastText.setAttributeNS null,"x", xLocation + 20
   forecastText.setAttributeNS null,"y", 50
   forecastText.setAttribute 'class', 'weatherDataChartDividingLineText'
