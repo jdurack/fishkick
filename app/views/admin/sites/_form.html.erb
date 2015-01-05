@@ -148,3 +148,16 @@
     </div>
   </div>
 <% end %>
+
+<% content_for :head do %>
+  <%= javascript_include_tag 'tinymce/tinymce.min.js' %>
+<% end %>
+
+<script type='text/javascript'>
+  $( document ).ready( function() {
+    tinymce.init({
+      selector: ".descriptionInputTextbox"
+      , plugins: "link"
+    });
+  });
+</script>
