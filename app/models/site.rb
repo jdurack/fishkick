@@ -25,7 +25,13 @@ class Site < ActiveRecord::Base
   end
 
   def recalculateFishScores()
-    # TODO: write this...
+    self.site_fish_infos.each do |sfi|
+      if sfi.is_active
+        FishScore::calculateAndSaveFishScore sfi, Date.today - 1
+        FishScore::calculateAndSaveFishScore sfi, Date.today
+        FishScore::calculateAndSaveFishScore sfi, Date.today + 1
+      end
+    end
   end
 
   def updateMapCenter(paramsIn)

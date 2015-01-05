@@ -220,9 +220,6 @@ window.FK.drawUSGSDataChartBoxLabel = (boundingBox, isGood, text, boxStartY, box
   textElement = document.createElementNS window.FK.svgns, "text"
   textX = boundingBox.left + boundingBox.width + 2
   textY = boxStartY + ( boxHeight / 2 ) + 5
-  console.log 'boxStartY: ', boxStartY, ', boxHeight: ', boxHeight
-
-  console.log 'writing ', text, ', at textX: ', textX, ', textY: ', textY
 
   textElement.setAttributeNS null,"x", textX
   textElement.setAttributeNS null,"y", textY

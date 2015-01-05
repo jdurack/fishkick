@@ -1,7 +1,3 @@
-<% content_for :head do %>
-  <%= javascript_include_tag 'tinymce/tinymce.min.js' %>
-<% end %>
-
 <%= nested_form_for [:admin, @site], :html => {:multipart => true} do |f| %>
 
   <% if @site.errors.any? %>
